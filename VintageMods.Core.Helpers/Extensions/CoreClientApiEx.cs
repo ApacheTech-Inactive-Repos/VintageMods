@@ -2,6 +2,9 @@
 
 namespace VintageMods.Core.Helpers.Extensions
 {
+    /// <summary>
+    ///     Extension Methods for the Core Client API.
+    /// </summary>
     public static class CoreClientApiEx
     {
         public static void AddWaypointAtCurrentPos(

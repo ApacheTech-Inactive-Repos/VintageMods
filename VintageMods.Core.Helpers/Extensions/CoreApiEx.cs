@@ -9,12 +9,29 @@ using Vintagestory.API.Config;
 
 namespace VintageMods.Core.Helpers.Extensions
 {
-    public static class CoreApiEx
+    /// <summary>
+    ///     Extension Methods for the Core API.
+    /// </summary>
+	public static class CoreApiEx
     {
         public static string GetSeed(this ICoreAPI api)
         {
             return api?.World?.Seed.ToString();
 		}
+
+
+		// HACK:	The following methods would best be served within a dedicated FileManager class.
+		//			For now, these will suffice, but as the project scales, these extension methods will
+		//			need to become far more generic. They are already too specific, and the number of variables
+		//			needed to parse directory and file info is becoming cumbersome. This can be addressed by
+		//			Creating a FileManager system, and hooking that into the ModSystem as an when needed.
+		//
+		//			The file manager would know the mod name, and base directories. And would allow a mod to
+		//			register files needed, so that they can be indexed, and managed easily.
+		//
+		//			FileManager.RegisterFile(FileType.Config, FileScope.Global, "global-config.data");
+
+
 		public static T LoadOrCreateFile<T>(this ICoreAPI api, FileType fileType, string fileName, bool global = true) where T : class, new()
 		{
 			var fileInfo = new FileInfo(

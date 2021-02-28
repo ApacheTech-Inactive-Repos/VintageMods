@@ -5,6 +5,9 @@ using Vintagestory.GameContent;
 
 namespace VintageMods.Core.Helpers.Extensions
 {
+    /// <summary>
+    ///     Extension Methods for the World Map Manager.
+    /// </summary>
     public static class WorldMapManagerEx
     {
         public static WaypointMapLayer WaypointMapLayer(this WorldMapManager mapManager)
