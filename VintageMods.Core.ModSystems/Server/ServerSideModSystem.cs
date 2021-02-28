@@ -1,4 +1,5 @@
-﻿using VintageMods.Core.ModSystems.Primitives;
+﻿using VintageMods.Core.ModSystems.Contracts;
+using VintageMods.Core.ModSystems.Primitives;
 using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 
@@ -11,7 +12,7 @@ namespace VintageMods.Core.ModSystems.Server
     /// <typeparam name="TService">The type of the t service.</typeparam>
     /// <seealso cref="ModSystemBase{TService, ICoreServerAPI}" />
     public abstract class ServerSideModSystem<TService> : ModSystemBase<TService, ICoreServerAPI>
-        where TService : ServerSideService
+        where TService : IServerSideService
     {
         /// <summary>
         ///     Minor convenience method to save yourself the check for/cast to ICoreClientAPI in Start()

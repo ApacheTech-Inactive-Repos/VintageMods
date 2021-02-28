@@ -1,7 +1,11 @@
 ﻿using Vintagestory.API.Common;
 
-namespace VintageMods.Core.ModSystems.Primitives
+namespace VintageMods.Core.ModSystems.Contracts
 {
+    /// <summary>
+    ///     Represents a concrete mod service, forming an abstraction layer for a ModSystem.
+    /// </summary>
+    /// <typeparam name="TApi">The type of the t API.</typeparam>
     public interface IServiceBase<TApi> where TApi : ICoreAPI
     {
         /// <summary>

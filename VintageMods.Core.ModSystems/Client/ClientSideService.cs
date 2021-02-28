@@ -1,4 +1,5 @@
-﻿using VintageMods.Core.ModSystems.Primitives;
+﻿using VintageMods.Core.ModSystems.Contracts;
+using VintageMods.Core.ModSystems.Primitives;
 using Vintagestory.API.Client;
 
 // ReSharper disable UnusedType.Global
@@ -11,7 +12,7 @@ namespace VintageMods.Core.ModSystems.Client
     ///     Implements the <see cref="ServiceBase{TApi}" />
     /// </summary>
     /// <seealso cref="ServiceBase{ICoreClientAPI}" />
-    public abstract class ClientSideService : ServiceBase<ICoreClientAPI>
+    public abstract class ClientSideService : ServiceBase<ICoreClientAPI>, IClientSideService
     {
         /***
          * Allows for client side only helper methods and shared functionality.

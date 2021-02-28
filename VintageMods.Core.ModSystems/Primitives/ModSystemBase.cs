@@ -1,4 +1,5 @@
 ﻿using System;
+using VintageMods.Core.ModSystems.Contracts;
 using Vintagestory.API.Common;
 
 namespace VintageMods.Core.ModSystems.Primitives

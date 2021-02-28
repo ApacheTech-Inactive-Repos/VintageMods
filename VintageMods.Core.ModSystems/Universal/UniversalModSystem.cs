@@ -1,4 +1,5 @@
 ﻿using VintageMods.Core.ModSystems.Client;
+using VintageMods.Core.ModSystems.Contracts;
 using VintageMods.Core.ModSystems.Primitives;
 using VintageMods.Core.ModSystems.Server;
 using Vintagestory.API.Client;
