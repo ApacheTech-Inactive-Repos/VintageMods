@@ -1,0 +1,14 @@
+<Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
+  <Costura>
+    <ExcludeAssemblies>
+      VintagestoryAPI
+      0Harmony
+      cairo-sharp
+      Newtonsoft.Json
+      VintagestoryLib
+      VSCreativeMod
+      VSEssentials
+      VSSurvivalMod
+    </ExcludeAssemblies>
+  </Costura>
+</Weavers>

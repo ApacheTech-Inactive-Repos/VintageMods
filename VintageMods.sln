@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30803.129
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Core.ModSystems", "VintageMods.Core.ModSystems\VintageMods.Core.ModSystems.csproj", "{04B7430A-69FB-4BD9-90F5-4E368A044B3A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{22E915C1-51AF-4F31-9900-617CE6D04CC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mods", "Mods", "{D71BA92B-27FA-41AF-A395-0EB1CEA9EA37}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Soultion Files", "Soultion Files", "{790EACD8-22EA-426E-AD3F-D087CED5A345}"
+	ProjectSection(SolutionItems) = preProject
+		FodyWeavers.xml = FodyWeavers.xml
+		FodyWeavers.xsd = FodyWeavers.xsd
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.WaypointExtensions", "VintageMods.WaypointExtensions\VintageMods.WaypointExtensions.csproj", "{0043FE7A-FA84-4D54-9956-107B3D5E4111}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Core.Helpers", "VintageMods.Core.Helpers\VintageMods.Core.Helpers.csproj", "{C1363174-A80C-4B76-81E7-3AFBF27307C9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.CameraAccount", "VintageMods.CameraAccount\VintageMods.CameraAccount.csproj", "{61A2127D-B079-44DD-92DC-000C7DA3C258}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04B7430A-69FB-4BD9-90F5-4E368A044B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B7430A-69FB-4BD9-90F5-4E368A044B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04B7430A-69FB-4BD9-90F5-4E368A044B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04B7430A-69FB-4BD9-90F5-4E368A044B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0043FE7A-FA84-4D54-9956-107B3D5E4111}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0043FE7A-FA84-4D54-9956-107B3D5E4111}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0043FE7A-FA84-4D54-9956-107B3D5E4111}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0043FE7A-FA84-4D54-9956-107B3D5E4111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1363174-A80C-4B76-81E7-3AFBF27307C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1363174-A80C-4B76-81E7-3AFBF27307C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1363174-A80C-4B76-81E7-3AFBF27307C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1363174-A80C-4B76-81E7-3AFBF27307C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61A2127D-B079-44DD-92DC-000C7DA3C258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61A2127D-B079-44DD-92DC-000C7DA3C258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61A2127D-B079-44DD-92DC-000C7DA3C258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61A2127D-B079-44DD-92DC-000C7DA3C258}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04B7430A-69FB-4BD9-90F5-4E368A044B3A} = {22E915C1-51AF-4F31-9900-617CE6D04CC3}
+		{0043FE7A-FA84-4D54-9956-107B3D5E4111} = {D71BA92B-27FA-41AF-A395-0EB1CEA9EA37}
+		{C1363174-A80C-4B76-81E7-3AFBF27307C9} = {22E915C1-51AF-4F31-9900-617CE6D04CC3}
+		{61A2127D-B079-44DD-92DC-000C7DA3C258} = {D71BA92B-27FA-41AF-A395-0EB1CEA9EA37}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {87615F59-7699-4480-89A6-75F0B9529D0B}
+	EndGlobalSection
+EndGlobal
