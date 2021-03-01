@@ -58,7 +58,7 @@ namespace VintageMods.WaypointExtensions.Services
         /// </summary>
         /// <param name="grpId">The group identifier.</param>
         /// <param name="cmdArgs">The command arguments.</param>
-        internal void AddWaypointCommandHandler(int grpId, CmdArgs cmdArgs)
+        internal void OnWpCommand(int grpId, CmdArgs cmdArgs)
         {
             if (cmdArgs.Length == 0)
             {

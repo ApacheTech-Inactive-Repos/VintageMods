@@ -2,6 +2,19 @@
 using VintageMods.WaypointExtensions.Services;
 using Vintagestory.API.Client;
 
+// ====================================================================================================
+//  Future Implementation
+// ====================================================================================================
+//  
+//  • Add new custom waypoint types from chat, saved to separate auto-generated json file.
+//  • Potentially move away from json, and store everything in an sqlite db, including per-world data.
+//  • Add GUI for more fine-tuned waypoint control.
+//  • Add connected waypoints for Translocators.
+//  • From VS-HUD: Floaty Waypoints.
+//  • From VS-HUD: Add waypoint on death.
+//  • Potential collab to consolidate codebases?
+// ====================================================================================================
+
 namespace VintageMods.WaypointExtensions.ModSystems
 {
     /// <summary>
@@ -18,15 +31,14 @@ namespace VintageMods.WaypointExtensions.ModSystems
         public override void StartClientSide(ICoreClientAPI api)
         {
             api.RegisterCommand("wp",
-                "Adds a waypoint to the World Map at the player's current position.",
-                $"[{Service.SyntaxList}]",
-                Service.AddWaypointCommandHandler);
-
-            api.RegisterCommand("wp-debug", "", "", (id, args) =>
+                "Quickly, and easily add waypoint markers at your current position.",
+                Service.InfoMessage(), Service.OnWpCommand);
+            
+            // Quick implementation to test debug features.
+            // TODO: v1.2.5 - Implement robust debugging feature, for scalable future development.
+            api.RegisterCommand("wp-debug", "Waypoint Extensions Debugging Api", "", (id, args) =>
             {
-
                 var action = args.PopWord("");
-
                 switch (action)
                 {
                     case "copy":
