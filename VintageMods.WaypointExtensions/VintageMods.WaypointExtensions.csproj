@@ -5,9 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="modinfo.json" />
     <None Remove="_EmbeddedResources\Global\wpex-default-waypoints.data" />
     <None Remove="_EmbeddedResources\Global\wpex-global-config.data" />
     <None Remove="_EmbeddedResources\World\wpex-custom-waypoints.data" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="modinfo.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

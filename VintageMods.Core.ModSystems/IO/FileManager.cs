@@ -105,7 +105,6 @@ namespace VintageMods.Core.ModSystems.IO
                 throw new FileNotFoundException("File has not yet been registered with the file manager.", fileName);
             var fileInfo = _modFiles[fileName];
             if (!fileInfo.Exists) SaveFromResource<T>(fileInfo);
-
             return fileInfo;
         }
 
