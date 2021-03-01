@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PreserveCompilationContext>false</PreserveCompilationContext>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <ErrorReport>prompt</ErrorReport>
+    <DebugType>embedded</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,20 +35,26 @@
   <ItemGroup>
     <PackageReference Include="Costura.Fody" Version="5.0.2">
       <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="StringEnum" Version="0.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VintageMods.Core.ModSystems\VintageMods.Core.ModSystems.csproj" />
+    <ProjectReference Include="..\VintageMods.Core.ModSystems\VintageMods.Core.ModSystems.csproj">
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>D:\Games\Vintage Story\Lib\Newtonsoft.Json.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="VintagestoryAPI">
       <HintPath>D:\Games\Vintage Story\VintagestoryAPI.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 

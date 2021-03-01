@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using VintageMods.Core.ModSystems.Extensions;
-using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 
@@ -41,7 +40,7 @@ namespace VintageMods.Core.ModSystems.IO
         {
             var seed = fileScope == FileScope.Global ? "" : _api.GetSeed();
             _modFiles.Add(fileName,
-                new FileInfo(Path.Combine(GamePaths.DataPath, fileType, _modFolder, fileScope, seed, fileName)));
+                new FileInfo(Path.Combine(GamePaths.DataPath, fileType.ToString(), _modFolder, fileScope.ToString(), seed, fileName)));
         }
 
         /// <summary>

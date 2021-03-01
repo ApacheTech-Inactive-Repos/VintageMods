@@ -1,6 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
-  <Costura>
-    <ExcludeAssemblies>
+  <Costura IncludeDebugSymbols='false'>
+
+    <!-- Explicitly include nuget packages that would otherwise be obtained from the GAC. -->
+    <IncludeAssemblies>
+      StringEnum
+    </IncludeAssemblies>
+
+    <!-- Explicitly exclude core game libraries that would otherwise be duplicated, with possible version mismatch exceptions. -->
+    <!-- ExcludeAssemblies>
       VintagestoryAPI
       0Harmony
       cairo-sharp
@@ -9,6 +17,14 @@
       VSCreativeMod
       VSEssentials
       VSSurvivalMod
-    </ExcludeAssemblies>
+    </ExcludeAssemblies -->
+
+    <!-- For fine-grained optimisation, C++ libraries may be used. -->
+    <Unmanaged32Assemblies></Unmanaged32Assemblies>
+    <Unmanaged64Assemblies></Unmanaged64Assemblies>
+
+    <!-- Determines the dependency order between managed, and unmanaged resources. -->
+    <PreloadOrder></PreloadOrder>
+
   </Costura>
 </Weavers>
