@@ -10,25 +10,27 @@ These projects form a framework for rapid mod development.
 
 Quickly and easily add waypoints to the map at the player's current position.
 
-## Night Vision (Coming Soon!)
+### Future Mod Ideas: 
+
+#### Night Vision (Coming Soon!)
 
 Adds night vision for Spectator and Creative Mode.
 
-## World Edit Redux (Coming Soon!)
+#### World Edit Redux (Coming Soon!)
 
 A complete replacement for the terrible implementation of World Edit in the base game.
 Ported from Minecraft, with all the same functionality, including the fabled Wooden Axe.
 
-## Extra Chisel Modes (Coming Soon!)
+#### Extra Chisel Modes (Coming Soon!)
 
 Adds new modes for the chisel, including Plane, and Connected Texture.
 
-## Just Another Wands Mod (Coming Soon!)
+#### Just Another Wands Mod (Coming Soon!)
 
- • Wand of Construction (Builder's Wand)
+ â€¢ Wand of Construction (Builder's Wand)
 
- • Wand of Destruction (Builder's Wand, Secondary Mode)
+ â€¢ Wand of Destruction (Builder's Wand, Secondary Mode)
 
- • Wand of Exchange (Swapping Wand)
+ â€¢ Wand of Exchange (Swapping Wand)
 
- • Wand of Texturing (Cyclic Wand)
+ â€¢ Wand of Texturing (Cyclic Wand)
