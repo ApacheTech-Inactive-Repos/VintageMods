@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VintageMods.Core.Helpers\VintageMods.Core.Helpers.csproj" />
     <ProjectReference Include="..\VintageMods.Core.ModSystems\VintageMods.Core.ModSystems.csproj" />
   </ItemGroup>
 

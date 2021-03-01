@@ -12,7 +12,6 @@ using Vintagestory.API.Server;
 
 namespace VintageMods.Core.ModSystems.Universal
 {
-
     /// <summary>
     ///     Base class for Vintage Story universal mod services.
     ///     Implements <see cref="ServiceBase{TApi}" />

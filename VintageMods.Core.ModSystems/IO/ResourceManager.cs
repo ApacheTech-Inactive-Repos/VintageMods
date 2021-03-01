@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace VintageMods.Core.Helpers.Resources
+namespace VintageMods.Core.ModSystems.IO
 {
     /// <summary>
     ///     Controls access to embedded resources within assemblies,
@@ -17,12 +17,12 @@ namespace VintageMods.Core.Helpers.Resources
         /// </summary>
         /// <typeparam name="TData">The type of the data object to deserialise the JSON file into.</typeparam>
         /// <param name="fileName">Name of the file to parse.</param>
-        /// <returns>An instance of <see cref="TData"/>, populated with deserialised data from the JSON file.</returns>
+        /// <returns>An instance of <see cref="TData" />, populated with deserialised data from the JSON file.</returns>
         public static TData ParseResourceAs<TData>(string fileName) where TData : new()
-		{
+        {
             var assembly = typeof(TData).Assembly;
             var json = ReadResourceRaw(assembly, fileName);
-			return JsonConvert.DeserializeObject<TData>(json);
+            return JsonConvert.DeserializeObject<TData>(json);
         }
 
         /// <summary>
@@ -40,16 +40,10 @@ namespace VintageMods.Core.Helpers.Resources
 
             using (var stream = assembly.GetManifestResourceStream(text))
             {
-                if (stream == null)
-                {
-                    throw new FileNotFoundException($"Embedded data file not found: {fileName}");
-                }
+                if (stream == null) throw new FileNotFoundException($"Embedded data file not found: {fileName}");
                 using (var streamReader = new StreamReader(stream))
                 {
-                    while (!streamReader.EndOfStream)
-                    {
-                        result.AppendLine(streamReader.ReadLine());
-                    }
+                    while (!streamReader.EndOfStream) result.AppendLine(streamReader.ReadLine());
                 }
             }
 

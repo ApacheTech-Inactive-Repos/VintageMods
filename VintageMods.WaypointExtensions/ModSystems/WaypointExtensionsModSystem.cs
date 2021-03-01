@@ -21,6 +21,27 @@ namespace VintageMods.WaypointExtensions.ModSystems
                 "Adds a waypoint to the World Map at the player's current position.",
                 $"[{Service.SyntaxList}]",
                 Service.AddWaypointCommandHandler);
+
+            api.RegisterCommand("wpdebug", "", "", (id, args) =>
+            {
+
+                var action = args.PopWord("");
+
+                // Note: For updating the syntax list on the forum.
+                if (action == "copy-info")
+                {
+                    api.Forms.SetClipboardText(Service.InfoMessage());
+                    api.ShowChatMessage($"Waypoint Extensions: Syntax list copied to clipboard.");
+                    return;
+                }
+
+                if (action == "reload")
+                {
+                    api.ShowChatMessage($"Reloading Mod Files...");
+                    Service.ReloadFiles();
+                    return;
+                }
+            });
         }
     }
 }

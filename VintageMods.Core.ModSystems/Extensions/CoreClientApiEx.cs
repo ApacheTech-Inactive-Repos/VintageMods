@@ -1,6 +1,6 @@
 ﻿using Vintagestory.API.Client;
 
-namespace VintageMods.Core.Helpers.Extensions
+namespace VintageMods.Core.ModSystems.Extensions
 {
     /// <summary>
     ///     Extension Methods for the Core Client API.

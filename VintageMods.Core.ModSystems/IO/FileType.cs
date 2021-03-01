@@ -1,6 +1,6 @@
 ﻿using StringEnum;
 
-namespace VintageMods.Core.Helpers.Enums
+namespace VintageMods.Core.ModSystems.IO
 {
     /// <summary>
     ///     Specifies the folder a file is saved to, within the user's game data folder.

@@ -74,7 +74,10 @@ namespace VintageMods.Core.ModSystems.Primitives
         /// <summary>
         ///     Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="disposeUnmanaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <param name="disposeUnmanaged">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
+        ///     only unmanaged resources.
+        /// </param>
         public virtual void Dispose(bool disposeUnmanaged)
         {
             Service?.Dispose(disposeUnmanaged);
@@ -82,7 +85,7 @@ namespace VintageMods.Core.ModSystems.Primitives
         }
 
         /// <summary>
-        ///     Finalises an instance of the <see cref="ModSystemBase{TService,TApi}"/> class.
+        ///     Finalises an instance of the <see cref="ModSystemBase{TService,TApi}" /> class.
         /// </summary>
         ~ModSystemBase()
         {

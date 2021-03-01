@@ -28,7 +28,10 @@ namespace VintageMods.Core.ModSystems.Contracts
         /// <summary>
         ///     Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="disposeUnmanaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        /// <param name="disposeUnmanaged">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
+        ///     only unmanaged resources.
+        /// </param>
         void Dispose(bool disposeUnmanaged);
     }
 }

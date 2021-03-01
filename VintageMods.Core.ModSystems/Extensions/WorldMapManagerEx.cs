@@ -3,7 +3,7 @@ using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
-namespace VintageMods.Core.Helpers.Extensions
+namespace VintageMods.Core.ModSystems.Extensions
 {
     /// <summary>
     ///     Extension Methods for the World Map Manager.
@@ -22,12 +22,13 @@ namespace VintageMods.Core.Helpers.Extensions
             mapManager.ResendWaypoints(player, waypointMapLayer);
         }
 
-        public static void ResendWaypoints(this WorldMapManager mapManager, IServerPlayer player, WaypointMapLayer mapLayer)
+        public static void ResendWaypoints(this WorldMapManager mapManager, IServerPlayer player,
+            WaypointMapLayer mapLayer)
         {
             var playerGroupMemberships = player.ServerData.PlayerGroupMemberships;
 
-            var list = mapLayer.Waypoints.Where(waypoint => 
-                    player.PlayerUID == waypoint.OwningPlayerUid || 
+            var list = mapLayer.Waypoints.Where(waypoint =>
+                    player.PlayerUID == waypoint.OwningPlayerUid ||
                     playerGroupMemberships.ContainsKey(waypoint.OwningPlayerGroupId))
                 .ToList();
 

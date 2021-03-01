@@ -1,5 +1,6 @@
 ﻿using System;
 using VintageMods.Core.ModSystems.Contracts;
+using VintageMods.Core.ModSystems.IO;
 using Vintagestory.API.Common;
 
 namespace VintageMods.Core.ModSystems.Primitives
@@ -10,6 +11,27 @@ namespace VintageMods.Core.ModSystems.Primitives
     /// <typeparam name="TApi">The type of the API to use within the service.</typeparam>
     public abstract class ServiceBase<TApi> : IDisposable, IServiceBase<TApi> where TApi : ICoreAPI
     {
+        /// <summary>
+        ///     Gets the name of the root folder used by the mod.
+        /// </summary>
+        /// <value>The name of the root folder used by the mod.</value>
+        public abstract string RootFolder { get; }
+
+        /// <summary>
+        ///     Provides access to files and folders the mod needs to store persistent data.
+        /// </summary>
+        /// <value>The file manager used to access files and folders the mod needs to store persistent data.</value>
+        protected FileManager ModFiles { get; private set; }
+
+        /// <summary>
+        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
         ///     Gets the core game API.
         /// </summary>
@@ -23,25 +45,22 @@ namespace VintageMods.Core.ModSystems.Primitives
         public virtual void OnStart(TApi api)
         {
             Api = api;
-        }
-
-        /// <summary>
-        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            ModFiles = new FileManager(api, RootFolder);
         }
 
         /// <summary>
         ///     Releases unmanaged and - optionally - managed resources.
         /// </summary>
-        /// <param name="disposeUnmanaged"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        public virtual void Dispose(bool disposeUnmanaged) { }
+        /// <param name="disposeUnmanaged">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release
+        ///     only unmanaged resources.
+        /// </param>
+        public virtual void Dispose(bool disposeUnmanaged)
+        {
+        }
 
         /// <summary>
-        ///     Finalises an instance of the <see cref="ServiceBase{TApi}"/> class.
+        ///     Finalises an instance of the <see cref="ServiceBase{TApi}" /> class.
         /// </summary>
         ~ServiceBase()
         {

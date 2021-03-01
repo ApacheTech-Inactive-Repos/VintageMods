@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using VintageMods.Core.Helpers.Enums;
-using VintageMods.Core.Helpers.Extensions;
-using VintageMods.Core.Helpers.Resources;
 using VintageMods.Core.ModSystems.Client;
+using VintageMods.Core.ModSystems.Extensions;
+using VintageMods.Core.ModSystems.IO;
 using VintageMods.WaypointExtensions.Extensions;
 using VintageMods.WaypointExtensions.Model;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+
+// ReSharper disable ClassNeverInstantiated.Global
 
 namespace VintageMods.WaypointExtensions.Services
 {
@@ -19,16 +20,14 @@ namespace VintageMods.WaypointExtensions.Services
     public sealed class WaypointExtensionsService : ClientSideService
     {
         /// <summary>
-        ///     Gets the available waypoint types.
+        ///     Gets the name of the root folder used by the mod.
         /// </summary>
-        /// <value>The waypoint types.</value>
+        /// <value>The name of the root folder used by the mod.</value>
+        public override string RootFolder { get; } = "Waypoint Extensions";
+
         private SortedDictionary<string, WaypointInfoModel> WaypointTypes { get; } =
             new SortedDictionary<string, WaypointInfoModel>();
 
-        /// <summary>
-        ///     Gets or sets the global configuration.
-        /// </summary>
-        /// <value>The global configuration.</value>
         private GlobalConfigModel GlobalConfig { get; set; }
 
         /// <summary>
@@ -37,6 +36,13 @@ namespace VintageMods.WaypointExtensions.Services
         /// <value>The syntax list.</value>
         internal string SyntaxList { get; private set; }
 
+        private void RegisterModFiles()
+        {
+            ModFiles.RegisterFile("wpex-global-config.data", FileType.Config, FileScope.Global);
+            ModFiles.RegisterFile("wpex-default-waypoints.data", FileType.Data, FileScope.Global);
+            ModFiles.RegisterFile("wpex-custom-waypoints.data", FileType.Data, FileScope.World);
+        }
+
         /// <summary>
         ///     Called when the Start method of the ModSystem is called.
         /// </summary>
@@ -44,37 +50,7 @@ namespace VintageMods.WaypointExtensions.Services
         public override void OnStart(ICoreClientAPI api)
         {
             base.OnStart(api);
-
-            Task.Factory.StartNew(() =>
-            {
-                try
-                {
-                    GlobalConfig = Api.LoadOrCreateFile<GlobalConfigModel>(
-                        FileType.Config, "wpex-global-config.data");
-
-                    if (Version.Parse(GlobalConfig.Version) < GetCurrentVersion())
-                    {
-                        Api.UpdateFile<GlobalConfigModel>(
-                            FileType.Config, "Waypoint Extensions", "wpex-global-config.data");
-
-                        Api.UpdateFile<WaypointInfoModel>(
-                            FileType.Data, "Waypoint Extensions", "wpex-default-waypoints.data");
-                    }
-
-                    WaypointTypes.AddRange(
-                        Api.PopulateFromFile<WaypointInfoModel>("wpex-default-waypoints.data"));
-
-                    WaypointTypes.AddRange(
-                        Api.PopulateFromFile<WaypointInfoModel>("wpex-custom-waypoints.data", false));
-
-                    SyntaxList = string.Join(" | ", WaypointTypes.Keys);
-                    api.Logger.Event($"{WaypointTypes.Count} waypoint extensions loaded.");
-                }
-                catch (Exception e)
-                {
-                    Api.Logger.Error($"Waypoint Extensions: Error loading syntax for .wp command; {e.Message}");
-                }
-            });
+            Init();
         }
 
         /// <summary>
@@ -99,13 +75,6 @@ namespace VintageMods.WaypointExtensions.Services
                 arg = cmdArgs.PopWord("");
             }
 
-            // Note: For updating the syntax list on the forum.
-            if (arg == "copy-info")
-            {
-                Api.Forms.SetClipboardText(InfoMessage());
-                return;
-            }
-
             if (WaypointTypes.ContainsKey(arg))
             {
                 var wpInfo = WaypointTypes[arg];
@@ -118,9 +87,6 @@ namespace VintageMods.WaypointExtensions.Services
             }
         }
 
-        /// <summary>
-        ///     Sends the player an information message, if no arguments are given.
-        /// </summary>
         private string InfoMessage()
         {
             var sb = new StringBuilder();
@@ -136,13 +102,56 @@ namespace VintageMods.WaypointExtensions.Services
             return sb.ToString();
         }
 
-        /// <summary>
-        ///     Gets the current version of the mod.
-        /// </summary>
+        private void LoadWaypointTypes()
+        {
+            WaypointTypes.AddRange(
+                ModFiles.AsListOf<WaypointInfoModel>("wpex-default-waypoints.data"));
+
+            WaypointTypes.AddRange(
+                ModFiles.AsListOf<WaypointInfoModel>("wpex-custom-waypoints.data"));
+
+            SyntaxList = string.Join(" | ", WaypointTypes.Keys);
+            Api.Logger.Event($"{WaypointTypes.Count} waypoint extensions loaded.");
+        }
+
+        private void LoadGlobalConfig()
+        {
+            GlobalConfig = ModFiles.As<GlobalConfigModel>("wpex-global-config.data");
+
+            if (Version.Parse(GlobalConfig.Version) < GetCurrentVersion())
+            {
+                ModFiles.SaveFromResource<GlobalConfigModel>("wpex-global-config.data");
+                ModFiles.SaveFromResource<GlobalConfigModel>("wpex-default-waypoints.data");
+            }
+        }
+
         private static Version GetCurrentVersion()
         {
             var data = ResourceManager.ParseResourceAs<GlobalConfigModel>("wpex-global-config.data");
             return Version.Parse(data.Version);
+        }
+
+        private void Init()
+        {
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    RegisterModFiles();
+                    LoadGlobalConfig();
+                    LoadWaypointTypes();
+                }
+                catch (Exception e)
+                {
+                    Api.Logger.Error($"Waypoint Extensions: Error loading syntax for .wp command; {e.Message}");
+                }
+            });
+        }
+
+        public void ReloadFiles()
+        {
+            ModFiles.Purge();
+            Init();
         }
     }
 }
