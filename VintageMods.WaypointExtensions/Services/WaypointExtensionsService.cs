@@ -87,7 +87,7 @@ namespace VintageMods.WaypointExtensions.Services
             }
         }
 
-        private string InfoMessage()
+        internal string InfoMessage()
         {
             var sb = new StringBuilder();
             sb.AppendLine(@"Waypoint Extensions, by Apache Gaming");
@@ -120,6 +120,7 @@ namespace VintageMods.WaypointExtensions.Services
 
             if (Version.Parse(GlobalConfig.Version) < GetCurrentVersion())
             {
+                Api.Logger.Audit("Waypoint Extensions: Updating global default files.");
                 ModFiles.SaveFromResource<GlobalConfigModel>("wpex-global-config.data");
                 ModFiles.SaveFromResource<GlobalConfigModel>("wpex-default-waypoints.data");
             }
