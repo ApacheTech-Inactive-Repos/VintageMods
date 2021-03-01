@@ -89,21 +89,13 @@ namespace VintageMods.Core.ModSystems.IO
         {
             try
             {
-                ((ICoreClientAPI)_api)?.ShowChatMessage($"In Purge Method");
-
-                var configPath = new DirectoryInfo(Path.Combine(GamePaths.DataPath, FileType.Config, _modFolder));
-                ((ICoreClientAPI)_api)?.ShowChatMessage($"Config Folder: {configPath}");
-                ClearFolder(configPath);
-
-                var dataPath = new DirectoryInfo(Path.Combine(GamePaths.DataPath, FileType.Data, _modFolder));
-                ((ICoreClientAPI)_api)?.ShowChatMessage($"Data Folder: {dataPath}");
-                ClearFolder(dataPath);
-
+                ClearFolder(new DirectoryInfo(Path.Combine(GamePaths.DataPath, FileType.Config, _modFolder)));
+                ClearFolder(new DirectoryInfo(Path.Combine(GamePaths.DataPath, FileType.Data, _modFolder)));
                 _modFiles.Clear();
             }
             catch (Exception e)
             {
-                ((ICoreClientAPI)_api)?.ShowChatMessage(e.Message);
+                _api.Logger.Error(e.StackTrace);
             }
         }
 
