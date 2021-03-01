@@ -1,15 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="costura.fody" Version="5.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>D:\Games\Vintage Story\Lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StringEnum">
-      <HintPath>..\..\..\..\..\AppData\Roaming\VintagestoryData\Mods\Waypoint Extensions\StringEnum.dll</HintPath>
+      <HintPath>..\..\StringEnum.dll</HintPath>
     </Reference>
     <Reference Include="VintagestoryAPI">
       <HintPath>D:\Games\Vintage Story\VintagestoryAPI.dll</HintPath>

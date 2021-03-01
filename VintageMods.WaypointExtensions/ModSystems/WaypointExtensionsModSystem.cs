@@ -22,24 +22,22 @@ namespace VintageMods.WaypointExtensions.ModSystems
                 $"[{Service.SyntaxList}]",
                 Service.AddWaypointCommandHandler);
 
-            api.RegisterCommand("wpdebug", "", "", (id, args) =>
+            api.RegisterCommand("wp-debug", "", "", (id, args) =>
             {
 
                 var action = args.PopWord("");
 
-                // Note: For updating the syntax list on the forum.
-                if (action == "copy-info")
+                switch (action)
                 {
-                    api.Forms.SetClipboardText(Service.InfoMessage());
-                    api.ShowChatMessage($"Waypoint Extensions: Syntax list copied to clipboard.");
-                    return;
-                }
+                    case "copy":
+                        api.Forms.SetClipboardText(Service.InfoMessage());
+                        api.ShowChatMessage("Waypoint Extensions: Syntax list copied to clipboard.");
+                        return;
 
-                if (action == "reload")
-                {
-                    api.ShowChatMessage($"Reloading Mod Files...");
-                    Service.ReloadFiles();
-                    return;
+                    case "reload":
+                        api.ShowChatMessage("Reloading Mod Files...");
+                        Service.ReloadFiles();
+                        return;
                 }
             });
         }

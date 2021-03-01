@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Costura.Fody" Version="5.0.0-alpha0281">
+    <PackageReference Include="Costura.Fody" Version="5.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -37,9 +37,6 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>D:\Games\Vintage Story\Lib\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="StringEnum">
-      <HintPath>..\..\..\..\..\AppData\Roaming\VintagestoryData\Mods\Waypoint Extensions\StringEnum.dll</HintPath>
     </Reference>
     <Reference Include="VintagestoryAPI">
       <HintPath>D:\Games\Vintage Story\VintagestoryAPI.dll</HintPath>
