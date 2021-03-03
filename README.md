@@ -10,7 +10,7 @@ These projects form a framework for rapid mod development.
 
 Quickly and easily add waypoints to the map at the player's current position.
 
-### Future Mod Ideas: 
+## Future Mod Ideas: 
 
 #### Night Vision (Coming Soon!)
 
@@ -25,11 +25,13 @@ Ported from Minecraft, with all the same functionality, including the fabled Woo
 
 Adds new modes for the chisel, including Plane, and Connected Texture.
 
-#### Just Another Wands Mod (Coming Soon!)
+#### A Mod Called Wanda (Coming Soon!)
 
  • Wand of Construction: Extend your builds easily with this wand. Has several modes and also features undo for the last two building operations.
 
  • Wand of Destruction: Quickly destroy connected blocks of the same type within a small area.
+ 
+ • Wand of Feathering: Shift-Left Click to add a block type to the wand. Upto nine different block types can be added. Right Click will choose one of those block types at random, and place it in the world from your inventory. Perfect for creating random feathered textures, and detailing work.
 
  • Wand of Equal Trade: Select a block and make sure you have enough of that block in your inventory. Then you can replace other blocks with that block. Has a single mode, 3x3 mode, 5x5 mode and a 7x7 mode.
 
