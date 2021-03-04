@@ -12,9 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="costura.fody" Version="5.0.2">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
     <PackageReference Include="StringEnum" Version="0.1.0">
       <PrivateAssets></PrivateAssets>
@@ -35,5 +32,7 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties Reactor_Commands="" Reactor_Configuration="ALL" Reactor_Deploy="0" Reactor_Enabled="0" Reactor_Output="" Reactor_Project="" /></VisualStudio></ProjectExtensions>
 
 </Project>

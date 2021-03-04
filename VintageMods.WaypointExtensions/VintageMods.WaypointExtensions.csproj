@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PreserveCompilationContext>false</PreserveCompilationContext>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -13,42 +11,31 @@
     <DebugType>embedded</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="modinfo.json" />
     <None Remove="_EmbeddedResources\Global\wpex-default-waypoints.data" />
     <None Remove="_EmbeddedResources\Global\wpex-global-config.data" />
     <None Remove="_EmbeddedResources\World\wpex-custom-waypoints.data" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="modinfo.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="_EmbeddedResources\Global\wpex-default-waypoints.data" />
     <EmbeddedResource Include="_EmbeddedResources\Global\wpex-global-config.data" />
     <EmbeddedResource Include="_EmbeddedResources\World\wpex-custom-waypoints.data" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="Costura.Fody" Version="5.0.2">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="StringEnum" Version="0.1.0">
-      <PrivateAssets></PrivateAssets>
+      <PrivateAssets>
+      </PrivateAssets>
     </PackageReference>
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\VintageMods.Core\VintageMods.Core.csproj">
-      <Private>true</Private>
-      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
-    </ProjectReference>
+    <ProjectReference Include="..\VintageMods.Core\VintageMods.Core.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>D:\Games\Vintage Story\Lib\Newtonsoft.Json.dll</HintPath>
@@ -63,5 +50,7 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="C:\Program Files (x86)\Eziriz\.NET Reactor\dotNET_Reactor.Console.exe -file C:\Users\Apache\source\repos\Old\VintageMods\VintageMods.WaypointExtensions\bin\Release\netstandard2.0\VintageMods.WaypointExtensions.dll -satellite_assemblies C:\Users\Apache\source\repos\Old\VintageMods\VintageMods.WaypointExtensions\bin\Release\netstandard2.0\JetBrains.Annotations.dll -merge;C:\Users\Apache\source\repos\Old\VintageMods\VintageMods.WaypointExtensions\bin\Release\netstandard2.0\StringEnum.dll -merge;C:\Users\Apache\source\repos\Old\VintageMods\VintageMods.WaypointExtensions\bin\Release\netstandard2.0\VintageMods.Core.dll -merge -merge 1 -targetfile C:\Users\Apache\AppData\Roaming\VintagestoryData\Mods\Waypoint Extensions\&lt;AssemblyFileName&gt; -stringencryption 0 -suppressildasm 0" />
+  </Target>
 </Project>
