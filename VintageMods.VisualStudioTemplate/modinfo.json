@@ -1,0 +1,11 @@
+﻿{
+  "type": "Code",
+  "name": "{name}",
+  "side": "{Client|Server|Universal}",
+  "modid": "{slug}",
+  "description": "{description}",
+  "authors": ["Apache"],
+  "version": "0.0.1-0",
+  "dependencies": {
+  }
+}

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using VintageMods.Core.Extensions;
+using VintageMods.Core.IO;
 using VintageMods.Core.ModSystems.Client;
-using VintageMods.Core.ModSystems.Extensions;
-using VintageMods.Core.ModSystems.IO;
 using VintageMods.WaypointExtensions.Extensions;
 using VintageMods.WaypointExtensions.Model;
 using Vintagestory.API.Client;
@@ -28,21 +28,12 @@ namespace VintageMods.WaypointExtensions.Services
         private SortedDictionary<string, WaypointInfoModel> WaypointTypes { get; } =
             new SortedDictionary<string, WaypointInfoModel>();
 
-        private GlobalConfigModel GlobalConfig { get; set; }
-
         /// <summary>
         ///     Gets a list of all available syntax arguments.
         /// </summary>
         /// <value>The syntax list.</value>
-        internal string SyntaxList { get; private set; }
-
-        private void RegisterModFiles()
-        {
-            ModFiles.RegisterFile("wpex-global-config.data", FileType.Config, FileScope.Global);
-            ModFiles.RegisterFile("wpex-default-waypoints.data", FileType.Data, FileScope.Global);
-            ModFiles.RegisterFile("wpex-custom-waypoints.data", FileType.Data, FileScope.World);
-        }
-
+        private string SyntaxList { get; set; }
+        
         /// <summary>
         ///     Called when the Start method of the ModSystem is called.
         /// </summary>
@@ -50,7 +41,7 @@ namespace VintageMods.WaypointExtensions.Services
         public override void OnStart(ICoreClientAPI api)
         {
             base.OnStart(api);
-            Init();
+            IniialiseModSystem();
         }
 
         /// <summary>
@@ -101,46 +92,39 @@ namespace VintageMods.WaypointExtensions.Services
             sb.AppendLine("Example: .wp trader Trader (Building Supplies)");
             return sb.ToString();
         }
-
-        private void LoadWaypointTypes()
-        {
-            WaypointTypes.AddRange(
-                ModFiles.AsListOf<WaypointInfoModel>("wpex-default-waypoints.data"));
-
-            WaypointTypes.AddRange(
-                ModFiles.AsListOf<WaypointInfoModel>("wpex-custom-waypoints.data"));
-
-            SyntaxList = string.Join(" | ", WaypointTypes.Keys);
-            Api.Logger.Event($"{WaypointTypes.Count} waypoint extensions loaded.");
-        }
-
-        private void LoadGlobalConfig()
-        {
-            GlobalConfig = ModFiles.As<GlobalConfigModel>("wpex-global-config.data");
-
-            if (Version.Parse(GlobalConfig.Version) < GetCurrentVersion())
-            {
-                Api.Logger.Audit("Waypoint Extensions: Updating global default files.");
-                ModFiles.SaveFromResource<GlobalConfigModel>("wpex-global-config.data");
-                ModFiles.SaveFromResource<GlobalConfigModel>("wpex-default-waypoints.data");
-            }
-        }
-
+        
         private static Version GetCurrentVersion()
         {
             var data = ResourceManager.ParseResourceAs<GlobalConfigModel>("wpex-global-config.data");
             return Version.Parse(data.Version);
         }
 
-        private void Init()
+        private void IniialiseModSystem()
         {
             Task.Factory.StartNew(() =>
             {
                 try
                 {
-                    RegisterModFiles();
-                    LoadGlobalConfig();
-                    LoadWaypointTypes();
+                    var globalConfigFile = FileSystem.RegisterConfigFile<GlobalConfigModel>(
+                        "wpex-global-config.data", FileScope.Global);
+
+                    var defaultWaypointsFile = FileSystem.RegisterDataFile<WaypointInfoModel>(
+                        "wpex-default-waypoints.data", FileScope.Global);
+
+                    var customWaypointsFile = FileSystem.RegisterDataFile<WaypointInfoModel>(
+                        "wpex-custom-waypoints.data", FileScope.World);
+
+                    if (Version.Parse(globalConfigFile.ParseJsonAsObject().Version) < GetCurrentVersion())
+                    {
+                        Api.Logger.Audit("Waypoint Extensions: Updating global default files.");
+                        globalConfigFile.Disembed();
+                        defaultWaypointsFile.Disembed();
+                    }
+
+                    WaypointTypes.AddRange(defaultWaypointsFile.ParseJsonAsList(), p => p.Syntax);
+                    WaypointTypes.AddRange(customWaypointsFile.ParseJsonAsList(), p => p.Syntax);
+                    SyntaxList = string.Join(" | ", WaypointTypes.Keys);
+                    Api.Logger.StoryEvent($"{WaypointTypes.Count} waypoint extensions loaded.");
                 }
                 catch (Exception e)
                 {
@@ -151,8 +135,8 @@ namespace VintageMods.WaypointExtensions.Services
 
         public void ReloadFiles()
         {
-            ModFiles.Purge();
-            Init();
+            FileSystem.Purge();
+            IniialiseModSystem();
         }
     }
 }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30803.129
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Core.ModSystems", "VintageMods.Core.ModSystems\VintageMods.Core.ModSystems.csproj", "{04B7430A-69FB-4BD9-90F5-4E368A044B3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Core", "VintageMods.Core\VintageMods.Core.csproj", "{04B7430A-69FB-4BD9-90F5-4E368A044B3A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{22E915C1-51AF-4F31-9900-617CE6D04CC3}"
 EndProject

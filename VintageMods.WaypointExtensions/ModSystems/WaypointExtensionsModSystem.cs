@@ -1,6 +1,9 @@
-﻿using VintageMods.Core.ModSystems.Client;
+﻿using System;
+using JetBrains.Annotations;
+using VintageMods.Core.ModSystems.Client;
 using VintageMods.WaypointExtensions.Services;
 using Vintagestory.API.Client;
+using Vintagestory.Client.NoObf;
 
 // ====================================================================================================
 //  Future Implementation
@@ -22,6 +25,9 @@ namespace VintageMods.WaypointExtensions.ModSystems
     ///     Implements <see cref="ClientSideModSystem" />
     /// </summary>
     /// <seealso cref="ClientSideModSystem{WaypointExtensionsService}" />
+    [UsedImplicitly(
+        ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature,
+        ImplicitUseTargetFlags.WithMembers)]
     public class WaypointExtensionsModSystem : ClientSideModSystem<WaypointExtensionsService>
     {
         /// <summary>
@@ -33,7 +39,25 @@ namespace VintageMods.WaypointExtensions.ModSystems
             api.RegisterCommand("wp",
                 "Quickly, and easily add waypoint markers at your current position.",
                 Service.InfoMessage(), Service.OnWpCommand);
-            
+
+            // Simple QoL commands.
+            // TODO: Move QoL to separate mod.
+            api.RegisterCommand("cls", "", "", (id, args) =>
+            {
+                for (var i = 0; i < 30; i++)
+                {
+                    api.ShowChatMessage("");
+                }
+            });
+            api.RegisterCommand("chunks", "Shows/Hides chunk borders.", "", (id, args) =>
+            {
+                api.TriggerChatMessage(".debug wireframe chunk");
+            });
+            api.RegisterCommand("hitboxes", "Shows/Hides hit-boxes.", "", (id, args) =>
+            {
+                api.TriggerChatMessage(".debug wireframe entity");
+            });
+
             // Quick implementation to test debug features.
             // TODO: v1.2.5 - Implement robust debugging feature, for scalable future development.
             api.RegisterCommand("wp-debug", "Waypoint Extensions Debugging Api", "", (id, args) =>

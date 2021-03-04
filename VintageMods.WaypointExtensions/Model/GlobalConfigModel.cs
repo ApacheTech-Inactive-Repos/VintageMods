@@ -1,4 +1,4 @@
-﻿// ReSharper disable UnusedType.Global
+﻿using JetBrains.Annotations;
 
 namespace VintageMods.WaypointExtensions.Model
 {
@@ -8,6 +8,9 @@ namespace VintageMods.WaypointExtensions.Model
     /// <remarks>
     ///     This class is intentionally left vague, to allow for scalability, as new features are implemented.
     /// </remarks>
+    [UsedImplicitly(
+        ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, 
+        ImplicitUseTargetFlags.WithMembers)]
     public sealed class GlobalConfigModel
     {
         /// <summary>

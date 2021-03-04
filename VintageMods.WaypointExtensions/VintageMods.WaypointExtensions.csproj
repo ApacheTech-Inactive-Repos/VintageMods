@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PreserveCompilationContext>false</PreserveCompilationContext>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -36,14 +37,15 @@
     <PackageReference Include="Costura.Fody" Version="5.0.2">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="StringEnum" Version="0.1.0" />
+    <PackageReference Include="StringEnum" Version="0.1.0">
+      <PrivateAssets></PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VintageMods.Core.ModSystems\VintageMods.Core.ModSystems.csproj">
-      <Private>false</Private>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <EmbedInteropTypes>false</EmbedInteropTypes>
+    <ProjectReference Include="..\VintageMods.Core\VintageMods.Core.csproj">
+      <Private>true</Private>
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
     </ProjectReference>
   </ItemGroup>
 
@@ -54,6 +56,10 @@
     </Reference>
     <Reference Include="VintagestoryAPI">
       <HintPath>D:\Games\Vintage Story\VintagestoryAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="VintagestoryLib">
+      <HintPath>D:\Games\Vintage Story\VintagestoryLib.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

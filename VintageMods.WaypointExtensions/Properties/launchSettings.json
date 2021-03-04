@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "VintageMods.WaypointExtensions": {
+      "commandName": "Executable",
+      "executablePath": "D:\\Games\\Vintage Story\\Vintage Story.exe",
+      "nativeDebugging": true
+    }
+  }
+}

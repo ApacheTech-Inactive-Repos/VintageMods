@@ -3,12 +3,12 @@
   <Costura IncludeDebugSymbols='false'>
 
     <!-- Explicitly include nuget packages that would otherwise be obtained from the GAC. -->
-    <IncludeAssemblies>
+    <!-- IncludeAssemblies>
       StringEnum
-    </IncludeAssemblies>
+    </IncludeAssemblies-->
 
     <!-- Explicitly exclude core game libraries that would otherwise be duplicated, with possible version mismatch exceptions. -->
-    <!-- ExcludeAssemblies>
+    <ExcludeAssemblies>
       VintagestoryAPI
       0Harmony
       cairo-sharp
@@ -17,7 +17,7 @@
       VSCreativeMod
       VSEssentials
       VSSurvivalMod
-    </ExcludeAssemblies -->
+    </ExcludeAssemblies>
 
     <!-- For fine-grained optimisation, C++ libraries may be used. -->
     <Unmanaged32Assemblies></Unmanaged32Assemblies>

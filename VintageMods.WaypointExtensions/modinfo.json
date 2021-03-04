@@ -5,7 +5,7 @@
   "modid": "ats_wpex",
   "description": "Quickly, and easily add waypoint markers at your current position. (Ex: .wp copper)",
   "authors": [ "Apache" ],
-  "version": "1.2.4",
+  "version": "1.2.5-r23",
   "dependencies": {
   }
 }
