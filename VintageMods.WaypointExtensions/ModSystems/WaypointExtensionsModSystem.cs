@@ -2,6 +2,7 @@
 using VintageMods.Core.Fluent.Extensions;
 using VintageMods.Core.ModSystems.Client;
 using VintageMods.WaypointExtensions.Services;
+using VintageMods.WaypointExtensions.WpDebug;
 using Vintagestory.API.Client;
 
 // ====================================================================================================
@@ -40,7 +41,7 @@ namespace VintageMods.WaypointExtensions.ModSystems
                 Service.InfoMessage(), Service.OnWpCommand);
 
             // .wp-debug Command.
-            api.RegisterFluentCommand<DebugChatCommand, WaypointExtensionsService>(Service);
+            api.RegisterFluentCommand<WpDebugChatCommand, WaypointExtensionsService>(Service);
         }
     }
 }

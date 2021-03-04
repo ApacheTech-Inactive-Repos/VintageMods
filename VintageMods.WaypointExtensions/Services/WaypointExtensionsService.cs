@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using VintageMods.Core.Extensions;
 using VintageMods.Core.IO;
 using VintageMods.Core.ModSystems.Client;
@@ -10,13 +11,14 @@ using VintageMods.WaypointExtensions.Model;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 
-// ReSharper disable ClassNeverInstantiated.Global
-
 namespace VintageMods.WaypointExtensions.Services
 {
     /// <summary>
     ///     Business Logic Layer Implementation of the Waypoint Extensions mod.
     /// </summary>
+    [UsedImplicitly(
+        ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, 
+        ImplicitUseTargetFlags.WithMembers)]
     public sealed class WaypointExtensionsService : ClientSideService
     {
         /// <summary>
@@ -134,6 +136,11 @@ namespace VintageMods.WaypointExtensions.Services
         }
 
         public void ReloadFiles()
+        {
+            IniialiseModSystem();
+        }
+
+        public void Purge()
         {
             FileSystem.Purge();
             IniialiseModSystem();

@@ -25,7 +25,7 @@ namespace VintageMods.Core.ModSystems.Primitives
         ///     Provides access to files and folders the mod needs to store persistent data.
         /// </summary>
         /// <value>The file manager used to access files and folders the mod needs to store persistent data.</value>
-        protected FileManager FileSystem { get; private set; }
+        public FileManager FileSystem { get; private set; }
 
         /// <summary>
         ///     Gets the core game API.
