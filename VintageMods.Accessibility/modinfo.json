@@ -1,0 +1,12 @@
+﻿{
+  "type": "Code",
+  "name": "Accessibility Features",
+  "side": "Client",
+  "modid": "ats_accessibility",
+  "description": "Removes rain, lightning, weather sounds, fog effects, and involuntary camera shakes such as shivering, and when at low health.",
+  "authors": [ "Apache" ],
+  "version": "1.0.0",
+  "dependencies": {
+
+  }
+}

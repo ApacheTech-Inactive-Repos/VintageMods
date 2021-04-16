@@ -3,9 +3,10 @@
   "name": "Waypoint Extensions",
   "side": "Client",
   "modid": "ats_wpex",
-  "description": "Quickly, and easily add waypoint markers at your current position. (Ex: .wp copper)",
+  "description": "Quickly, and easily add waypoint markers at your current position, plus other World Map features.",
   "authors": [ "Apache" ],
-  "version": "1.2.5-r23",
+  "version": "1.3.1",
   "dependencies": {
+
   }
 }

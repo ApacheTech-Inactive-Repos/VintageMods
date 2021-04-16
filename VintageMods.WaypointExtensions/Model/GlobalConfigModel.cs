@@ -1,4 +1,7 @@
-﻿using JetBrains.Annotations;
+﻿using ProtoBuf;
+
+// ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable UnusedMember.Global
 
 namespace VintageMods.WaypointExtensions.Model
 {
@@ -8,14 +11,13 @@ namespace VintageMods.WaypointExtensions.Model
     /// <remarks>
     ///     This class is intentionally left vague, to allow for scalability, as new features are implemented.
     /// </remarks>
-    [UsedImplicitly(
-        ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature, 
-        ImplicitUseTargetFlags.WithMembers)]
+    [ProtoContract]
     public sealed class GlobalConfigModel
     {
         /// <summary>
         ///     The version of the currently installed mod.
         /// </summary>
+        [ProtoMember(1)]
         public string Version { get; set; }
     }
 }

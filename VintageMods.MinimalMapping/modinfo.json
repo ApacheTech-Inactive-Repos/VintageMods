@@ -1,0 +1,11 @@
+﻿{
+  "type": "Code",
+  "name": "Minimal Mapping",
+  "side": "Universal",
+  "modid": "ats_min_mapping",
+  "description": "Bespoke mod to disable a bunch of mapping functions.",
+  "authors": [ "Apache" ],
+  "version": "0.1.0",
+  "dependencies": {
+  }
+}

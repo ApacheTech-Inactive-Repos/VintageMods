@@ -14,7 +14,7 @@
 *.userprefs
 
 #Disabled projects
-VintageMods.CameraAccount/*
+VintageMods.Sandbox/*
 
 # Mono auto generated files
 mono_crash.*
@@ -363,4 +363,4 @@ MigrationBackup/
 .ionide/
 
 # Fody - auto-generated XML schema
-FodyWeavers.xsd
+/VintageMods.Sandbox

@@ -1,0 +1,31 @@
+{
+  "mod_Title": "Waypoint Extensions, by Apache Gaming",
+
+  //
+  // .wpt Command.
+  //
+
+  "wpt_Cmd_Description": "Adds a waypoint for a trader at your current location.",
+  "wpt_Cmd_Syntax_Message": "[pin]",
+
+  "wpt_CmdOpt_Pin_Desc": "Pins the waypoint to the map, on creation.",
+
+  "wpt_Error_Trader_Not_Found": "No traders have been found within range of the player.",
+  "wpt_Error_Waypoint_Already_Exists": "A waypoint for this trader already exists.",
+
+  //
+  // .wp Command.
+  //
+
+  "wp_Cmd_Description": "Quickly, and easily add waypoints at your current location.",
+  "wp_Cmd_Syntax_Message": "[pin (Optional)] [type] [title (Optional)]",
+  "wp_Cmd_Syntax_Message_Full": "[pin (Optional)] [{0}] [title (Optional)]",
+  "wp_Cmd_Error_Invalid_Argument": "Waypoint Extensions: Invalid Argument.",
+
+  //
+  // .map Command.
+  //
+
+  "cm_Cmd_Description": "Re-centres the map on the given location or player.",
+  "cm_Cmd_Syntax_Message": "[playerName|coords(x y)]"
+}

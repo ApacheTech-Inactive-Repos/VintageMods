@@ -1,0 +1,140 @@
+﻿using System.Collections.Generic;
+using VintageMods.CinematicCamStudio.Camera.Pathfinding;
+using VintageMods.CinematicCamStudio.Camera.Targetting;
+using VintageMods.CinematicCamStudio.Exceptions;
+using VintageMods.Core.Maths.Interpolation;
+using Vintagestory.API.MathTools;
+
+namespace VintageMods.CinematicCamStudio.Camera.Motion
+{
+    public class SmoothMotion : ICamMotion
+    {
+        private CosineInterpolation _xSpline;
+        private CosineInterpolation _ySpline;
+        private CosineInterpolation _zSpline;
+        private CosineInterpolation _yawSpline;
+        private CosineInterpolation _pitchSpline;
+        private CosineInterpolation _rollSpline;
+        private CosineInterpolation _fovSpline;
+        private CosineInterpolation _saturationSpline;
+        private CosineInterpolation _sepiaSpline;
+
+        public double SizeOfIteration;
+
+        public Vec3d Colour { get; } = new Vec3d(0, 1, 0);
+
+        public void Initialise(List<CamNode> points, int loops, CamTarget target)
+        {
+            if (points.Count == 1)
+                throw new CamStudioException("At least two points are required");
+
+            var iterations = loops == 0 ? 1 : loops == 1 ? 2 : 3;
+
+            SizeOfIteration = 1D / iterations;
+
+            var size = points.Count * iterations;
+
+            if (iterations > 1)
+                size++;
+
+            var xPoints = new double[size];
+            var yPoints = new double[size];
+            var zPoints = new double[size];
+
+            var yawPoints = new double[size];
+            var pitchPoints = new double[size];
+            var rollPoints = new double[size];
+
+            var fovPoints = new double[size];
+            var saturationPoints = new double[size];
+            var sepiaPoints = new double[size];
+
+            for (var j = 0; j < iterations; j++)
+            {
+                for (var i = 0; i < points.Count; i++)
+                {
+                    xPoints[i + j * points.Count] = points[i].X;
+                    yPoints[i + j * points.Count] = points[i].Y;
+                    zPoints[i + j * points.Count] = points[i].Z;
+
+                    yawPoints[i + j * points.Count] = points[i].Yaw;
+                    pitchPoints[i + j * points.Count] = points[i].Pitch;
+                    rollPoints[i + j * points.Count] = points[i].Roll;
+
+                    fovPoints[i + j * points.Count] = points[i].FieldOfView;
+                    saturationPoints[i + j * points.Count] = points[i].Saturation;
+                    sepiaPoints[i + j * points.Count] = points[i].Sepia;
+                }
+            }
+
+            if (iterations > 1)
+            {
+                xPoints[points.Count * iterations] = points[0].X;
+                yPoints[points.Count * iterations] = points[0].Y;
+                zPoints[points.Count * iterations] = points[0].Z;
+
+                yawPoints[points.Count * iterations] = points[0].Yaw;
+                pitchPoints[points.Count * iterations] = points[0].Pitch;
+                rollPoints[points.Count * iterations] = points[0].Roll;
+
+                fovPoints[points.Count * iterations] = points[0].FieldOfView;
+                saturationPoints[points.Count * iterations] = points[0].Saturation;
+                sepiaPoints[points.Count * iterations] = points[0].Sepia;
+            }
+
+            _xSpline = new CosineInterpolation(xPoints);
+            _ySpline = new CosineInterpolation(yPoints);
+            _zSpline = new CosineInterpolation(zPoints);
+
+            _yawSpline = new CosineInterpolation(yawPoints);
+            _pitchSpline = new CosineInterpolation(pitchPoints);
+            _rollSpline = new CosineInterpolation(rollPoints);
+
+            _fovSpline = new CosineInterpolation(fovPoints);
+            _saturationSpline = new CosineInterpolation(saturationPoints);
+            _sepiaSpline = new CosineInterpolation(sepiaPoints);
+        }
+
+        public CamNode GetPointInBetween(CamNode point1, CamNode point2, double percent, double wholeProgress, bool isFirstLoop,
+            bool isLastLoop)
+        {
+            var point = point1.GetPointBetween(point2, percent);
+
+            var iteration = isFirstLoop ? 0 : isLastLoop && SizeOfIteration < 0.5 ? 2 : 1;
+            var additionalProgress = iteration * SizeOfIteration;
+            wholeProgress = additionalProgress + wholeProgress * SizeOfIteration;
+
+
+            if (_xSpline != null)
+                point.X = _xSpline.ValueAt(wholeProgress);
+
+            if (_ySpline != null)
+                point.Y = _ySpline.ValueAt(wholeProgress);
+
+            if (_zSpline != null)
+                point.Z = _zSpline.ValueAt(wholeProgress);
+
+
+            if (_yawSpline != null)
+                point.Yaw = (float)_yawSpline.ValueAt(wholeProgress);
+
+            if (_pitchSpline != null)
+                point.Pitch = (float)_pitchSpline.ValueAt(wholeProgress);
+
+            if (_rollSpline != null)
+                point.Roll = (float)_rollSpline.ValueAt(wholeProgress);
+
+
+            if (_fovSpline != null)
+                point.FieldOfView = _fovSpline.ValueAt(wholeProgress);
+
+            if (_saturationSpline != null)
+                point.Saturation = _saturationSpline.ValueAt(wholeProgress);
+
+            if (_sepiaSpline != null)
+                point.Sepia = _sepiaSpline.ValueAt(wholeProgress);
+
+            return point;
+        }
+    }
+}
