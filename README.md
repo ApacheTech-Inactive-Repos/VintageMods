@@ -2,19 +2,7 @@
 
 A collection of mods, made for the game Vintage Story, written by Apache.
 
-## VintageMods Core
-
-These projects form a framework for rapid mod development.
-
-## Waypont Extensions
-
-Quickly and easily add waypoints to the map at the player's current position.
-
 ## Future Mod Ideas: 
-
-#### Night Vision (Coming Soon!)
-
-Adds night vision for Spectator and Creative Mode.
 
 #### World Edit Redux (Coming Soon!)
 
