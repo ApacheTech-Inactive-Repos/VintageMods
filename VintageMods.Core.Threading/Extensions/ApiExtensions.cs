@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using VintageMods.Core.Common.Threading.ClientSystems;
+using VintageMods.Core.Threading.ClientSystems;
 using Vintagestory.API.Client;
 using Vintagestory.Client.NoObf;
 
-namespace VintageMods.Core.Common.Threading.Extensions
+namespace VintageMods.Core.Threading.Extensions
 {
     public static class ApiExtensions
     {
@@ -11,8 +11,8 @@ namespace VintageMods.Core.Common.Threading.Extensions
         {
             api.Event.LevelFinalize += () =>
             {
-                if (!api.IsClientSystemLoaded<VintageModsAsyncTasks>())
-                    api.InjectClientThread("VintageModsAsyncTasks", 20, new VintageModsAsyncTasks(api.World as ClientMain));
+                if (!api.IsClientSystemLoaded<VintageModsAsync>())
+                    api.InjectClientThread("VintageModsAsync", 20, new VintageModsAsync(api.World as ClientMain));
             };
         }
 

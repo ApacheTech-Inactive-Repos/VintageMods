@@ -6,18 +6,18 @@ using Vintagestory.Client.NoObf;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedType.Global
 
-namespace VintageMods.Core.Common.Threading.ClientSystems
+namespace VintageMods.Core.Threading.ClientSystems
 {
-    public class VintageModsAsyncTasks : ClientSystem
+    public class VintageModsAsync : ClientSystem
     {
         private static ConcurrentQueue<Action> AsyncActions { get; set; } = new ConcurrentQueue<Action>();
         private static ConcurrentQueue<Action> MainThreadActions { get; set; } = new ConcurrentQueue<Action>();
 
         private readonly ClientMain _game;
 
-        public VintageModsAsyncTasks(ClientMain game) : base(game) { _game = game; }
+        public VintageModsAsync(ClientMain game) : base(game) { _game = game; }
 
-        public override string Name => "VintageModsAsyncTasks";
+        public override string Name => "VintageModsAsync";
 
         public override EnumClientSystemType GetSystemType() => EnumClientSystemType.Misc;
 

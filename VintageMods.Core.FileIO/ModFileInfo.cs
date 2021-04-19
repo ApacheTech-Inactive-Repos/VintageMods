@@ -27,7 +27,10 @@ namespace VintageMods.Core.FileIO
         /// <typeparam name="TModel">The type of object to deserialise into.</typeparam>
         public TModel ParseJsonAsObject<TModel>() where TModel : class, new()
         {
-            if (!_fileOnDisk.Exists) DisembedFrom(typeof(TModel).Assembly);
+            if (_fileOnDisk.Exists)
+                return JsonConvert.DeserializeObject<TModel>(File.ReadAllText(_fileOnDisk.FullName));
+
+            DisembedFrom(typeof(TModel).Assembly);
             return JsonConvert.DeserializeObject<TModel>(File.ReadAllText(_fileOnDisk.FullName));
         }
 
@@ -37,7 +40,10 @@ namespace VintageMods.Core.FileIO
         /// <typeparam name="TModel">The type of list to deserialise into.</typeparam>
         public List<TModel> ParseJsonAsList<TModel>() where TModel : class, new()
         {
-            if (!_fileOnDisk.Exists) DisembedFrom(typeof(TModel).Assembly);
+            if (_fileOnDisk.Exists)
+                return JsonConvert.DeserializeObject<List<TModel>>(File.ReadAllText(_fileOnDisk.FullName));
+
+            DisembedFrom(typeof(TModel).Assembly);
             return JsonConvert.DeserializeObject<List<TModel>>(File.ReadAllText(_fileOnDisk.FullName));
         }
 
@@ -48,7 +54,8 @@ namespace VintageMods.Core.FileIO
         /// </summary>
         public void DisembedFrom(Assembly assembly)
         {
-            SaveToDisk(ResourceManager.ReadResourceRaw(assembly, _fileOnDisk.Name));
+            if (ResourceManager.ResourceExists(assembly, _fileOnDisk.Name))
+                SaveToDisk(ResourceManager.ReadResourceRaw(assembly, _fileOnDisk.Name));
         }
 
         /// <summary>

@@ -2,6 +2,8 @@
 using VintageMods.Core.FileIO.Enum;
 using Vintagestory.API.Common;
 
+// ReSharper disable UnusedMember.Global
+
 namespace VintageMods.Core.FileIO.Extensions
 {
     public static class ApiExtensions

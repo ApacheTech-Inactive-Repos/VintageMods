@@ -13,7 +13,7 @@ using Vintagestory.Client.NoObf;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedType.Global
 
-namespace VintageMods.Core.Common.Threading
+namespace VintageMods.Core.Threading
 {
     public static class ClientThreadInjection
     {

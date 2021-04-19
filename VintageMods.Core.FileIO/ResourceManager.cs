@@ -26,6 +26,19 @@ namespace VintageMods.Core.FileIO
         }
 
         /// <summary>
+        ///     Determines whether an embedded resource exists within an assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly to find the resource in.</param>
+        /// <param name="fileName">The name of the file to find.</param>
+        /// <returns><c>true</c> if the embedded resource is found, <c>false</c> otherwise.</returns>
+        public static bool ResourceExists(Assembly assembly, string fileName)
+        {
+            var file = assembly.GetManifestResourceNames()
+                .SingleOrDefault(p => p.EndsWith(fileName));
+            return string.IsNullOrEmpty(file);
+        }
+
+        /// <summary>
         ///     Reads the resource, and passes back the output as a raw string.
         /// </summary>
         /// <param name="assembly">The assembly to load the resource from.</param>
@@ -36,14 +49,10 @@ namespace VintageMods.Core.FileIO
         {
             var result = new StringBuilder();
             var text = assembly.GetManifestResourceNames().Single(str => str.EndsWith(fileName));
-            using (var stream = assembly.GetManifestResourceStream(text))
-            {
-                if (stream == null) throw new FileNotFoundException($"Embedded data file not found: {fileName}");
-                using (var streamReader = new StreamReader(stream))
-                {
-                    while (!streamReader.EndOfStream) result.AppendLine(streamReader.ReadLine());
-                }
-            }
+            using var stream = assembly.GetManifestResourceStream(text);
+            if (stream == null) throw new FileNotFoundException($"Embedded data file not found: {fileName}");
+            using var streamReader = new StreamReader(stream);
+            while (!streamReader.EndOfStream) result.AppendLine(streamReader.ReadLine());
             return result.ToString();
         }
     }
