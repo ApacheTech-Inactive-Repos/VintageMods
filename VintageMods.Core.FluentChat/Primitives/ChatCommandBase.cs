@@ -1,5 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using VintageMods.Core.Common.Reflection;
 using VintageMods.Core.FluentChat.Attributes;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
@@ -20,6 +23,36 @@ namespace VintageMods.Core.FluentChat.Primitives
         protected ChatCommandBase(TApi api)
         {
             Api = api;
+            Options = new Dictionary<string, MethodInfo>();
+        }
+
+        internal Dictionary<string, MethodInfo> Options { get; }
+
+
+        internal void CallHandler(int groupId, CmdArgs cmdArgs)
+        {
+            try
+            {
+                var option = cmdArgs.PopWord();
+                if (string.IsNullOrWhiteSpace(option))
+                {
+                    OnNoOption(string.Empty, cmdArgs);
+                }
+                else if (!Options.ContainsKey(option))
+                {
+                    OnCustomOption(option, cmdArgs);
+                }
+                else
+                {
+                    OnKnownOption(Options[option], option, cmdArgs);
+                }
+            }
+            catch (Exception ex)
+            {
+                Api.Logger.Audit(ex.Message);
+                Api.Logger.Error(ex.Message);
+                Api.Logger.Error(ex.StackTrace);
+            }
         }
 
         /// <summary>
@@ -41,6 +74,17 @@ namespace VintageMods.Core.FluentChat.Primitives
         public virtual void OnNoOption(string option, CmdArgs args)
         {
             ((ClientMain)Api.World).ShowChatMessage(HelpText());
+        }
+
+        /// <summary>
+        ///     Called when the given option is found within the FluentOption dictionary.
+        /// </summary>
+        /// <param name="method">The method name to call.</param>
+        /// <param name="option">The option passed to the command.</param>
+        /// <param name="args">The remaining arguments.</param>
+        public virtual void OnKnownOption(MethodInfo method, string option, CmdArgs args)
+        {
+            this.CallMethod(method.Name, option, args);
         }
 
         /// <summary>

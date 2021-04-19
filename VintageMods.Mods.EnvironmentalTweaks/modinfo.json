@@ -1,0 +1,12 @@
+﻿{
+  "type": "Code",
+  "name": "Environmental Tweaks",
+  "side": "Client",
+  "modid": "ats_env_tweaks",
+  "description": "Removes rain, lightning, weather sounds, fog effects, and involuntary camera shakes such as shivering, and when at low health.",
+  "authors": [ "Apache" ],
+  "version": "1.0.0",
+  "dependencies": {
+
+  }
+}

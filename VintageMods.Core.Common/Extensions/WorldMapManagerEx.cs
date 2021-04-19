@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using VintageMods.Core.Common.Reflection;
+using Vintagestory.API.Client;
 using Vintagestory.GameContent;
 
 namespace VintageMods.Core.Common.Extensions
@@ -15,6 +17,20 @@ namespace VintageMods.Core.Common.Extensions
         public static WaypointMapLayer WaypointMapLayer(this WorldMapManager mapManager)
         {
             return mapManager.MapLayers.OfType<WaypointMapLayer>().FirstOrDefault();
+        }
+        
+        /// <summary>
+        ///     Trick the server into sending waypoints to the client even if they don't have their map opened.
+        ///     Credit to Novocain.
+        /// </summary>
+        /// <param name="mapManager">The map manager.</param>
+        public static void ForceSendWaypoints(this WorldMapManager mapManager)
+        {
+            var capi = mapManager.GetField<ICoreClientAPI>("capi");
+            capi.Event.EnqueueMainThreadTask(() =>
+                capi.Event.RegisterCallback(dt =>
+                    mapManager.GetField<IClientNetworkChannel>("clientChannel")
+                        .SendPacket(new OnViewChangedPacket()), 500), "");
         }
     }
 }

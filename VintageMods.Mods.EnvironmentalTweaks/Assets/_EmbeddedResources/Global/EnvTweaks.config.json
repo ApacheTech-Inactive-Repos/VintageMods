@@ -1,0 +1,8 @@
+{
+  "AllowRain": false,
+  "AllowHail": false,
+  "AllowSnow": true,
+  "AllowLightning": false,
+  "AllowCameraShake": false,
+  "AllowWeatherSounds": false
+}

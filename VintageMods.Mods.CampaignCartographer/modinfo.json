@@ -1,0 +1,12 @@
+﻿{
+  "type": "Code",
+  "name": "Campaign Cartographer 4",
+  "side": "Client",
+  "modid": "ats_cc4",
+  "description": "A compendium of map-making and tracking utilities.",
+  "authors": [ "Apache" ],
+  "version": "4.0.0",
+  "dependencies": {
+
+  }
+}

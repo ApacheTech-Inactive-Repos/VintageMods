@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using Newtonsoft.Json;
 
 namespace VintageMods.Core.FileIO
@@ -7,13 +8,12 @@ namespace VintageMods.Core.FileIO
     /// <summary>
     ///     Manages a file used to collate and store mod information.
     /// </summary>
-    /// <typeparam name="TModel">The strongly-typed object model, of which the data within the file represents.</typeparam>
-    public class ModFileInfo<TModel> where TModel : class, new()
+    public class ModFileInfo
     {
         private readonly FileInfo _fileOnDisk;
 
         /// <summary>
-        ///     Initialises a new instance of the <see cref="ModFileInfo{T}" /> class.
+        ///     Initialises a new instance of the <see cref="ModFileInfo" /> class.
         /// </summary>
         /// <param name="fileInfo">The file on disk to use for IO operations.</param>
         public ModFileInfo(FileInfo fileInfo)
@@ -25,9 +25,9 @@ namespace VintageMods.Core.FileIO
         ///     Deserialises the specified file as a strongly-typed object.
         /// </summary>
         /// <typeparam name="TModel">The type of object to deserialise into.</typeparam>
-        public TModel ParseJsonAsObject()
+        public TModel ParseJsonAsObject<TModel>() where TModel : class, new()
         {
-            if (!_fileOnDisk.Exists) Disembed();
+            if (!_fileOnDisk.Exists) DisembedFrom(typeof(TModel).Assembly);
             return JsonConvert.DeserializeObject<TModel>(File.ReadAllText(_fileOnDisk.FullName));
         }
 
@@ -35,9 +35,9 @@ namespace VintageMods.Core.FileIO
         ///     Deserialises the specified file as a strongly-typed list.
         /// </summary>
         /// <typeparam name="TModel">The type of list to deserialise into.</typeparam>
-        public List<TModel> ParseJsonAsList()
+        public List<TModel> ParseJsonAsList<TModel>() where TModel : class, new()
         {
-            if (!_fileOnDisk.Exists) Disembed();
+            if (!_fileOnDisk.Exists) DisembedFrom(typeof(TModel).Assembly);
             return JsonConvert.DeserializeObject<List<TModel>>(File.ReadAllText(_fileOnDisk.FullName));
         }
 
@@ -46,18 +46,24 @@ namespace VintageMods.Core.FileIO
         ///     The embedded resource is read from the same assembly as the underlying object model type,
         ///     and using the same filename as used to instantiate this class.
         /// </summary>
-        public void Disembed()
+        public void DisembedFrom(Assembly assembly)
         {
-            SaveToDisk(ResourceManager.ReadResourceRaw(typeof(TModel).Assembly, _fileOnDisk.Name));
+            SaveToDisk(ResourceManager.ReadResourceRaw(assembly, _fileOnDisk.Name));
         }
 
         /// <summary>
         ///     Serialises the specified instance, and saves the resulting JSON to file.
         /// </summary>
-        public void Save(TModel instance)
+        public void Save<TModel>(TModel instance) where TModel : class, new()
         {
             SaveToDisk(JsonConvert.SerializeObject(instance, Formatting.Indented));
         }
+
+        /// <summary>
+        ///     Gets a value indicating whether a file exists.
+        /// </summary>
+        /// <returns>true if the file exists; false if the file does not exist or if the file is a directory.</returns>
+        public bool Exists => _fileOnDisk.Exists;
 
         private void SaveToDisk(string contents)
         {

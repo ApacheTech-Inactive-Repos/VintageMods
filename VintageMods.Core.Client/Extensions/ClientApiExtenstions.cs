@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using VintageMods.Core.Common.Extensions;
 using VintageMods.Core.Common.Reflection;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -77,38 +78,6 @@ namespace VintageMods.Core.Client.Extensions
         }
 
         /// <summary>
-        ///     Deletes waypoints.
-        /// </summary>
-        /// <param name="api">The core game API this method was called from.</param>
-        /// <param name="icon"></param>
-        public static void PurgeWaypointsByIcon(this ICoreClientAPI api, string icon)
-        {
-            var wpLayer = api.ModLoader.GetModSystem<WorldMapManager>().WaypointMapLayer();
-            int ScanWaypoints()
-            {
-                for (var i = 0; i < wpLayer.ownWaypoints.Count; i++)
-                {
-                    var wp = wpLayer.ownWaypoints[i];
-                    if (wp.Icon != icon) continue;
-                    return i;
-                }
-                return -1;
-            }
-
-            TyronThreadPool.QueueTask(() =>
-            {
-                var index = ScanWaypoints();
-                while (index < -1)
-                {
-                    var i = index;
-                    api.AsClientMain().EnqueueMainThreadTask(() =>
-                        api.SendChatMessage($"/waypoint remove {i}"), "");
-                    index = ScanWaypoints();
-                }
-            });
-        }
-
-        /// <summary>
         ///     Thread-Safe.
         ///     Shows a client side only chat message in the current chat channel. Does not execute client commands.
         /// </summary>
@@ -131,14 +100,7 @@ namespace VintageMods.Core.Client.Extensions
             game?.EnqueueMainThreadTask(() => game.ShowChatMessage(message), "");
         }
 
-        /// <summary>
-        ///     Returns the map layer used for rendering waypoints.
-        /// </summary>
-        /// <param name="mapManager">The <see cref="WorldMapManager"/> instance that this method was called from.</param>
-        public static WaypointMapLayer WaypointMapLayer(this WorldMapManager mapManager)
-        {
-            return mapManager.MapLayers.OfType<WaypointMapLayer>().FirstOrDefault();
-        }
+
 
         /// <summary>
         ///     Determines whether any waypoints exist within a given radius of a block position.

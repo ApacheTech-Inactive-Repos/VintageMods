@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using VintageMods.Core.FileIO.Enum;
 using Vintagestory.API.Common;
@@ -14,6 +15,8 @@ namespace VintageMods.Core.FileIO
         private readonly ICoreAPI _api;
         private readonly string _rootFolder;
 
+        public Dictionary<string, ModFileInfo> ModFiles { get; }
+
         /// <summary>
         ///     Initialises a new instance of the <see cref="FileManager" /> class.
         /// </summary>
@@ -23,6 +26,7 @@ namespace VintageMods.Core.FileIO
         {
             _api = api;
             _rootFolder = rootFolder;
+            ModFiles = new Dictionary<string, ModFileInfo>();
         }
 
         /// <summary>
@@ -31,13 +35,13 @@ namespace VintageMods.Core.FileIO
         /// <param name="fileName">Name of the file.</param>
         /// <param name="fileType">Type of the file [Config | Data].</param>
         /// <param name="fileScope">The file scope [Global | World].</param>
-        private ModFileInfo<T> RegisterFile<T>(string fileName, FileType fileType, FileScope fileScope)
-            where T : class, new()
+        internal ModFileInfo RegisterFile(string fileName, FileType fileType, FileScope fileScope)
         {
             var seed = fileScope == FileScope.Global ? "" : _api.World.Seed.ToString();
             var file = new FileInfo(Path.Combine(GamePaths.DataPath, fileType.ToString(), _rootFolder,
                 fileScope.ToString(), seed, fileName));
-            return new ModFileInfo<T>(file);
+            ModFiles.Add(fileName, new ModFileInfo(file));
+            return new ModFileInfo(file);
         }
 
         /// <summary>
@@ -45,9 +49,9 @@ namespace VintageMods.Core.FileIO
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="fileScope">The file scope [Global | World].</param>
-        public ModFileInfo<T> RegisterConfigFile<T>(string fileName, FileScope fileScope) where T : class, new()
+        public ModFileInfo RegisterConfigFile(string fileName, FileScope fileScope)
         {
-            return RegisterFile<T>(fileName, FileType.Config, fileScope);
+            return RegisterFile(fileName, FileType.Config, fileScope);
         }
 
         /// <summary>
@@ -55,9 +59,9 @@ namespace VintageMods.Core.FileIO
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="fileScope">The file scope [Global | World].</param>
-        public ModFileInfo<T> RegisterDataFile<T>(string fileName, FileScope fileScope) where T : class, new()
+        public ModFileInfo RegisterDataFile(string fileName, FileScope fileScope)
         {
-            return RegisterFile<T>(fileName, FileType.Data, fileScope);
+            return RegisterFile(fileName, FileType.Data, fileScope);
         }
 
         /// <summary>

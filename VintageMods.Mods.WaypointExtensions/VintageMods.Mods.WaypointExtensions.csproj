@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Wpex\Lang\en.json" />
+    <None Remove="Assets\_EmbeddedResources\Global\wpex-default-waypoints.data" />
+    <None Remove="Assets\_EmbeddedResources\Global\wpex-global-config.data" />
+    <None Remove="Assets\_EmbeddedResources\World\wpex-custom-waypoints.data" />
+    <None Remove="modinfo.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Wpex\Lang\en.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="modinfo.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\_EmbeddedResources\Global\wpex-default-waypoints.data" />
+    <EmbeddedResource Include="Assets\_EmbeddedResources\Global\wpex-global-config.data" />
+    <EmbeddedResource Include="Assets\_EmbeddedResources\World\wpex-custom-waypoints.data" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VintageMods.Core.Client\VintageMods.Core.Client.csproj" />
+    <ProjectReference Include="..\VintageMods.Core.Common\VintageMods.Core.Common.csproj" />
+    <ProjectReference Include="..\VintageMods.Core.FileIO\VintageMods.Core.FileIO.csproj" />
+    <ProjectReference Include="..\VintageMods.Core.FluentChat\VintageMods.Core.FluentChat.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="cairo-sharp">
+      <HintPath>D:\Games\Vintage Story\Lib\cairo-sharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>D:\Games\Vintage Story\Lib\protobuf-net.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="VintagestoryAPI">
+      <HintPath>D:\Games\Vintage Story\VintagestoryAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="VintagestoryLib">
+      <HintPath>D:\Games\Vintage Story\VintagestoryLib.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="VSEssentials">
+      <HintPath>D:\Games\Vintage Story\Mods\VSEssentials.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Update="C:\Users\Apache\source\repos\VintageMods\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    del &quot;$(TargetDir)*.pdb&quot;&#xD;&#xA;    del &quot;$(TargetDir)*.deps.json&quot;&#xD;&#xA;)" />
+  </Target>
+
+</Project>

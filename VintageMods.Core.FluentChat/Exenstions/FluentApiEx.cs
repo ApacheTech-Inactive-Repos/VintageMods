@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using VintageMods.Core.FluentChat.Attributes;
-using VintageMods.Core.FluentChat.Delegates;
 using VintageMods.Core.FluentChat.Primitives;
 using Vintagestory.API.Client;
-using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.Client.NoObf;
 
@@ -39,39 +36,20 @@ namespace VintageMods.Core.FluentChat.Exenstions
             if (cmdAttribute == null || string.IsNullOrEmpty(cmdAttribute.Name)) return;
 
             var cmd = ActivatorEx.CreateInstance<TChatCommand>(api);
-            var options = new Dictionary<string, ChatCommandOptionDelegate>();
-
-            foreach (var methodInfo in cmdType.GetMethods())
+            foreach (var methodInfo in cmdType.GetRuntimeMethods())
             {
                 var optAttributes = methodInfo.GetCustomAttributes().OfType<ChatOptionAttribute>().ToList();
                 if (!optAttributes.Any()) continue;
                 foreach (var option in optAttributes)
                 {
-                    options.Add(option.Name, DelegateEx.CreateDelegate<ChatCommandOptionDelegate>(cmd, methodInfo));
+                    cmd.Options.Add(option.Name, methodInfo);
                 }
             }
-
-            void CallHandler(int id, CmdArgs cmdArgs)
-            {
-                var option = cmdArgs.PeekWord();
-                if (string.IsNullOrWhiteSpace(option))
-                {
-                    cmd.OnNoOption(string.Empty, cmdArgs);
-                }
-                else if (!options.ContainsKey(option))
-                {
-                    cmd.OnCustomOption(option, cmdArgs);
-                }
-                else
-                {
-                    options[option].Invoke(cmdArgs.PopWord(), cmdArgs);
-                }
-            }
-
+            
             api.RegisterCommand(cmdAttribute.Name,
                 Lang.Get(cmdAttribute.Description),
                 Lang.Get(cmdAttribute.SyntaxMessage),
-                CallHandler);
+                cmd.CallHandler);
         }
     }
 }
