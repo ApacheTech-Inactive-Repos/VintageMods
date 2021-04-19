@@ -39,7 +39,8 @@ namespace VintageMods.Core.FluentChat.Primitives
                 }
                 else if (!Options.ContainsKey(option))
                 {
-                    OnCustomOption(string.Empty, cmdArgs);
+                    option = cmdArgs.PopWord();
+                    OnCustomOption(option, cmdArgs);
                 }
                 else
                 {
