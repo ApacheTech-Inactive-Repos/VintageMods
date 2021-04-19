@@ -5,6 +5,7 @@ using VintageMods.Core.FluentChat.Attributes;
 using VintageMods.Core.FluentChat.Primitives;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
@@ -22,8 +23,7 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
 
         public override void OnNoOption(string option, CmdArgs args)
         {
-            // Re-centre on self.
-            RecentreMap(Api.World.Player.Entity.Pos.XYZ);
+            OnCustomOption(option, args);
         }
 
         public override void OnCustomOption(string option, CmdArgs args)
@@ -36,6 +36,7 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
                     var x = args.PopInt().GetValueOrDefault(player.Entity.Pos.AsBlockPos.X);
                     var z = args.PopInt().GetValueOrDefault(player.Entity.Pos.AsBlockPos.Z);
                     var pos = new BlockPos(x, 1, z).Add(Api.World.DefaultSpawnPosition.AsBlockPos);
+                    Api.ShowChatMessage(Lang.Get("wpex:cm_ReCentre_On_Position", x, z));
                     RecentreMap(pos.ToVec3d());
                     break;
 
@@ -45,11 +46,13 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
                     var match = Api.World.AllOnlinePlayers.Where(p =>
                         string.Equals(p.PlayerName, name, StringComparison.InvariantCultureIgnoreCase)).ToList();
                     if (match.Count == 1) player = (IClientPlayer)match.First();
+                    Api.ShowChatMessage(Lang.Get("wpex:cm_ReCentre_On_Player", player.PlayerName));
                     RecentreMap(player.Entity.Pos.XYZ);
                     break;
 
                 // Re-centre on self.
                 default:
+                    Api.ShowChatMessage(Lang.Get("wpex:cm_ReCentre_On_Player", player.PlayerName));
                     RecentreMap(player.Entity.Pos.XYZ);
                     break;
             }

@@ -28,22 +28,22 @@ namespace VintageMods.Core.FluentChat.Primitives
 
         internal Dictionary<string, MethodInfo> Options { get; }
 
-
         internal void CallHandler(int groupId, CmdArgs cmdArgs)
         {
             try
             {
-                var option = cmdArgs.PopWord();
+                var option = cmdArgs.PeekWord();
                 if (string.IsNullOrWhiteSpace(option))
                 {
                     OnNoOption(string.Empty, cmdArgs);
                 }
                 else if (!Options.ContainsKey(option))
                 {
-                    OnCustomOption(option, cmdArgs);
+                    OnCustomOption(string.Empty, cmdArgs);
                 }
                 else
                 {
+                    option = cmdArgs.PopWord();
                     OnKnownOption(Options[option], option, cmdArgs);
                 }
             }

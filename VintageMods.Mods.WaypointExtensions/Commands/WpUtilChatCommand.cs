@@ -8,9 +8,9 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.GameContent;
 
-// ReSharper disable UnusedParameter.Local
-// ReSharper disable UnusedMember.Local
 // ReSharper disable ClassNeverInstantiated.Global
+// ReSharper disable UnusedMember.Local
+// ReSharper disable UnusedParameter.Local
 
 namespace VintageMods.Mods.WaypointExtensions.Commands
 {

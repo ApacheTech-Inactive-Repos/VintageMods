@@ -28,6 +28,8 @@
 
   "cm_Cmd_Description": "Re-centres the map on the given location or player.",
   "cm_Cmd_Syntax_Message": "[playerName|coords(x y)]",
+  "cm_ReCentre_On_Position": "Re-centring world map at X = {0} Z = {1}",
+  "cm_ReCentre_On_Player": "Re-centring world map on {0}",
 
   //
   // .wputil Command.

@@ -9,7 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mods", "Mods", "{D71BA92B-2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Soultion Files", "Soultion Files", "{790EACD8-22EA-426E-AD3F-D087CED5A345}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
 		FodyWeavers.xml = FodyWeavers.xml
 		FodyWeavers.xsd = FodyWeavers.xsd
 		README.md = README.md
@@ -45,7 +44,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visual Studio Template", "V
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Mods.ModTemplate", "VintageMods.Mods.ModTemplate\VintageMods.Mods.ModTemplate.csproj", "{C4E2BEBA-FC12-4227-AD17-F7E55648DEA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VintageMods.Mods.CampaignCartographer", "VintageMods.Mods.CampaignCartographer\VintageMods.Mods.CampaignCartographer.csproj", "{376154E4-8846-4F53-AD0C-C3696B338E55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Mods.CampaignCartographer", "VintageMods.Mods.CampaignCartographer\VintageMods.Mods.CampaignCartographer.csproj", "{376154E4-8846-4F53-AD0C-C3696B338E55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77C14A47-AE4F-413C-B059-592543EB29E1}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
