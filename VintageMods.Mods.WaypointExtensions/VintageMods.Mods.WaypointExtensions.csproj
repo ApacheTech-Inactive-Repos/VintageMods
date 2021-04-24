@@ -39,7 +39,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="RedGate.SmartAssembly.Attributes" Version="8.0.2.4779" />
+    <PackageReference Include="RedGate.SmartAssembly.MSBuild" Version="8.0.2.4779">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -97,23 +100,15 @@
     <EditorConfigFiles Update="C:\Users\Apache\source\repos\VintageMods\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
-  <Target Name="AfterBuild" Condition=" '$(ConfigurationName)' == 'Release' " BeforeTargets="PostBuildEvent">
-    <CreateItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)'=='.dll'">
-      <Output ItemName="AssembliesToMerge" TaskParameter="Include" />
-    </CreateItem>
-    <Exec Command="&quot;$(ILMergeConsolePath)&quot; /internalize:&quot;$(MSBuildProjectPath)ilmerge.exclude&quot; /ndebug  /out:@(MainAssembly)  &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" />
-    <Delete Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
-  </Target>
+  <!-- Build Tasks -->
 
-
-  <Target Name="ILMerge">
-    <!-- the ILMergePath property points to the location of ILMerge.exe console application -->
-    <Exec Command="$(ILMergeConsolePath) /out:Merged.dll (TargetDir)VintageMods.Core.Client.dll" />
-  </Target>
-
+  <PropertyGroup>
+    <SmartAssemblyIsEnabled>False</SmartAssemblyIsEnabled>
+  </PropertyGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    &quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; /build &quot;$(ProjectDir)$(TargetName).saproj&quot;&#xD;&#xA;    del &quot;$(TargetDir)Merged\*.json&quot;&#xD;&#xA;    del &quot;$(TargetDir)Merged\*.pdb&quot;&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)Merged\Assets\&quot; /s /e /y &#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)Merged&quot;&#xD;&#xA;)" />
+    <SmartAssembly ProjectFile="$(ProjectDir)$(ProjectName).saproj" />
+    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    del &quot;$(TargetDir)*.zip&quot;&#xD;&#xA;    del &quot;$(TargetDir)publish\*.json&quot;&#xD;&#xA;    del &quot;$(TargetDir)publish\*.pdb&quot;&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)publish\Assets\&quot; /s /e /y &#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)publish&quot;&#xD;&#xA;    &quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) publish&#xD;&#xA;)" />
   </Target>
 
 </Project>

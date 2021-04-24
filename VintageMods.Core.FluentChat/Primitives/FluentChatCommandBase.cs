@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using VintageMods.Core.Common.Reflection;
-using VintageMods.Core.FluentChat.Attributes;
+using VintageMods.Core.FluentChat.Exenstions;
 using Vintagestory.API.Common;
-using Vintagestory.API.Config;
 using Vintagestory.Client.NoObf;
 
 // ReSharper disable MemberCanBeProtected.Global
@@ -94,9 +92,7 @@ namespace VintageMods.Core.FluentChat.Primitives
         /// <returns>By default, returns the description of the command, as set within the language files. This can be overridden.</returns>
         public virtual string HelpText()
         {
-            var cmdAttribute = GetType().GetCustomAttributes().OfType<FluentChatCommandAttribute>().FirstOrDefault();
-            if (cmdAttribute == null || string.IsNullOrEmpty(cmdAttribute.Name)) return "";
-            return Lang.Get(cmdAttribute.Description);
+            return LangEx.FluentChat(this, "Description");
         }
     }
 }

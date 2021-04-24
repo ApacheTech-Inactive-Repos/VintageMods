@@ -1,5 +1,4 @@
 ﻿using System.Runtime.CompilerServices;
-using SmartAssembly.Attributes;
 using VintageMods.Core.Client.ModSystems;
 using VintageMods.Core.Common.Attributes;
 using VintageMods.Core.FileIO.Enum;
@@ -14,7 +13,6 @@ using Vintagestory.API.Client;
 
 namespace VintageMods.Mods.WaypointExtensions.ModSystems
 {
-    [DoNotPruneType]
     internal class WpexModSystem : ClientSideModSystem
     {
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -29,7 +27,7 @@ namespace VintageMods.Mods.WaypointExtensions.ModSystems
             api.RegisterClientChatCommand<WpExChatCommand>();
             api.RegisterClientChatCommand<WpUtilChatCommand>();
             api.RegisterClientChatCommand<WpTraderChatCommand>();
-
+            
             // Will eventually be shipped to Campaign Cartographer Mod.
             api.RegisterClientChatCommand<CentreMapChatCommand>();
             api.RegisterClientChatCommand<GpsChatCommand>();

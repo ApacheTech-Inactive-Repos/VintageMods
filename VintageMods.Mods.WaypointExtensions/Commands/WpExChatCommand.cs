@@ -8,6 +8,7 @@ using VintageMods.Core.FileIO;
 using VintageMods.Core.FileIO.Enum;
 using VintageMods.Core.FileIO.Extensions;
 using VintageMods.Core.FluentChat.Attributes;
+using VintageMods.Core.FluentChat.Exenstions;
 using VintageMods.Core.FluentChat.Primitives;
 using VintageMods.Mods.WaypointExtensions.Extensions;
 using VintageMods.Mods.WaypointExtensions.Model;

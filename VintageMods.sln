@@ -55,6 +55,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Core.Threading"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VintageMods.Core.SQLite", "VintageMods.Core.SQLite\VintageMods.Core.SQLite.csproj", "{B25E2834-7DBD-417B-8584-E055F65DAC33}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{1B89572E-5A97-49B9-A03D-5C8FE736A6C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VintageMods.Tools.ModPackager", "VintageMods.Tools.ModPackager\VintageMods.Tools.ModPackager.csproj", "{F484738F-4A24-418A-BAED-4F496A33EB70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug + Flatworld|Any CPU = Debug + Flatworld|Any CPU
@@ -207,6 +211,14 @@ Global
 		{B25E2834-7DBD-417B-8584-E055F65DAC33}.FastBuild|Any CPU.Build.0 = Debug|Any CPU
 		{B25E2834-7DBD-417B-8584-E055F65DAC33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B25E2834-7DBD-417B-8584-E055F65DAC33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F484738F-4A24-418A-BAED-4F496A33EB70}.Debug + Flatworld|Any CPU.ActiveCfg = Debug|Any CPU
+		{F484738F-4A24-418A-BAED-4F496A33EB70}.Debug + Flatworld|Any CPU.Build.0 = Debug|Any CPU
+		{F484738F-4A24-418A-BAED-4F496A33EB70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F484738F-4A24-418A-BAED-4F496A33EB70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F484738F-4A24-418A-BAED-4F496A33EB70}.FastBuild|Any CPU.ActiveCfg = Debug|Any CPU
+		{F484738F-4A24-418A-BAED-4F496A33EB70}.FastBuild|Any CPU.Build.0 = Debug|Any CPU
+		{F484738F-4A24-418A-BAED-4F496A33EB70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F484738F-4A24-418A-BAED-4F496A33EB70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -230,6 +242,7 @@ Global
 		{CBA5762B-D00D-45AB-A9A9-55A26A33A025} = {22E915C1-51AF-4F31-9900-617CE6D04CC3}
 		{89D3D63B-754C-4AB1-86C1-EB70E4E8545F} = {22E915C1-51AF-4F31-9900-617CE6D04CC3}
 		{B25E2834-7DBD-417B-8584-E055F65DAC33} = {22E915C1-51AF-4F31-9900-617CE6D04CC3}
+		{F484738F-4A24-418A-BAED-4F496A33EB70} = {1B89572E-5A97-49B9-A03D-5C8FE736A6C4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87615F59-7699-4480-89A6-75F0B9529D0B}

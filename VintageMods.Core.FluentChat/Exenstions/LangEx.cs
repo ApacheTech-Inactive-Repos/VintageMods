@@ -4,7 +4,7 @@ using VintageMods.Core.Common.Attributes;
 using VintageMods.Core.FluentChat.Attributes;
 using Vintagestory.API.Config;
 
-namespace VintageMods.Mods.WaypointExtensions.Extensions
+namespace VintageMods.Core.FluentChat.Exenstions
 {
     public static class LangEx
     {

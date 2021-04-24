@@ -1,7 +1,7 @@
 ﻿using VintageMods.Core.Client.Extensions;
 using VintageMods.Core.FluentChat.Attributes;
+using VintageMods.Core.FluentChat.Exenstions;
 using VintageMods.Core.FluentChat.Primitives;
-using VintageMods.Mods.WaypointExtensions.Extensions;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 
