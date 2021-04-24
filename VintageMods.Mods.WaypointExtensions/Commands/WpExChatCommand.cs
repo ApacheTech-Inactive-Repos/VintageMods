@@ -21,8 +21,8 @@ using Vintagestory.API.Config;
 
 namespace VintageMods.Mods.WaypointExtensions.Commands
 {
-    [ChatCommand("wp", "wpex:wp_Cmd_Description", "wpex:wp_Cmd_Syntax_Message")]
-    internal class WpExChatCommand : ChatCommandBase<ICoreClientAPI>
+    [FluentChatCommand("wp")]
+    internal class WpExChatCommand : FluentChatCommandBase<ICoreClientAPI>
     {
         private SortedDictionary<string, WaypointInfoModel> WaypointTypes { get; } =
             new SortedDictionary<string, WaypointInfoModel>();
@@ -35,7 +35,7 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
 
         public WpExChatCommand(ICoreClientAPI api) : base(api)
         {
-            Api.AsClientMain().EnqueueGameLaunchTask(InitialiseComponents, "ats_wpex");
+            InitialiseComponents();
         }
 
         private void InitialiseComponents()
@@ -89,22 +89,22 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
             }
             else
             {
-                Api.ShowChatMessage(Lang.Get("wpex:wp_Cmd_Error_Invalid_Argument"));
+                Api.ShowChatMessage(LangEx.Error("InvalidArgument"));
             }
         }
 
         public override string HelpText()
         {
             var sb = new StringBuilder();
-            sb.AppendLine(Lang.Get("wpex:mod_Title"));
+            sb.AppendLine(LangEx.Meta("ModTitle"));
             sb.AppendLine("");
-            sb.AppendLine(Lang.Get("wpex:wp_Cmd_Description"));
+            sb.AppendLine(LangEx.Meta("ModDescription"));
             sb.AppendLine("");
-            sb.AppendLine(Lang.Get("wpex:wp_Cmd_Syntax_Message_Full", SyntaxList));
+            sb.AppendLine(LangEx.FluentChat(this, "SyntaxMessage_Full", SyntaxList));
             return sb.ToString();
         }
 
-        [ChatOption("DEBUG")]
+        [FluentChatOption("DEBUG")]
         private void DebugOptions(string option, CmdArgs args)
         {
             var arg = args.PopWord("");

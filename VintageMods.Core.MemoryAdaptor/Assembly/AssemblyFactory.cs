@@ -9,6 +9,9 @@ using VintageMods.Core.MemoryAdaptor.Native.Types;
 using VintageMods.Core.MemoryAdaptor.Threads;
 using VintageMods.Core.MemoryAdaptor.Utilities;
 
+// ReSharper disable StringLiteralTypo
+// ReSharper disable UnusedType.Global
+
 namespace VintageMods.Core.MemoryAdaptor.Assembly
 {
     public class AssemblyFactory : IAssemblyFactory
@@ -355,9 +358,8 @@ namespace VintageMods.Core.MemoryAdaptor.Assembly
         public T InjectAndExecute<T>(string asm)
         {
             // Inject the assembly code
-            using (var memory = Inject(asm))
-                // Execute the code
-                return Execute<T>(memory.BaseAddress);
+            using var memory = Inject(asm);
+            return Execute<T>(memory.BaseAddress);
         }
 
         /// <summary>

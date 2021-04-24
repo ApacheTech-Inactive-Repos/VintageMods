@@ -4,6 +4,7 @@ using VintageMods.Core.Common.Extensions;
 using VintageMods.Core.Common.Reflection;
 using VintageMods.Core.FluentChat.Attributes;
 using VintageMods.Core.FluentChat.Primitives;
+using VintageMods.Mods.WaypointExtensions.Extensions;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.GameContent;
@@ -14,8 +15,8 @@ using Vintagestory.GameContent;
 
 namespace VintageMods.Mods.WaypointExtensions.Commands
 {
-    [ChatCommand("wputil", "wpex:WpUtil_Cmd_Description", "wpex:WpUtil_Cmd_Syntax_Message")]
-    public class WpUtilChatCommand : ChatCommandBase<ICoreClientAPI>
+    [FluentChatCommand("wputil")]
+    public class WpUtilChatCommand : FluentChatCommandBase<ICoreClientAPI>
     {
         private readonly WorldMapManager _mapManager;
 
@@ -24,27 +25,27 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
             _mapManager = Api.ModLoader.GetModSystem<WorldMapManager>();
         }
 
-        [ChatOption("purge-icon")]
+        [FluentChatOption("purge-icon")]
         private void PurgeWaypointsByIcon(string option, CmdArgs args)
         {
+            var confirm = LangEx.Phrases("Confirm");
+
             if (args.Length == 1)
             {
                 var icon = args.PopWord();
-                Api.ShowChatMessage(icon == "confirm"
-                    ? "Please specify an icon."
-                    : $"Please type `.wputil purge-icon {icon} confirm` to confirm your choice.");
+                Api.ShowChatMessage(icon == confirm
+                    ? LangEx.Message("SpecifyIcon")
+                    : LangEx.Message("ConfirmationRequest", icon));
             }
 
             else if (args.Length == 2)
             {
                 var icon = args.PopWord();
-                Api.Logger.Audit("Icon: " + icon);
-
-                if (args.PopWord() != "confirm") return;
+                if (args.PopWord() != confirm) return;
 
                 try
                 {
-                    Api.ShowChatMessage($"Purging waypoints with the `{icon}` icon.");
+                    Api.ShowChatMessage(LangEx.Message("PurgingWaypoints", icon, confirm));
                     var i = icon;
                     PurgeWaypoints(p => p.Icon == i);
                 }
@@ -57,7 +58,7 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
 
             else
             {
-                Api.ShowChatMessage("Please specify an icon.");
+                Api.ShowChatMessage(LangEx.Message("SpecifyIcon"));
             }
         }
 

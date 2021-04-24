@@ -1,19 +1,37 @@
-﻿using VintageMods.Core.Client.Extensions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using VintageMods.Core.Client.Extensions;
+using VintageMods.Core.Common.Enum;
 using VintageMods.Core.FluentChat.Attributes;
 using VintageMods.Core.FluentChat.Primitives;
+using VintageMods.Mods.WaypointExtensions.Extensions;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 
+// ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedParameter.Local
 // ReSharper disable UnusedMember.Local
 // ReSharper disable ClassNeverInstantiated.Global
 
 namespace VintageMods.Mods.WaypointExtensions.Commands
 {
-    [ChatCommand("wpt", "wpex:wpt_Cmd_Description", "wpex:wpt_Cmd_Syntax_Message")]
-    internal class WpTraderChatCommand : ChatCommandBase<ICoreClientAPI>
+    [FluentChatCommand("wpt")]
+    internal class WpTraderChatCommand : FluentChatCommandBase<ICoreClientAPI>
     {
+        private readonly Dictionary<string, string> _traderColours = new Dictionary<string, string>
+        {
+            { TraderType.Artisan, "Aqua" },
+            { TraderType.BuildingSupplies, "Red" },
+            { TraderType.Clothing, "Green" },
+            { TraderType.Commodities, "Gray" },
+            { TraderType.Foods, "#C8C080" },
+            { TraderType.Furniture, "Orange" },
+            { TraderType.Luxuries, "Blue" },
+            { TraderType.SurvivalGoods, "Yellow" },
+            { TraderType.TreasureHunter, "Purple" },
+        };
+
         public WpTraderChatCommand(ICoreClientAPI api) : base(api) { }
 
         public override void OnNoOption(string option, CmdArgs args)
@@ -21,7 +39,7 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
             AddTraderWaypoint(false);
         }
 
-        [ChatOption("pin", "wpex:wpt_CmdOpt_Pin_Desc")]
+        [FluentChatOption("pin")]
         private void OnPinnedOption(string option, CmdArgs args)
         {
             AddTraderWaypoint(true);
@@ -40,16 +58,16 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
 
             if (!found)
             {
-                Api.ShowChatMessage(Lang.Get("wpex:wpt_Error_Trader_Not_Found"));
+                Api.ShowChatMessage(LangEx.Error("TraderNotFound"));
             }
             else
             {
-                var pos = trader.Pos.AsBlockPos.RelativeToSpawn(Api);
+                var pos = trader.Pos.AsBlockPos.RelativeToSpawn(Api.World);
                 var displayName = trader.GetBehavior<EntityBehaviorNameTag>().DisplayName;
 
                 if (Api.WaypointExistsWithinRadius(trader.Pos.AsBlockPos, 10, "trader", displayName))
                 {
-                    Api.ShowChatMessage(Lang.Get("wpex:wpt_Error_Waypoint_Already_Exists"));
+                    Api.ShowChatMessage(LangEx.Error("WaypointAlreadyExists"));
                     return;
                 }
 
@@ -59,46 +77,10 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
             }
         }
 
-        private static string TraderIconColour(string path)
+        private string TraderIconColour(string path)
         {
-            if (path.EndsWith("artisan"))
-            {
-                return "Aqua";
-            }
-            if (path.EndsWith("buildmaterials"))
-            {
-                return "Red";
-            }
-            if (path.EndsWith("clothing"))
-            {
-                return "Green";
-            }
-            if (path.EndsWith("commodities"))
-            {
-                return "Gray";
-            }
-            if (path.EndsWith("foods"))
-            {
-                return "#C8C080";
-            }
-            if (path.EndsWith("furniture"))
-            {
-                return "Orange";
-            }
-            if (path.EndsWith("luxuries"))
-            {
-                return "Blue";
-            }
-            if (path.EndsWith("survivalgoods"))
-            {
-                return "Yellow";
-            }
-            if (path.EndsWith("treasurehunter"))
-            {
-                return "Purple";
-            }
-
-            return "White";
+            return _traderColours.SingleOrDefault(p => 
+                path.ToLowerInvariant().EndsWith(p.Key)).Value ?? "White";
         }
 
     }

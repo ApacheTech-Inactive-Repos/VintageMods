@@ -6,12 +6,6 @@ using VintageMods.Core.MemoryAdaptor.Native.Types;
 
 namespace VintageMods.Core.MemoryAdaptor.Windows.Mouse
 {
-    public enum HookEventType
-    {
-        Keyboard,
-        Mouse
-    }
-
     public sealed class MouseHook : IApplied
     {
         private readonly LowLevelProc _callback;

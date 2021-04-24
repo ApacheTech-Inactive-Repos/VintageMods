@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using VintageMods.Core.MemoryAdaptor.Utilities;
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace VintageMods.Core.MemoryAdaptor.Windows
 {
@@ -58,11 +59,8 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         /// </remarks>
         public IWindow MainWindow
         {
-            get
-            {
-                return _mainWindow ?? new RemoteWindow(_process, MainWindowHandle);
-            }
-            set { _mainWindow = value; }
+            get => _mainWindow ?? new RemoteWindow(_process, MainWindowHandle);
+            set => _mainWindow = value;
         }
 
         /// <summary>

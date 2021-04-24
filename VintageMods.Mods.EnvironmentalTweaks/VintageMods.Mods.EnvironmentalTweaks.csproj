@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,6 +31,18 @@
       <HintPath>D:\Games\Vintage Story\Lib\0Harmony.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="cairo-sharp">
+      <HintPath>D:\Games\Vintage Story\Lib\cairo-sharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:\Games\Vintage Story\Lib\Newtonsoft.Json.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="protobuf-net">
+      <HintPath>D:\Games\Vintage Story\Lib\protobuf-net.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="VintagestoryAPI">
       <HintPath>D:\Games\Vintage Story\VintagestoryAPI.dll</HintPath>
       <Private>false</Private>
@@ -38,8 +51,16 @@
       <HintPath>D:\Games\Vintage Story\VintagestoryLib.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="VSCreativeMod">
+      <HintPath>D:\Games\Vintage Story\Mods\VSCreativeMod.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="VSEssentials">
       <HintPath>D:\Games\Vintage Story\Mods\VSEssentials.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="VSSurvivalMod">
+      <HintPath>D:\Games\Vintage Story\Mods\VSSurvivalMod.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

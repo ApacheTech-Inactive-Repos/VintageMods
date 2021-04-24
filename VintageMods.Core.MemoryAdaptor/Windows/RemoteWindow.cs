@@ -6,16 +6,22 @@ using VintageMods.Core.MemoryAdaptor.Threads;
 using VintageMods.Core.MemoryAdaptor.Utilities;
 using VintageMods.Core.MemoryAdaptor.Windows.Keyboard;
 using VintageMods.Core.MemoryAdaptor.Windows.Mouse;
+
 // ReSharper disable InvalidXmlDocComment
+// ReSharper disable UnusedMember.Local
+// ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable CommentTypo
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedType.Global
 
 namespace VintageMods.Core.MemoryAdaptor.Windows
 {
     /// <summary>
     ///     Class repesenting a window in the remote process.
     /// </summary>
-    public class RemoteWindow : IEquatable<RemoteWindow>, IWindow
+    public sealed class RemoteWindow : IEquatable<RemoteWindow>, IWindow
     {
-        protected readonly IProcess ProcessPlus;
+        private readonly IProcess _processPlus;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="RemoteWindow" /> class.
@@ -25,7 +31,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         public RemoteWindow(IProcess processPlus, IntPtr handle)
         {
             // Save the parameters
-            ProcessPlus = processPlus;
+            _processPlus = processPlus;
             Handle = handle;
             // Create the tools
             Keyboard = new MessageKeyboard(this);
@@ -35,7 +41,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         /// <summary>
         ///     Gets all the child window handles of this window.
         /// </summary>
-        protected IEnumerable<IntPtr> ChildrenHandles => WindowHelper.EnumChildWindows(Handle);
+        private IEnumerable<IntPtr> ChildrenHandles => WindowHelper.EnumChildWindows(Handle);
 
         /// <summary>
         ///     Returns a value indicating whether this instance is equal to a specified object.
@@ -44,7 +50,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return Equals(ProcessPlus, other.ProcessPlus) && Handle.Equals(other.Handle);
+            return Equals(_processPlus, other._processPlus) && Handle.Equals(other.Handle);
         }
 
         /// <summary>
@@ -52,7 +58,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         /// </summary>
         public IEnumerable<IWindow> Children
         {
-            get { return ChildrenHandles.Select(handle => new RemoteWindow(ProcessPlus, handle)); }
+            get { return ChildrenHandles.Select(handle => new RemoteWindow(_processPlus, handle)); }
         }
 
         /// <summary>
@@ -76,7 +82,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         /// </summary>
         public int Height
         {
-            get { return Placement.NormalPosition.Height; }
+            get => Placement.NormalPosition.Height;
             set
             {
                 var p = Placement;
@@ -93,7 +99,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         /// <summary>
         ///     Gets if this is the main window.
         /// </summary>
-        public bool IsMainWindow => ProcessPlus.Native.MainWindowHandle == Handle;
+        public bool IsMainWindow => _processPlus.Native.MainWindowHandle == Handle;
 
         /// <summary>
         ///     Tools for managing a virtual keyboard in the window.
@@ -110,8 +116,8 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         /// </summary>
         public WindowPlacement Placement
         {
-            get { return WindowHelper.GetWindowPlacement(Handle); }
-            set { WindowHelper.SetWindowPlacement(Handle, value); }
+            get => WindowHelper.GetWindowPlacement(Handle);
+            set => WindowHelper.SetWindowPlacement(Handle, value);
         }
 
         /// <summary>
@@ -119,8 +125,8 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         /// </summary>
         public WindowStates State
         {
-            get { return Placement.ShowCmd; }
-            set { WindowHelper.ShowWindow(Handle, value); }
+            get => Placement.ShowCmd;
+            set => WindowHelper.ShowWindow(Handle, value);
         }
 
         /// <summary>
@@ -128,21 +134,21 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         /// </summary>
         public string Title
         {
-            get { return WindowHelper.GetWindowText(Handle); }
-            set { WindowHelper.SetWindowText(Handle, value); }
+            get => WindowHelper.GetWindowText(Handle);
+            set => WindowHelper.SetWindowText(Handle, value);
         }
 
         /// <summary>
         ///     Gets the thread of the window.
         /// </summary>
-        public IRemoteThread Thread => ProcessPlus.ThreadFactory.GetThreadById(WindowHelper.GetWindowThreadId(Handle));
+        public IRemoteThread Thread => _processPlus.ThreadFactory.GetThreadById(WindowHelper.GetWindowThreadId(Handle));
 
         /// <summary>
         ///     Gets or sets the width of the element.
         /// </summary>
         public int Width
         {
-            get { return Placement.NormalPosition.Width; }
+            get => Placement.NormalPosition.Width;
             set
             {
                 var p = Placement;
@@ -156,7 +162,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         /// </summary>
         public int X
         {
-            get { return Placement.NormalPosition.Left; }
+            get => Placement.NormalPosition.Left;
             set
             {
                 var p = Placement;
@@ -171,7 +177,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         /// </summary>
         public int Y
         {
-            get { return Placement.NormalPosition.Top; }
+            get => Placement.NormalPosition.Top;
             set
             {
                 var p = Placement;
@@ -216,7 +222,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
             WindowHelper.FlashWindowEx(Handle, flags, count, timeout);
         }
 
-        public virtual void Dispose()
+        public void Dispose()
         {
         }
 
@@ -279,7 +285,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         {
             unchecked
             {
-                var hashCode = ProcessPlus?.GetHashCode() ?? 0;
+                var hashCode = _processPlus?.GetHashCode() ?? 0;
                 hashCode = (hashCode*397) ^ Handle.GetHashCode();
                 return hashCode;
             }

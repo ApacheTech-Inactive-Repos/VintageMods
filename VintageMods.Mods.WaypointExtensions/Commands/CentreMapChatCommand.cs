@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Linq;
+using VintageMods.Core.Client.Extensions;
 using VintageMods.Core.Common.Reflection;
 using VintageMods.Core.FluentChat.Attributes;
 using VintageMods.Core.FluentChat.Primitives;
+using VintageMods.Mods.WaypointExtensions.Extensions;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
-using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
+// ReSharper disable UnusedParameter.Global
 // ReSharper disable UnusedMember.Local
 // ReSharper disable UnusedParameter.Local
 // ReSharper disable UnusedMember.Global
@@ -16,48 +18,67 @@ using Vintagestory.GameContent;
 
 namespace VintageMods.Mods.WaypointExtensions.Commands
 {
-    [ChatCommand("cm", "wpex:cm_Cmd_Description", "wpex:cm_Cmd_Syntax_Message")]
-    internal class CentreMapChatCommand : ChatCommandBase<ICoreClientAPI>
+    [FluentChatCommand("cm")]
+    internal class CentreMapChatCommand : FluentChatCommandBase<ICoreClientAPI>
     {
         public CentreMapChatCommand(ICoreClientAPI api) : base(api) { }
 
+        [FluentChatOption("self")]
         public override void OnNoOption(string option, CmdArgs args)
         {
-            OnCustomOption(option, args);
+            var player = Api.World.Player;
+
+            var displayPos = player.Entity.Pos.AsBlockPos.RelativeToSpawn(Api.World);
+            Api.ShowChatMessage(LangEx.Message("RecentreOnPlayer", player.PlayerName, displayPos.X, displayPos.Z));
+            RecentreMap(player.Entity.Pos.XYZ);
         }
 
         public override void OnCustomOption(string option, CmdArgs args)
         {
             var player = Api.World.Player;
-            switch (args.Length)
-            {
-                // Re-centre on given X, Z coordinates.
-                case 2:
-                    var x = args.PopInt().GetValueOrDefault(player.Entity.Pos.AsBlockPos.X);
-                    var z = args.PopInt().GetValueOrDefault(player.Entity.Pos.AsBlockPos.Z);
-                    var pos = new BlockPos(x, 1, z).Add(Api.World.DefaultSpawnPosition.AsBlockPos);
-                    Api.ShowChatMessage(Lang.Get("wpex:cm_ReCentre_On_Position", x, z));
-                    RecentreMap(pos.ToVec3d());
-                    break;
 
-                // Re-centre on a given player.
-                case 1:
-                    var name = args.PopWord(player.PlayerName);
-                    var match = Api.World.AllOnlinePlayers.Where(p =>
-                        string.Equals(p.PlayerName, name, StringComparison.InvariantCultureIgnoreCase)).ToList();
-                    if (match.Count == 1) player = (IClientPlayer)match.First();
-                    Api.ShowChatMessage(Lang.Get("wpex:cm_ReCentre_On_Player", player.PlayerName));
-                    RecentreMap(player.Entity.Pos.XYZ);
-                    break;
-
-                // Re-centre on self.
-                default:
-                    Api.ShowChatMessage(Lang.Get("wpex:cm_ReCentre_On_Player", player.PlayerName));
-                    RecentreMap(player.Entity.Pos.XYZ);
-                    break;
-            }
+            var displayPos = player.Entity.Pos.AsBlockPos.RelativeToSpawn(Api.World);
+            Api.ShowChatMessage(LangEx.Message("RecentreOnPlayer", player.PlayerName, displayPos.X, displayPos.Z));
+            RecentreMap(player.Entity.Pos.XYZ);
         }
-        
+
+        [FluentChatOption("plr")]
+        [FluentChatOption("player")]
+        public void RecentreMapOnPlayer(string option, CmdArgs args)
+        {
+            var player = Api.World.Player;
+            var name = args.PopWord(player.PlayerName);
+            var playerList = Api.World.AllOnlinePlayers.Where(p => 
+                p.PlayerName.ToLowerInvariant().StartsWith(name.ToLowerInvariant())).ToList();
+            if (playerList.Any()) player = (IClientPlayer)playerList.First();
+
+            var displayPos = player.Entity.Pos.AsBlockPos.RelativeToSpawn(Api.World);
+            Api.ShowChatMessage(LangEx.Message("RecentreOnPlayer", player.PlayerName, displayPos.X, displayPos.Z));
+            RecentreMap(player.Entity.Pos.XYZ);
+        }
+
+        [FluentChatOption("pos")]
+        [FluentChatOption("position")]
+        public void RecentreMapOnPosition(string option, CmdArgs args)
+        {
+            var playerPos = Api.World.Player.Entity.Pos.AsBlockPos;
+            var x = args.PopInt().GetValueOrDefault(playerPos.X);
+            var z = args.PopInt().GetValueOrDefault(playerPos.Z);
+
+            var pos = new BlockPos(x, 1, z).Add(Api.World.DefaultSpawnPosition.AsBlockPos);
+            Api.ShowChatMessage(LangEx.Message("RecentreOnPosition", x, z));
+            RecentreMap(pos.ToVec3d());
+        }
+
+        [FluentChatOption("spawn")]
+        public void RecentreMapOnWorldSpawn(string option, CmdArgs args)
+        {
+            var pos = Api.World.DefaultSpawnPosition.AsBlockPos;
+            var displayPos = pos.RelativeToSpawn(Api.World);
+            Api.ShowChatMessage(LangEx.Message("RecentreOnPosition", displayPos.X, displayPos.Z));
+            RecentreMap(pos.ToVec3d());
+        }
+
         /// <summary>
         ///     Re-centres the map on a specific position.
         /// </summary>
@@ -67,25 +88,24 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
             try
             {
                 var map = Api.ModLoader.GetModSystem<WorldMapManager>().worldMapDlg;
-                var guiComposer = map.GetField<GuiComposer>("fullDialog");
-                var guiElementMap = (GuiElementMap)guiComposer.GetElement("mapElem");
-
-                guiElementMap.CurrentBlockViewBounds.X1 =
-                    pos.X - guiElementMap.Bounds.InnerWidth / 2.0 / guiElementMap.ZoomLevel;
-                guiElementMap.CurrentBlockViewBounds.Z1 =
-                    pos.Z - guiElementMap.Bounds.InnerHeight / 2.0 / guiElementMap.ZoomLevel;
-                guiElementMap.CurrentBlockViewBounds.X2 =
-                    pos.X + guiElementMap.Bounds.InnerWidth / 2.0 / guiElementMap.ZoomLevel;
-                guiElementMap.CurrentBlockViewBounds.Z2 =
-                    pos.Z + guiElementMap.Bounds.InnerHeight / 2.0 / guiElementMap.ZoomLevel;
-
-                guiElementMap.EnsureMapFullyLoaded();
+                UpdateMapGui(map.GetField<GuiComposer>("fullDialog"), pos);
+                UpdateMapGui(map.GetField<GuiComposer>("hudDialog"), pos);
             }
             catch (Exception ex)
             {
                 Api.Logger.Error(ex.Message);
                 Api.Logger.Error(ex.StackTrace);
             }
+        }
+
+        private static void UpdateMapGui(GuiComposer composer, Vec3d pos)
+        {
+            var map = (GuiElementMap)composer.GetElement("mapElem");
+            map.CurrentBlockViewBounds.X1 = pos.X - map.Bounds.InnerWidth / 2.0 / map.ZoomLevel;
+            map.CurrentBlockViewBounds.Z1 = pos.Z - map.Bounds.InnerHeight / 2.0 / map.ZoomLevel;
+            map.CurrentBlockViewBounds.X2 = pos.X + map.Bounds.InnerWidth / 2.0 / map.ZoomLevel;
+            map.CurrentBlockViewBounds.Z2 = pos.Z + map.Bounds.InnerHeight / 2.0 / map.ZoomLevel;
+            map.EnsureMapFullyLoaded();
         }
     }
 }

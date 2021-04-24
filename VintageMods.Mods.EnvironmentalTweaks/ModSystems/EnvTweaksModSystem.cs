@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using HarmonyLib;
 using VintageMods.Core.Client.ModSystems;
+using VintageMods.Core.Common.Attributes;
 using VintageMods.Core.FileIO.Enum;
 using VintageMods.Core.FileIO.Extensions;
 using VintageMods.Mods.EnvironmentalTweaks.Config;
@@ -9,6 +10,8 @@ using Vintagestory.API.Client;
 
 // ReSharper disable UnusedType.Global
 
+[assembly: ModDomain(Domain = "envtweaks", RootFolder = "EnvTweaks")]
+
 namespace VintageMods.Mods.EnvironmentalTweaks.ModSystems
 {
     internal class EnvTweaksModSystem : ClientSideModSystem
@@ -16,15 +19,14 @@ namespace VintageMods.Mods.EnvironmentalTweaks.ModSystems
         private const string PatchCode = "VintageMods.Mods.EnvironmentalTweaks";
         private readonly Harmony _harmonyInstance = new Harmony(PatchCode);
 
-
         public override void StartClientSide(ICoreClientAPI api)
         {
-            var settingsFile = api.RegisterFileManager("EnvTweaks").RegisterConfigFile("EnvTweaks.config.json", FileScope.Global);
+            var settingsFile = api.RegisterFileManager().RegisterConfigFile("EnvTweaks.config.json", FileScope.Global);
             EnvTweaksPatches.Api = api;
             EnvTweaksPatches.Settings = settingsFile.ParseJsonAsObject<ModSettings>();
 
             _harmonyInstance.PatchAll();
-            var builder = new StringBuilder("Harmony Patched Methods: ");
+            var builder = new StringBuilder("EnvTweaks - Patched Methods: ");
             foreach (var val in _harmonyInstance.GetPatchedMethods())
             {
                 builder.Append(val.Name + ", ");

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
+using VintageMods.Core.Common.Attributes;
 using VintageMods.Core.FileIO.Enum;
 using Vintagestory.API.Common;
 
@@ -10,9 +13,12 @@ namespace VintageMods.Core.FileIO.Extensions
     {
         private static FileManager _fileManagerInstance;
 
-        public static FileManager RegisterFileManager(this ICoreAPI api, string rootFolder, 
+        public static FileManager RegisterFileManager(this ICoreAPI api, 
             params (string FileName, FileType FileType, FileScope FileScope)[] files)
         {
+            var rootFolder = Assembly.GetCallingAssembly().GetCustomAttributes()
+                .OfType<ModDomainAttribute>().FirstOrDefault()?.RootFolder ?? "VintageMods";
+
             _fileManagerInstance = new FileManager(api, rootFolder);
             foreach (var (fileName, fileType, fileScope) in files)
             {

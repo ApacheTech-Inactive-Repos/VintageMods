@@ -5,8 +5,12 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using VintageMods.Core.MemoryAdaptor.Applied;
 using VintageMods.Core.MemoryAdaptor.Native.Types;
+
 // ReSharper disable UnusedMember.Local
 // ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable CommentTypo
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedType.Global
 
 namespace VintageMods.Core.MemoryAdaptor.Windows.Keyboard
 {
@@ -20,8 +24,8 @@ namespace VintageMods.Core.MemoryAdaptor.Windows.Keyboard
 
         private HookProc _hookproc;
         private bool _ispaused;
-        public KeyDownEventDelegate KeyDownEvent = delegate { };
-        public KeyUpEventDelegate KeyUpEvent = delegate { };
+        public readonly KeyDownEventDelegate KeyDownEvent = delegate { };
+        public readonly KeyUpEventDelegate KeyUpEvent = delegate { };
 
         public KeyboardHook(string name)
         {
@@ -33,7 +37,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows.Keyboard
         /// </summary>
         public bool IsPaused
         {
-            get { return _ispaused; }
+            get => _ispaused;
             set
             {
                 if (value != _ispaused && value)

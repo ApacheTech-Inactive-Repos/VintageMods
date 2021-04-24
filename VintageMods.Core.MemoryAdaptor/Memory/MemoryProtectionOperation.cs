@@ -1,16 +1,11 @@
 using System;
 using System.Runtime.InteropServices;
+using VintageMods.Core.MemoryAdaptor.Memory;
 
 // ReSharper disable All
 
 namespace GTAV.Core.MemoryAccess.Memory
 {
-    public enum MemoryProtectionType
-    {
-        Local,
-        External
-    }
-
     public class MemoryProtectionOperation : IDisposable
     {
         private readonly IntPtr _hProcess;

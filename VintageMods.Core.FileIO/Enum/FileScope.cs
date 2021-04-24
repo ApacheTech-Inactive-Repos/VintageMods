@@ -1,4 +1,4 @@
-﻿using VintageMods.Core.FileIO.Primitives;
+﻿using VintageMods.Core.Common.Primitives;
 
 namespace VintageMods.Core.FileIO.Enum
 {

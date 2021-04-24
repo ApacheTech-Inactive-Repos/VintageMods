@@ -7,6 +7,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 using Vintagestory.Client.NoObf;
 
+// ReSharper disable StringLiteralTypo
 // ReSharper disable UnusedType.Global
 
 namespace VintageMods.Mods.MinimalMapping.ModSystems

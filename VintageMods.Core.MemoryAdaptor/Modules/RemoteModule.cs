@@ -6,11 +6,12 @@ using VintageMods.Core.MemoryAdaptor.Extensions;
 using VintageMods.Core.MemoryAdaptor.Memory;
 using VintageMods.Core.MemoryAdaptor.Native.Types;
 using VintageMods.Core.MemoryAdaptor.Utilities;
+// ReSharper disable UnusedMember.Global
 
 namespace VintageMods.Core.MemoryAdaptor.Modules
 {
     /// <summary>
-    ///     Class repesenting a module in the remote process.
+    ///     Class representing a module in the remote process.
     /// </summary>
     public class RemoteModule : MemoryRegion, IProcessModule
     {
@@ -76,8 +77,8 @@ namespace VintageMods.Core.MemoryAdaptor.Modules
         /// <returns>A new instance of a <see cref="RemoteFunction" /> class.</returns>
         public IProcessFunction this[string functionName]
         {
-            get { return FindFunction(functionName); }
-            set { CachedFunctions[Tuple.Create(functionName, Process.Handle)] = value; }
+            get => FindFunction(functionName);
+            set => CachedFunctions[Tuple.Create(functionName, Process.Handle)] = value;
         }
 
         /// <summary>

@@ -1,40 +1,36 @@
 {
-  "mod_Title": "Waypoint Extensions, by Apache Gaming",
+  "Meta.ModTitle": "Waypoint Extensions, by Apache Gaming",
+  "Meta.ModDescription": "Quickly, and easily add waypoints at your current location, as well as other useful features.",
 
-  //
-  // .wpt Command.
-  //
+  "Errors.InvalidArgument": "Waypoint Extensions: Invalid Argument.",
+  "Errors.TraderNotFound": "No traders have been found within range of the player.",
+  "Errors.WaypointAlreadyExists": "A waypoint for this trader already exists.",
 
-  "wpt_Cmd_Description": "Adds a waypoint for a trader at your current location.",
-  "wpt_Cmd_Syntax_Message": "[pin]",
+  "Messages.SpecifyIcon": "Please specify an icon.",
+  "Messages.ConfirmationRequest": "Please type `.wputil purge-icon {0} confirm` to confirm your choice.",
+  "Messages.PurgingWaypoints": "Purging waypoints with the `{0}` icon.",
 
-  "wpt_CmdOpt_Pin_Desc": "Pins the waypoint to the map, on creation.",
+  "Messages.RecentreOnPosition": "Re-centring world map at X = {0}, Z = {1}.",
+  "Messages.RecentreOnPlayer": "Re-centring world map on {0} (X = {1}, Z = {2}).",
 
-  "wpt_Error_Trader_Not_Found": "No traders have been found within range of the player.",
-  "wpt_Error_Waypoint_Already_Exists": "A waypoint for this trader already exists.",
+  "Messages.BroadcastGPS": "{0} is currently at `{1}, {2}, {3}`.",
+  "Messages.LocationCopiedToClipboard": "Player location copied to clipboard.",
 
-  //
-  // .wp Command.
-  //
+  "Phrases.Confirm": "confirm",
 
-  "wp_Cmd_Description": "Quickly, and easily add waypoints at your current location.",
-  "wp_Cmd_Syntax_Message": "[pin (Optional)] [type] [title (Optional)]",
-  "wp_Cmd_Syntax_Message_Full": "[pin (Optional)] [{0}] [title (Optional)]",
-  "wp_Cmd_Error_Invalid_Argument": "Waypoint Extensions: Invalid Argument.",
+  "ChatCommands.wp.Description": "Quickly, and easily add waypoints at your current location.",
+  "ChatCommands.wp.SyntaxMessage": "[pin (Optional)] [type] [title (Optional)]",
+  "ChatCommands.wp.SyntaxMessage_Full": "[pin (Optional)] [{0}] [title (Optional)]",
 
-  //
-  // .cm Command.
-  //
+  "ChatCommands.wpt.Description": "Adds a waypoint for a trader at your current location.",
+  "ChatCommands.wpt.SyntaxMessage": "[pin]",
 
-  "cm_Cmd_Description": "Re-centres the map on the given location or player.",
-  "cm_Cmd_Syntax_Message": "[playerName|coords(x y)]",
-  "cm_ReCentre_On_Position": "Re-centring world map at X = {0} Z = {1}",
-  "cm_ReCentre_On_Player": "Re-centring world map on {0}",
+  "ChatCommands.cm.Description": "Re-centres the map on the given location or player.",
+  "ChatCommands.cm.SyntaxMessage": "[plr|player|pos|position|spawn]",
 
-  //
-  // .wputil Command.
-  //
+  "ChatCommands.wputil.Description": "Waypoint utilities.",
+  "ChatCommands.wputil.SyntaxMessage": "[purge-icon]",
 
-  "WpUtil_Cmd_Description": "Waypoint utilities.",
-  "WpUtil_Cmd_Syntax_Message": "[purge]"
+  "ChatCommands.gps.Description": "Broadcasts your current coordinates as an in-game chat message.",
+  "ChatCommands.gps.SyntaxMessage": ""
 }

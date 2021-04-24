@@ -6,8 +6,6 @@ using ProtoBuf;
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
-
-
 namespace VintageMods.Mods.WaypointExtensions.Model
 {
     /// <summary>

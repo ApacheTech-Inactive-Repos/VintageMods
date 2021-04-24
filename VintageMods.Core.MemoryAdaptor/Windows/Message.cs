@@ -1,11 +1,14 @@
 ﻿using System;
+#if DEBUG
+using System.Diagnostics;
+#endif
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
 using System.Text;
 using VintageMods.Core.MemoryAdaptor.Native.Types;
-// ReSharper disable NonReadonlyMemberInGetHashCode
 
+// ReSharper disable NonReadonlyMemberInGetHashCode
 // ReSharper disable InconsistentNaming
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable ArrangeTypeMemberModifiers

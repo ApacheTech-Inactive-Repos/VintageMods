@@ -129,10 +129,10 @@ namespace VintageMods.Core.Client.Extensions
         ///     Gets the position relative to spawn, given an absolute position within the game world.
         /// </summary>
         /// <param name="pos">The absolute position of the block being queried.</param>
-        /// <param name="api">The API to use for game world information.</param>
-        public static BlockPos RelativeToSpawn(this BlockPos pos, ICoreClientAPI api)
+        /// <param name="world">The API to use for game world information.</param>
+        public static BlockPos RelativeToSpawn(this BlockPos pos, IWorldAccessor world)
         {
-            var blockPos = pos.SubCopy(api.World.DefaultSpawnPosition.XYZ.AsBlockPos);
+            var blockPos = pos.SubCopy(world.DefaultSpawnPosition.XYZ.AsBlockPos);
             return new BlockPos(blockPos.X, pos.Y, blockPos.Z);
         }
 
@@ -147,7 +147,7 @@ namespace VintageMods.Core.Client.Extensions
         public static void AddWaypointAtCurrentPos(
             this ICoreClientAPI api, string icon, string colour, string title, bool pinned)
         {
-            api.AddWaypointAtPos(api.World?.Player?.Entity?.Pos.AsBlockPos.RelativeToSpawn(api), icon, colour, title, pinned);
+            api.AddWaypointAtPos(api.World?.Player?.Entity?.Pos.AsBlockPos.RelativeToSpawn(api.World), icon, colour, title, pinned);
         }
 
         /// <summary>

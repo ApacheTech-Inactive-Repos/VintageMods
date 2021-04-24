@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\VintageMods.Core.Common\VintageMods.Core.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>D:\Games\Vintage Story\Lib\Newtonsoft.Json.dll</HintPath>
       <Private>false</Private>

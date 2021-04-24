@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Version>1.4.0</Version>
+    <Authors>Apache</Authors>
+    <Company>ApacheTech Solutions</Company>
+    <Product>Waypoint Extensions</Product>
+    <Description>A client-side "Code" Mod for the game, Vintage Story, by Anego Studios. Allows the player to quickly add waypoint markers at their current location.</Description>
+    <Copyright>Copyright © 2016-2020 ApacheTech Solutions. All Rights Reserved.</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,19 +35,40 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="VintageMods.Mods.WaypointExtensions.saproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RedGate.SmartAssembly.Attributes" Version="8.0.2.4779" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\VintageMods.Core.Client\VintageMods.Core.Client.csproj" />
     <ProjectReference Include="..\VintageMods.Core.Common\VintageMods.Core.Common.csproj" />
+    <ProjectReference Include="..\VintageMods.Core.Contracts\VintageMods.Core.Contracts.csproj" />
     <ProjectReference Include="..\VintageMods.Core.FileIO\VintageMods.Core.FileIO.csproj" />
     <ProjectReference Include="..\VintageMods.Core.FluentChat\VintageMods.Core.FluentChat.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>D:\Games\Vintage Story\Lib\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="cairo-sharp">
       <HintPath>D:\Games\Vintage Story\Lib\cairo-sharp.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:\Games\Vintage Story\Lib\Newtonsoft.Json.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="protobuf-net">
       <HintPath>D:\Games\Vintage Story\Lib\protobuf-net.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite">
+      <HintPath>D:\Games\Vintage Story\Lib\System.Data.SQLite.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="VintagestoryAPI">
@@ -51,8 +79,16 @@
       <HintPath>D:\Games\Vintage Story\VintagestoryLib.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="VSCreativeMod">
+      <HintPath>D:\Games\Vintage Story\Mods\VSCreativeMod.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="VSEssentials">
       <HintPath>D:\Games\Vintage Story\Mods\VSEssentials.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="VSSurvivalMod">
+      <HintPath>D:\Games\Vintage Story\Mods\VSSurvivalMod.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
@@ -61,8 +97,23 @@
     <EditorConfigFiles Update="C:\Users\Apache\source\repos\VintageMods\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
+  <Target Name="AfterBuild" Condition=" '$(ConfigurationName)' == 'Release' " BeforeTargets="PostBuildEvent">
+    <CreateItem Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)'=='.dll'">
+      <Output ItemName="AssembliesToMerge" TaskParameter="Include" />
+    </CreateItem>
+    <Exec Command="&quot;$(ILMergeConsolePath)&quot; /internalize:&quot;$(MSBuildProjectPath)ilmerge.exclude&quot; /ndebug  /out:@(MainAssembly)  &quot;@(IntermediateAssembly)&quot; @(AssembliesToMerge->'&quot;%(FullPath)&quot;', ' ')" />
+    <Delete Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
+  </Target>
+
+
+  <Target Name="ILMerge">
+    <!-- the ILMergePath property points to the location of ILMerge.exe console application -->
+    <Exec Command="$(ILMergeConsolePath) /out:Merged.dll (TargetDir)VintageMods.Core.Client.dll" />
+  </Target>
+
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    del &quot;$(TargetDir)*.pdb&quot;&#xD;&#xA;    del &quot;$(TargetDir)*.deps.json&quot;&#xD;&#xA;)" />
+    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    &quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; /build &quot;$(ProjectDir)$(TargetName).saproj&quot;&#xD;&#xA;    del &quot;$(TargetDir)Merged\*.json&quot;&#xD;&#xA;    del &quot;$(TargetDir)Merged\*.pdb&quot;&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)Merged\Assets\&quot; /s /e /y &#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)Merged&quot;&#xD;&#xA;)" />
   </Target>
 
 </Project>
