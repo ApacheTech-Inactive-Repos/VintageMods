@@ -1,4 +1,3 @@
-
 ## VintageMods Core Framework
 
 ### - VintageMods.Core.Common

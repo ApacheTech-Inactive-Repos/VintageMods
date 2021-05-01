@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
-  <Costura IncludeDebugSymbols='false' CreateTemporaryAssemblies='true'>
+  <Costura IncludeDebugSymbols='false' CreateTemporaryAssemblies='true' UseRuntimeReferencePaths='true' DisableCleanup='true'>
 
-    <!-- Explicitly exclude core game libraries that would otherwise be duplicated, with possible version mismatch exceptions. 
+    <!-- Explicitly exclude core game libraries that would otherwise be duplicated, with possible version mismatch exceptions. -->
     <ExcludeAssemblies>
       0Harmony
       cairo-sharp
@@ -14,13 +14,22 @@
       VSCreativeMod
       VSEssentials
       VSSurvivalMod
-    </ExcludeAssemblies>-->
+    </ExcludeAssemblies>
 
     <!-- For fine-grained optimisation, C++ libraries may be used. -->
     <Unmanaged32Assemblies></Unmanaged32Assemblies>
     <Unmanaged64Assemblies></Unmanaged64Assemblies>
 
-    <!-- Determines the dependency order between managed, and unmanaged resources. -->
+    <!-- Native Libraries and PreloadOrder
+
+          Native libraries can be loaded by Costura automatically. To include a native library include 
+          it in your project as an Embedded Resource in a folder called costura32 or costura64 
+          depending on the bittyness of the library.
+
+          Optionally you can also specify the order that preloaded libraries are loaded. When using 
+          temporary assemblies from disk mixed mode assemblies are also preloaded.
+
+          To specify the order of preloaded assemblies add a PreloadOrder element to the config.-->
     <PreloadOrder>
     </PreloadOrder>
 

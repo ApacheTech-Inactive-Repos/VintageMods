@@ -1,6 +1,6 @@
 ﻿{
   "type": "Code",
-  "name": "Waypoint Extensions",
+  "name": "VintageMods - Waypoint Extensions",
   "side": "Client",
   "modid": "wpex",
   "description": "Quickly, and easily add waypoint markers at your current position.",

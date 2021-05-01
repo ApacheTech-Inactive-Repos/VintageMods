@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
+using VintageMods.Core.FileIO.Extensions;
+// ReSharper disable UnusedMember.Global
 
 namespace VintageMods.Core.FileIO
 {
@@ -15,10 +18,10 @@ namespace VintageMods.Core.FileIO
         /// <summary>
         ///     Initialises a new instance of the <see cref="ModFileInfo" /> class.
         /// </summary>
-        /// <param name="fileInfo">The file on disk to use for IO operations.</param>
-        public ModFileInfo(FileInfo fileInfo)
+        /// <param name="filePath">The path to the file on disk to use for IO operations.</param>
+        public ModFileInfo(string filePath)
         {
-            _fileOnDisk = fileInfo;
+            _fileOnDisk = new FileInfo(filePath);
         }
 
         /// <summary>
@@ -48,22 +51,52 @@ namespace VintageMods.Core.FileIO
         }
 
         /// <summary>
+        ///     Deserialises the specified file as a strongly-typed object.
+        /// </summary>
+        /// <typeparam name="TModel">The type of object to deserialise into.</typeparam>
+        public TModel ParseAsProtoObject<TModel>() where TModel : class, new()
+        {
+            var bytes = (_fileOnDisk.Exists) ? File.ReadAllBytes(_fileOnDisk.FullName) : new byte[]{ };
+            return ProtoEx.Deserialise<TModel>(bytes);
+        }
+
+        /// <summary>
+        ///     Deserialises the specified file as a strongly-typed list.
+        /// </summary>
+        /// <typeparam name="TModel">The type of list to deserialise into.</typeparam>
+        public List<TModel> ParseAsProtoList<TModel>() where TModel : class, new()
+        {
+            var bytes = (_fileOnDisk.Exists) ? File.ReadAllBytes(_fileOnDisk.FullName) : new byte[] { };
+            return ProtoEx.Deserialise<List<TModel>>(bytes);
+        }
+
+        /// <summary>
         ///     Copies the contents of an embedded resource to disk.
         ///     The embedded resource is read from the same assembly as the underlying object model type,
         ///     and using the same filename as used to instantiate this class.
         /// </summary>
         public void DisembedFrom(Assembly assembly)
         {
-            if (ResourceManager.ResourceExists(assembly, _fileOnDisk.Name))
-                SaveToDisk(ResourceManager.ReadResourceRaw(assembly, _fileOnDisk.Name));
+            if (!ResourceManager.ResourceExists(assembly, _fileOnDisk.Name)) return;
+            using var stream = ResourceManager.GetResourceStream(assembly, _fileOnDisk.Name);
+            using var file = File.OpenWrite(_fileOnDisk.FullName);
+            stream.CopyTo(file);
         }
 
         /// <summary>
         ///     Serialises the specified instance, and saves the resulting JSON to file.
         /// </summary>
-        public void Save<TModel>(TModel instance) where TModel : class, new()
+        public void SaveAsJson<TModel>(TModel instance) where TModel : class, new()
         {
-            SaveToDisk(JsonConvert.SerializeObject(instance, Formatting.Indented));
+            SaveJsonToDisk(JsonConvert.SerializeObject(instance, Formatting.Indented));
+        }
+
+        /// <summary>
+        ///     Serialises the specified instance, and saves the resulting ProtoContract to file.
+        /// </summary>
+        public void SaveAsProtoContract<TModel>(TModel instance) where TModel : class, new()
+        {
+            SaveBinaryToDisk(ProtoEx.Serialise(instance));
         }
 
         /// <summary>
@@ -72,10 +105,22 @@ namespace VintageMods.Core.FileIO
         /// <returns>true if the file exists; false if the file does not exist or if the file is a directory.</returns>
         public bool Exists => _fileOnDisk.Exists;
 
-        private void SaveToDisk(string contents)
+        /// <summary>
+        ///     Gets the full path of the file.
+        /// </summary>
+        /// <returns>A string containing the full path.</returns>
+        public string Path => _fileOnDisk.FullName;
+
+        private void SaveJsonToDisk(string contents)
         {
             Directory.CreateDirectory(_fileOnDisk.DirectoryName ?? string.Empty);
             File.WriteAllText(_fileOnDisk.FullName, contents);
+        }
+
+        private void SaveBinaryToDisk(IEnumerable<byte> contents)
+        {
+            Directory.CreateDirectory(_fileOnDisk.DirectoryName ?? string.Empty);
+            File.WriteAllBytes(_fileOnDisk.FullName, contents.ToArray());
         }
     }
 }

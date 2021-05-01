@@ -11,11 +11,17 @@
     <Copyright>Copyright © 2016-2020 ApacheTech Solutions. All Rights Reserved.</Copyright>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Assets\Wpex\Lang\en.json" />
     <None Remove="Assets\_EmbeddedResources\Global\wpex-default-waypoints.data" />
     <None Remove="Assets\_EmbeddedResources\Global\wpex-global-config.data" />
     <None Remove="Assets\_EmbeddedResources\World\wpex-custom-waypoints.data" />
+    <None Remove="Assets\_EmbeddedResources\World\wpex-settings.data" />
     <None Remove="modinfo.json" />
   </ItemGroup>
 
@@ -31,18 +37,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets\_EmbeddedResources\Global\wpex-default-waypoints.data" />
     <EmbeddedResource Include="Assets\_EmbeddedResources\Global\wpex-global-config.data" />
+    <EmbeddedResource Include="Assets\_EmbeddedResources\World\wpex-settings.data" />
     <EmbeddedResource Include="Assets\_EmbeddedResources\World\wpex-custom-waypoints.data" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="VintageMods.Mods.WaypointExtensions.saproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="RedGate.SmartAssembly.MSBuild" Version="8.0.2.4779">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -60,10 +60,6 @@
     </Reference>
     <Reference Include="cairo-sharp">
       <HintPath>D:\Games\Vintage Story\Lib\cairo-sharp.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>D:\Games\Vintage Story\Lib\Newtonsoft.Json.dll</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="protobuf-net">
@@ -100,15 +96,8 @@
     <EditorConfigFiles Update="C:\Users\Apache\source\repos\VintageMods\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
-  <!-- Build Tasks -->
-
-  <PropertyGroup>
-    <SmartAssemblyIsEnabled>False</SmartAssemblyIsEnabled>
-  </PropertyGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <SmartAssembly ProjectFile="$(ProjectDir)$(ProjectName).saproj" />
-    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    del &quot;$(TargetDir)*.zip&quot;&#xD;&#xA;    del &quot;$(TargetDir)publish\*.json&quot;&#xD;&#xA;    del &quot;$(TargetDir)publish\*.pdb&quot;&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)publish\Assets\&quot; /s /e /y &#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)publish&quot;&#xD;&#xA;    &quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) publish&#xD;&#xA;)" />
+    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    &quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; $(ProjectDir)$(ProjectName).saproj&#xD;&#xA;    del &quot;$(TargetDir)*.zip&quot;&#xD;&#xA;    del &quot;$(TargetDir)src\*.json&quot;&#xD;&#xA;    del &quot;$(TargetDir)src\*.pdb&quot;&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)src\Assets\&quot; /y /e /s   &#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;    &quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) src&#xD;&#xA;)" />
   </Target>
 
 </Project>

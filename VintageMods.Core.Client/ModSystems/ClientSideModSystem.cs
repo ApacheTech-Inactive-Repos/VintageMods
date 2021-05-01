@@ -1,7 +1,7 @@
-﻿
+﻿// ReSharper disable MemberCanBePrivate.Global
 
-// ReSharper disable MemberCanBePrivate.Global
-
+using System.Reflection;
+using HarmonyLib;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 
@@ -15,6 +15,16 @@ namespace VintageMods.Core.Client.ModSystems
     /// </summary>
     public abstract class ClientSideModSystem : ModSystem
     {
+        private readonly Assembly _patchAssembly;
+        
+        protected Harmony ModPatches { get; }
+
+        protected ClientSideModSystem()
+        {
+            _patchAssembly = Assembly.GetExecutingAssembly();
+            ModPatches = new Harmony(_patchAssembly.FullName);
+        }
+
         /// <summary>
         ///     The main client side API for the game.
         /// </summary>
@@ -24,6 +34,17 @@ namespace VintageMods.Core.Client.ModSystems
         public override void Start(ICoreAPI api)
         {
             Api = api as ICoreClientAPI;
+            ApplyHarmonyPatches();
+            api.Logger.Notification($"{_patchAssembly.GetName()} - Patched Methods:");
+            foreach (var val in ModPatches.GetPatchedMethods())
+            {
+                api.Logger.Notification("\t\t" + val.FullDescription());
+            }
+        }
+
+        protected virtual void ApplyHarmonyPatches()
+        {
+            ModPatches.PatchAll(_patchAssembly);
         }
 
         /// <summary>
@@ -62,6 +83,12 @@ namespace VintageMods.Core.Client.ModSystems
         public override double ExecuteOrder()
         {
             return 0.05;
+        }
+
+        public override void Dispose()
+        {
+            ModPatches.UnpatchAll(_patchAssembly.FullName);
+            base.Dispose();
         }
     }
 }

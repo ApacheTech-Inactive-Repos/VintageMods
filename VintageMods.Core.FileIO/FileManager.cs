@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using VintageMods.Core.FileIO.Enum;
+using VintageMods.Core.FileIO.Extensions;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
+
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace VintageMods.Core.FileIO
 {
@@ -12,8 +16,28 @@ namespace VintageMods.Core.FileIO
     /// </summary>
     public class FileManager
     {
-        private readonly ICoreAPI _api;
-        private readonly string _rootFolder;
+        private static ICoreAPI _api;
+
+        public static string VintageModsRootPath { get; }
+
+        public string ModRootPath { get; }
+
+        public string ModGlobalPath { get; }
+
+        public string ModWorldPath { get; }
+
+        static FileManager()
+        {
+            VintageModsRootPath = CreateDirectory(Path.Combine(GamePaths.DataPath, "ModData", "VintageMods"));
+        }
+
+        private static string CreateDirectory(string path)
+        {
+            var dir = new DirectoryInfo(path);
+            if (!dir.Exists) dir.Create();
+            _api?.Logger.VerboseDebug($"[VintageMods] Creating folder: {dir}");
+            return dir.FullName;
+        }
 
         public Dictionary<string, ModFileInfo> ModFiles { get; }
 
@@ -21,47 +45,27 @@ namespace VintageMods.Core.FileIO
         ///     Initialises a new instance of the <see cref="FileManager" /> class.
         /// </summary>
         /// <param name="api">The API.</param>
-        /// <param name="rootFolder">Name of the mod.</param>
-        public FileManager(ICoreAPI api, string rootFolder)
+        /// <param name="modFolderName">Name of the mod.</param>
+        public FileManager(ICoreAPI api, string modFolderName)
         {
             _api = api;
-            _rootFolder = rootFolder;
             ModFiles = new Dictionary<string, ModFileInfo>();
+            ModRootPath = CreateDirectory(Path.Combine(VintageModsRootPath, modFolderName));
+            ModGlobalPath = CreateDirectory(Path.Combine(ModRootPath, "Global"));
+            ModWorldPath = CreateDirectory(Path.Combine(ModRootPath, "World", api.World.SavegameIdentifier));
         }
 
         /// <summary>
         ///     Registers a new file with the file manager.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
-        /// <param name="fileType">Type of the file [Config | Data].</param>
         /// <param name="fileScope">The file scope [Global | World].</param>
-        internal ModFileInfo RegisterFile(string fileName, FileType fileType, FileScope fileScope)
+        public ModFileInfo RegisterFile(string fileName, FileScope fileScope)
         {
-            var seed = fileScope == FileScope.Global ? "" : _api.World.Seed.ToString();
-            var file = new FileInfo(Path.Combine(GamePaths.DataPath, fileType.ToString(), _rootFolder,
-                fileScope.ToString(), seed, fileName));
-            ModFiles.Add(fileName, new ModFileInfo(file));
-            return new ModFileInfo(file);
-        }
-
-        /// <summary>
-        ///     Registers a new config file with the file manager.
-        /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="fileScope">The file scope [Global | World].</param>
-        public ModFileInfo RegisterConfigFile(string fileName, FileScope fileScope)
-        {
-            return RegisterFile(fileName, FileType.Config, fileScope);
-        }
-
-        /// <summary>
-        ///     Registers a new data file with the file manager.
-        /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="fileScope">The file scope [Global | World].</param>
-        public ModFileInfo RegisterDataFile(string fileName, FileScope fileScope)
-        {
-            return RegisterFile(fileName, FileType.Data, fileScope);
+            var modFile = new ModFileInfo(GetScopedPath(fileScope, fileName));
+            ModFiles.Add(fileName, modFile);
+            if (!modFile.Exists) modFile.DisembedFrom(Assembly.GetCallingAssembly());
+            return modFile;
         }
 
         /// <summary>
@@ -71,39 +75,18 @@ namespace VintageMods.Core.FileIO
         {
             try
             {
-                ClearFolder(new DirectoryInfo(Path.Combine(GamePaths.DataPath, FileType.Config, _rootFolder)));
-                ClearFolder(new DirectoryInfo(Path.Combine(GamePaths.DataPath, FileType.Data, _rootFolder)));
+                new DirectoryInfo(ModRootPath).RecursivePurge();
             }
             catch (Exception e)
             {
+                _api.Logger.VerboseDebug($"[VintageMods] Error occurred. Check Error Log.");
                 _api.Logger.Error(e.StackTrace);
             }
         }
 
-        /// <summary>
-        ///     Searches for a file within the currently selected directory, and all child directories.
-        /// </summary>
-        /// <param name="dir">The root directory to perform the search from.</param>
-        /// <param name="fileName">The name of the file to search for, including file extension.</param>
-        /// <returns>Returns a FileInfo instance pertaining to the file, if it is found, otherwise returns null.</returns>
-        public static FileInfo RecursiveSearch(DirectoryInfo dir, string fileName)
+        private string GetScopedPath(FileScope scope, string fileName)
         {
-            foreach (var fi in dir.GetFiles())
-            {
-                if (fi.Name.Equals(fileName))
-                {
-                    return fi;
-                }
-            }
-            foreach (var di in dir.GetDirectories()) RecursiveSearch(di, fileName);
-            return null;
-        }
-
-        private static void ClearFolder(DirectoryInfo dir)
-        {
-            foreach (var fi in dir.GetFiles()) fi.Delete();
-            foreach (var di in dir.GetDirectories()) ClearFolder(di);
-            dir.Delete();
+            return Path.Combine(scope == FileScope.World ? ModWorldPath : ModGlobalPath, fileName);
         }
     }
 }

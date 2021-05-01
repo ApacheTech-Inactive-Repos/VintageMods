@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\ChaosMod\" />
+    <Folder Include="Assets\_EmbeddedResources\" />
+    <Folder Include="Effects\Meta\" />
+    <Folder Include="Effects\Misc\" />
+    <Folder Include="Effects\Blocks\" />
+    <Folder Include="Effects\Creatures\" />
+    <Folder Include="Effects\Time\" />
+    <Folder Include="Engine\Commands\" />
+    <Folder Include="Interop\YouTube\" />
+    <Folder Include="Interop\Discord\" />
+    <Folder Include="Interop\IFTTT\" />
+    <Folder Include="Interop\Twitch\" />
+    <Folder Include="Interop\" />
+    <Folder Include="Engine\UI\" />
+    <Folder Include="Engine\Api\" />
+    <Folder Include="Engine\Contracts\" />
+    <Folder Include="Effects\Shaders\" />
+    <Folder Include="Effects\Items\" />
+    <Folder Include="Effects\Weather\" />
+    <Folder Include="Effects\Player\" />
+    <Folder Include="Assets\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VintageMods.Core.Client\VintageMods.Core.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="VintagestoryAPI">
+      <HintPath>D:\Games\Vintage Story\VintagestoryAPI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>README.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="README.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>README.md</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

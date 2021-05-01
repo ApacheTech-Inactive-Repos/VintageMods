@@ -10,7 +10,7 @@ using Vintagestory.Client.NoObf;
 
 namespace VintageMods.Core.FluentChat.Primitives
 {
-    public abstract class FluentChatCommandBase<TApi> where TApi : ICoreAPI
+    public abstract class FluentChatCommandBase<TApi> : IDisposable where TApi : ICoreAPI
     {
         protected TApi Api { get; }
 
@@ -93,6 +93,19 @@ namespace VintageMods.Core.FluentChat.Primitives
         public virtual string HelpText()
         {
             return LangEx.FluentChat(this, "Description");
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

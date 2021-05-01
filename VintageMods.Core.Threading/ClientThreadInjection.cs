@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using HarmonyLib;
 using VintageMods.Core.Common.Reflection;
 using Vintagestory.API.Client;
 using Vintagestory.Client.NoObf;
@@ -21,8 +20,7 @@ namespace VintageMods.Core.Threading
 
         static ClientThreadInjection()
         {
-            var ts = AccessTools.GetTypesFromAssembly(typeof(ClientMain).Assembly);
-            ClientThread = ts.First(t => t.Name == "ClientThread");
+            ClientThread = typeof(ClientMain).Assembly.GetClassType("ClientThread");
         }
 
         public static List<Thread> GetClientThreads(this IClientWorldAccessor world)

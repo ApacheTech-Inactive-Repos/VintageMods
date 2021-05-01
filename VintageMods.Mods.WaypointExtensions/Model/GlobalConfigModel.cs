@@ -11,13 +11,12 @@ namespace VintageMods.Mods.WaypointExtensions.Model
     /// <remarks>
     ///     This class is intentionally left vague, to allow for scalability, as new features are implemented.
     /// </remarks>
-    [ProtoContract]
+    [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
     public sealed class GlobalConfigModel
     {
         /// <summary>
         ///     The version of the currently installed mod.
         /// </summary>
-        [ProtoMember(1)]
         public string Version { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using VintageMods.Core.Common.Attributes;
 using VintageMods.Core.FluentChat.Attributes;
@@ -6,6 +7,7 @@ using VintageMods.Core.FluentChat.Primitives;
 using Vintagestory.API.Client;
 using Vintagestory.API.Config;
 using Vintagestory.Client.NoObf;
+// ReSharper disable UnusedMember.Global
 
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -13,6 +15,9 @@ namespace VintageMods.Core.FluentChat.Exenstions
 {
     public static class FluentApiEx
     {
+        private static Dictionary<string, FluentChatCommandBase<ICoreClientAPI>> ClientCommands { get; } 
+            = new Dictionary<string, FluentChatCommandBase<ICoreClientAPI>>();
+
         /// <summary>
         ///     Registers the client chat command with the core client app.
         /// </summary>
@@ -22,6 +27,18 @@ namespace VintageMods.Core.FluentChat.Exenstions
             where TChatCommand : FluentChatCommandBase<ICoreClientAPI>
         {
             ((ICoreClientAPI)game.Api).RegisterClientChatCommand<TChatCommand>();
+        }
+
+        /// <summary>
+        ///     Retrieves a client chat command instance that has been registered with the API.
+        /// </summary>
+        /// <typeparam name="TChatCommand">The <see cref="T:System.Type"></see> of chat command to retrieve.</typeparam>
+        /// <param name="api">The client app API to register the command to.</param>
+        /// <param name="command">The name of the command to retrieve.</param>
+        public static TChatCommand GetFluentChatCommand<TChatCommand>(this ICoreClientAPI api, string command) where TChatCommand : FluentChatCommandBase<ICoreClientAPI>
+        {
+            ClientCommands.TryGetValue(command, out var cmd);
+            return cmd as TChatCommand;
         }
 
         /// <summary>
@@ -37,9 +54,10 @@ namespace VintageMods.Core.FluentChat.Exenstions
             var modDomain = cmdType.Assembly.GetCustomAttributes()
                 .OfType<ModDomainAttribute>().FirstOrDefault()?.Domain ?? "VintageMods";
 
-            var cmdAttribute = cmdType.GetCustomAttributes().OfType<FluentChatCommandAttribute>().FirstOrDefault();
+            var cmdAttribute = cmdType.GetCustomAttributes()
+                .OfType<FluentChatCommandAttribute>().FirstOrDefault();
 
-            if (cmdAttribute == null || string.IsNullOrEmpty(cmdAttribute.Name)) return;
+            if (string.IsNullOrEmpty(cmdAttribute?.Name)) return;
 
             var cmd = ActivatorEx.CreateInstance<TChatCommand>(api);
             foreach (var methodInfo in cmdType.GetRuntimeMethods())
@@ -59,6 +77,14 @@ namespace VintageMods.Core.FluentChat.Exenstions
                 Lang.Get(description),
                 Lang.Get(syntaxMessage),
                 cmd.CallHandler);
+
+            ClientCommands.Add(cmdAttribute.Name, cmd);
+        }
+
+        public static void UnregisterFluentChatCommands(this ICoreClientAPI api)
+        {
+            foreach (var cmd in ClientCommands.Values) cmd.Dispose();
+            ClientCommands.Clear();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using HarmonyLib;
 using VintageMods.Core.Client.ModSystems;
 using VintageMods.Core.Common.Attributes;
 using VintageMods.Core.FileIO.Enum;
@@ -10,70 +9,81 @@ using Vintagestory.API.Client;
 
 // ReSharper disable UnusedType.Global
 
-[assembly: ModDomain(Domain = "envtweaks", RootFolder = "EnvTweaks")]
+[assembly: ModDomain("envtweaks", "EnvTweaks")]
 
 namespace VintageMods.Mods.EnvironmentalTweaks.ModSystems
 {
     internal class EnvTweaksModSystem : ClientSideModSystem
     {
-        private const string PatchCode = "VintageMods.Mods.EnvironmentalTweaks";
-        private readonly Harmony _harmonyInstance = new Harmony(PatchCode);
-
         public override void StartClientSide(ICoreClientAPI api)
         {
-            var settingsFile = api.RegisterFileManager().RegisterConfigFile("EnvTweaks.config.json", FileScope.Global);
+            var settingsFile = api.RegisterFileManager().RegisterFile("EnvTweaks.config.json", FileScope.Global);
             EnvTweaksPatches.Api = api;
             EnvTweaksPatches.Settings = settingsFile.ParseJsonAsObject<ModSettings>();
-
-            _harmonyInstance.PatchAll();
-            var builder = new StringBuilder("EnvTweaks - Patched Methods: ");
-            foreach (var val in _harmonyInstance.GetPatchedMethods())
-            {
-                builder.Append(val.Name + ", ");
-            }
-            api.Logger.Notification(builder.ToString());
-
-
+            
             api.RegisterCommand("EnvTweaks", 
                 "Change settings for Environmental Tweaks.", 
                 "[lightning|rain|hail|snow|sounds|shake] [on|off]", 
                 (id, args) =>
             {
+
+                if (args.Length == 0)
+                {
+                    api.ShowChatMessage("Environmental Tweaks: [lightning|rain|hail|snow|sounds|shake] [on|off]");
+                    return;
+                }
+
                 var option = args.PopWord();
                 var state = args.PopWord("off").ToLowerInvariant() == "on";
                 switch (option)
                 {
+                    case "settings":
+                        var sb = new StringBuilder();
+                        sb.AppendLine("Environmental Tweaks:\n");
+                        sb.AppendLine($"Lightning Effects: {EnvTweaksPatches.Settings.AllowLightning}");
+                        sb.AppendLine($"Weather Sounds: {EnvTweaksPatches.Settings.AllowWeatherSounds}");
+                        sb.AppendLine($"Rainfall Particles: {EnvTweaksPatches.Settings.AllowRain}");
+                        sb.AppendLine($"Hail Particles: {EnvTweaksPatches.Settings.AllowHail}");
+                        sb.AppendLine($"Snow Particles: {EnvTweaksPatches.Settings.AllowSnow}");
+                        sb.AppendLine($"Camera Shake: {EnvTweaksPatches.Settings.AllowCameraShake}");
+                        api.SendChatMessage(".clearchat");
+                        api.ShowChatMessage(sb.ToString());
+                        break;
                     case "lightning":
+                        api.ShowChatMessage($"Lightning Effects: {state}");
                         EnvTweaksPatches.Settings.AllowLightning = state;
                         break;
 
                     case "sounds":
+                        api.ShowChatMessage($"Weather Sounds: {state}");
                         EnvTweaksPatches.Settings.AllowWeatherSounds = state;
                         break;
 
                     case "rain":
+                        api.ShowChatMessage($"Rainfall Particles: {state}");
                         EnvTweaksPatches.Settings.AllowRain = state;
                         break;
 
                     case "hail":
+                        api.ShowChatMessage($"Hail Particles: {state}");
                         EnvTweaksPatches.Settings.AllowHail = state;
                         break;
 
                     case "snow":
+                        api.ShowChatMessage($"Snow Particles: {state}");
                         EnvTweaksPatches.Settings.AllowSnow = state;
                         break;
 
                     case "shake":
+                        api.ShowChatMessage($"Camera Shake: {state}");
                         EnvTweaksPatches.Settings.AllowCameraShake = state;
                         break;
+                    default:
+                        api.ShowChatMessage("Environmental Tweaks: [lightning|rain|hail|snow|sounds|shake] [on|off]");
+                        break;
                 }
-                settingsFile.Save(EnvTweaksPatches.Settings);
+                settingsFile.SaveAsJson(EnvTweaksPatches.Settings);
             });
-        }
-
-        public override void Dispose()
-        {
-            _harmonyInstance.UnpatchAll(PatchCode);
         }
     }
 }

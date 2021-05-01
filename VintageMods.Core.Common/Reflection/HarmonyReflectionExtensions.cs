@@ -53,6 +53,12 @@ namespace VintageMods.Core.Common.Reflection
             AccessTools.Field(instance.GetType(), fieldname).SetValue(instance, setVal);
         }
 
+        public static Type GetClassType(this Assembly assembly, string className)
+        {
+            var ts = AccessTools.GetTypesFromAssembly(assembly);
+            return ts.First(t => t.Name == className);
+        }
+
         public static MethodInfo GetMethod(this object instance, string method)
         {
             return AccessTools.Method(instance.GetType(), method);

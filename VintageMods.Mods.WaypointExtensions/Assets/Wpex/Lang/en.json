@@ -2,9 +2,18 @@
   "Meta.ModTitle": "Waypoint Extensions, by Apache Gaming",
   "Meta.ModDescription": "Quickly, and easily add waypoints at your current location, as well as other useful features.",
 
+  "UI.SettingsWindow.Headers.Wpex": "Waypoint Extensions",
+  "UI.SettingsWindow.Labels.AutoTranslocator": "Automatic Translocator Waypoints:",
+  "UI.SettingsWindow.Tooltips.AutoTranslocator": "Automatically add translocator waypoints when teleporting through a translocator.",
+  "UI.SettingsWindow.Labels.AutoTrader": "Automatic Trader Waypoints:",
+  "UI.SettingsWindow.Tooltips.AutoTrader": "Automatically add trader waypoints when you talk to them.",
+
   "Errors.InvalidArgument": "Waypoint Extensions: Invalid Argument.",
   "Errors.TraderNotFound": "No traders have been found within range of the player.",
   "Errors.WaypointAlreadyExists": "A waypoint for this trader already exists.",
+
+  "Messages.AutoTrader": "Automatic Trader Waypoints: {0}",
+  "Messages.AutoTranslocator": "Automatic Translocator Waypoints: {0}",
 
   "Messages.SpecifyIcon": "Please specify an icon.",
   "Messages.ConfirmationRequest": "Please type `.wputil purge-icon {0} confirm` to confirm your choice.",
@@ -28,8 +37,8 @@
   "ChatCommands.cm.Description": "Re-centres the map on the given location or player.",
   "ChatCommands.cm.SyntaxMessage": "[plr|player|pos|position|spawn]",
 
-  "ChatCommands.wputil.Description": "Waypoint utilities.",
-  "ChatCommands.wputil.SyntaxMessage": "[purge-icon]",
+  "ChatCommands.wpex.Description": "Waypoint utilities.",
+  "ChatCommands.wpex.SyntaxMessage": "[purge-icon]",
 
   "ChatCommands.gps.Description": "Broadcasts your current coordinates as an in-game chat message.",
   "ChatCommands.gps.SyntaxMessage": ""

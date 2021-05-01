@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="VintageMods.Mods.EnvironmentalTweaks.saproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\VintageMods.Core.Client\VintageMods.Core.Client.csproj" />
     <ProjectReference Include="..\VintageMods.Core.Common\VintageMods.Core.Common.csproj" />
     <ProjectReference Include="..\VintageMods.Core.FileIO\VintageMods.Core.FileIO.csproj" />
@@ -66,7 +70,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    del &quot;$(TargetDir)*.pdb&quot;&#xD;&#xA;    del &quot;$(TargetDir)*.deps.json&quot;&#xD;&#xA;)" />
+    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    &quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; $(ProjectDir)$(ProjectName).saproj&#xD;&#xA;    del &quot;$(TargetDir)*.zip&quot;&#xD;&#xA;    del &quot;$(TargetDir)publish\*.json&quot;&#xD;&#xA;    del &quot;$(TargetDir)publish\*.pdb&quot;&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)publish\Assets\&quot; /s /e /y &#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)publish&quot;&#xD;&#xA;    &quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) publish&#xD;&#xA;)" />
   </Target>
 
 </Project>

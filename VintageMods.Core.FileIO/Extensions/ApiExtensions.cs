@@ -14,15 +14,15 @@ namespace VintageMods.Core.FileIO.Extensions
         private static FileManager _fileManagerInstance;
 
         public static FileManager RegisterFileManager(this ICoreAPI api, 
-            params (string FileName, FileType FileType, FileScope FileScope)[] files)
+            params (string FileName, FileScope FileScope)[] files)
         {
             var rootFolder = Assembly.GetCallingAssembly().GetCustomAttributes()
-                .OfType<ModDomainAttribute>().FirstOrDefault()?.RootFolder ?? "VintageMods";
+                .OfType<ModDomainAttribute>().FirstOrDefault()?.RootFolder ?? "Common";
 
             _fileManagerInstance = new FileManager(api, rootFolder);
-            foreach (var (fileName, fileType, fileScope) in files)
+            foreach (var (fileName, fileScope) in files)
             {
-                _fileManagerInstance.RegisterFile(fileName, fileType, fileScope);
+                _fileManagerInstance.RegisterFile(fileName, fileScope);
             }
 
             return _fileManagerInstance;
@@ -34,33 +34,7 @@ namespace VintageMods.Core.FileIO.Extensions
             return _fileManagerInstance ??= new FileManager(api, rootFolder);
         }
 
-        public static ModFileInfo RegisterModConfigFile(this ICoreAPI api, string fileName, FileScope fileScope)
-        {
-            try
-            {
-                return _fileManagerInstance.RegisterConfigFile(fileName, fileScope);
-            }
-            catch (Exception e)
-            {
-                api.Logger.Error(e.Message);
-                throw;
-            }
-        }
-
-        public static ModFileInfo RegisterModDataFile(this ICoreAPI api, string fileName, FileScope fileScope)
-        {
-            try
-            {
-                return _fileManagerInstance.RegisterDataFile(fileName, fileScope);
-            }
-            catch (Exception e)
-            {
-                api.Logger.Error(e.Message);
-                throw;
-            }
-        }
-
-        public static ModFileInfo GetModFile(this ICoreAPI api, string fileName)
+       public static ModFileInfo GetModFile(this ICoreAPI api, string fileName)
         {
             try
             {
@@ -68,7 +42,8 @@ namespace VintageMods.Core.FileIO.Extensions
             }
             catch (Exception e)
             {
-                api.Logger.Error(e.Message);
+                api.Logger.Audit($"[VintageMods] Error occurred locating file. Check Error Log.");
+                api.Logger.Error($"[VintageMods] {e.Message}");
                 throw;
             }
         }

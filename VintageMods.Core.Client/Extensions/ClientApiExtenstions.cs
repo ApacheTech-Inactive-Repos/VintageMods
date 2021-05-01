@@ -108,21 +108,17 @@ namespace VintageMods.Core.Client.Extensions
         /// <param name="api">The core game API this method was called from.</param>
         /// <param name="pos">The position to check for waypoints around.</param>
         /// <param name="radius">The radius around the origin position.</param>
-        /// <param name="icon"></param>
-        /// <param name="partialTitle"></param>
+        /// <param name="comparer">Optional parameters to narrow down waypoint scanning.</param>
         /// <returns><c>true</c> if any waypoints are found, <c>false</c> otherwise.</returns>
-        public static bool WaypointExistsWithinRadius(this ICoreClientAPI api, BlockPos pos, int radius, string icon, string partialTitle = null)
+        public static bool WaypointExistsWithinRadius(this ICoreClientAPI api, BlockPos pos, int radius, Func<Waypoint, bool> comparer = null)
         {
             var waypointMapLayer = api.ModLoader.GetModSystem<WorldMapManager>().WaypointMapLayer();
-            foreach (var wp in waypointMapLayer.ownWaypoints.Where(wp => wp.Icon == icon).Where(wp => wp.Position.AsBlockPos.InRangeHorizontally(pos.X, pos.Z, radius)))
-            {
-                if (string.IsNullOrWhiteSpace(partialTitle)) return true;
-                if (wp.Title.Contains(partialTitle))
-                {
-                    return true;
-                }
-            }
-            return false;
+
+            var waypoints =
+                waypointMapLayer.ownWaypoints.Where(wp =>
+                    wp.Position.AsBlockPos.InRangeHorizontally(pos.X, pos.Z, radius)).ToList();
+            if (!waypoints.Any()) return false;
+            return comparer == null || waypoints.Any(p => comparer(p));
         }
 
         /// <summary>

@@ -20,6 +20,12 @@ namespace VintageMods.Core.FluentChat.Exenstions
             return Get(code, "Errors", args);
         }
 
+        public static string UI(string code, params object[] args)
+        {
+            return Get(code, "UI", args);
+        }
+
+
         public static string Message(string code, params object[] args)
         {
             return Get(code, "Messages", args);
