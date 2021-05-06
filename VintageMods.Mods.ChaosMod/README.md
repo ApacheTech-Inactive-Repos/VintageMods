@@ -2,9 +2,9 @@
 
 Chaos Mod V is an attempt to mimic the Chaos mods found on Grand Theft Auto V, San Andreas, and Vice City.
 
-Basically, every 30 seconds the game will trigger a random effect. This effect can be anything from giving you a few iron nuggets, to exploding all nearby animals or making every nearby drifter dance.
+Basically, every 60 seconds the game will trigger a random effect. This effect can be anything from giving you a few iron nuggets, to exploding all nearby animals or making every nearby drifter dance.
 
-There are one-time and timed effects. One timed effects will run only once when the effect is started, while timed effects will run for between 30 and 90 seconds (by default) after they've been started.
+There are one-time and timed effects. One timed effects will run only once when the effect is started, while timed effects will run for between 30 and 120 seconds (by default) after they've been started.
 
 This makes gameplay significantly more surprising, as literally anything could happen every time an effect starts.
 
@@ -32,7 +32,7 @@ The mod comes packaged with a Discord Bot, that when installed, will integrate y
 
  * **[pongo1231](https://www.gta5-mods.com/users/pongo1231)** - Author of ChaosMod for GTA5.
  * **Novocain** - ClientSystem injection methods, and other vital components.
- * **Melchior** - In-depth development discussions, and help with third-party tools.
+ * **Capsup** - File System IO base implementation, and help with third-party tools.
 
 ## Effect Types
 
@@ -57,36 +57,77 @@ The mod comes packaged with a Discord Bot, that when installed, will integrate y
 
 ## Sample Effects
 
- * I Would Walk 500 Blocks...
- * ...and I Would Walk 500 More
- * Swarm of Locusts
- * Dance with Wolves
- * As a Pack We Are Strong
- * Wandering Trader
- * Obliterate All Nearby Animals
- * Teleport to World Spawn
- * Teleport to Random Location
- * Suicide
- * Alchemy: Lead to Gold
- * IDDQD
- * IDKFA
- * HEYOSAM
- * Animal Magnetism
- * Set Spawn Point at Current Location
- * Teleport to Nearest Trader
- * Winter Wonderland
- * Here Comes the Summer Sun
- * Help, My W Key Is Stuck!
- * Superhot
- * Super Speed and Super Jump
- * All Drifters are Invulnerable
- * Doomsday
- * Enter the Rust World
- * Well Fed
- * Starving!
- * Bumper Harvest
- * Night Vision
- * Extreme Fog
- * Pitch Black
- * Green Flames!
- * BOOM! Headshot!
+<table>
+    <tr>
+        <td>
+            <ul>
+                <li>I Would Walk 500 Blocks...</li>
+                <li>...and I Would Walk 500 More</li>
+                <li>Swarm of Locusts</li>
+                <li>Dance with Wolves</li>
+                <li>As a Pack We Are Strong</li>
+                <li>Wandering Trader</li>
+                <li>Obliterate All Nearby Animals</li>
+                <li>Teleport to World Spawn</li>
+                <li>Teleport to Random Location</li>
+                <li>Suicide</li>
+                <li>Alchemy: Lead to Gold</li>
+                <li>IDDQD</li>
+                <li>IDKFA</li>
+                <li>HEYOSAM</li>
+                <li>Animal Magnetism</li>
+                <li>Set Spawn Point at Current Location</li>
+                <li>Teleport to Nearest Trader</li>
+                <li>Winter Wonderland</li>
+                <li>Here Comes the Summer Sun</li>
+                <li>Spring Break</li>
+                <li>Autumn Leaves</li>
+                <li>Well Fed</li>
+                <li>Starving!</li>
+                <li>Bumper Harvest</li>
+                <li>Night Vision</li>
+                <li>Extreme Fog</li>
+                <li>Pitch Black</li>
+                <li>Green Flames!</li>
+                <li>BOOM! Headshot!</li>
+                <li>Spawn Killer Bunnies!</li>
+                <li>Spawn Killer Bees!</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>Help, My W Key Is Stuck!</li>
+                <li>Superhot</li>
+                <li>Super Sprint and Super Jump</li>
+                <li>All Drifters are Invulnerable</li>
+                <li>Doomsday</li>
+                <li>Enter the Rust World</li>
+                <li>Bunny Hopping</li>
+                <li>Ghost Mode</li>
+                <li>Arsonist</li>
+                <li>I Am Iron Man</li>
+                <li>Tax Collection</li>
+                <li>Tax Rebate</li>
+                <li>Stampede!</li>
+                <li>Deep Fried</li>
+                <li>VS Noire</li>
+                <li>Play Random Echo Chamber Song</li>
+                <li>Randomise Player Clothes</li>
+                <li>Randomise Player Skin</li>
+                <li>Randomise Player Traits</li>
+                <li>0.2x Game Speed</li>
+                <li>10x Walk Speed</li>
+                <li>All Animals Are Hostile</li>
+                <li>Set Time to Morning</li>
+                <li>Set Time to Evening</li>
+                <li>Set Time to Midnight</li>
+                <li>Set Time to Midday</li>
+                <li>OHKO</li>
+                <li>OHK</li>
+                <li>Forcefield</li>
+                <li>Breadcrumb Trail</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+

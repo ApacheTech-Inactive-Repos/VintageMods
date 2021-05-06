@@ -6,6 +6,8 @@ using VintageMods.Core.FluentChat.Exenstions;
 using Vintagestory.API.Common;
 using Vintagestory.Client.NoObf;
 
+// ReSharper disable VirtualMemberNeverOverridden.Global
+// ReSharper disable UnusedParameter.Global
 // ReSharper disable MemberCanBeProtected.Global
 
 namespace VintageMods.Core.FluentChat.Primitives

@@ -1,9 +1,11 @@
-﻿namespace VintageMods.Mods.ChaosMod.Engine.Systems
+﻿namespace VintageMods.Mods.ChaosMod.Engine.Enums
 {
     internal enum EffectDuration
     {
         Instant,
         Short = 30,
-        Long = 90
+        Standard = 60,
+        Long = 90,
+        Permanent
     }
 }

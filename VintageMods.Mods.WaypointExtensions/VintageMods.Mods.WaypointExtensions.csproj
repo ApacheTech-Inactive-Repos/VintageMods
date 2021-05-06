@@ -2,18 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetType>library</TargetType>
     <LangVersion>latest</LangVersion>
     <Version>1.4.0</Version>
     <Authors>Apache</Authors>
     <Company>ApacheTech Solutions</Company>
     <Product>Waypoint Extensions</Product>
     <Description>A client-side "Code" Mod for the game, Vintage Story, by Anego Studios. Allows the player to quickly add waypoint markers at their current location.</Description>
-    <Copyright>Copyright © 2016-2020 ApacheTech Solutions. All Rights Reserved.</Copyright>
+    <Copyright>Copyright © 2016-2021 ApacheTech Solutions. All Rights Reserved.</Copyright>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+    <PackageLicenseExpression></PackageLicenseExpression>
+    <PackageLicenseFile>LICENCE.md</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG</DefineConstants>
-    <WarningLevel>4</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +27,10 @@
     <None Remove="Assets\_EmbeddedResources\World\wpex-custom-waypoints.data" />
     <None Remove="Assets\_EmbeddedResources\World\wpex-settings.data" />
     <None Remove="modinfo.json" />
+    <None Include="..\LICENCE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -42,13 +50,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="VintageMods.Mods.WaypointExtensions.saproj" />
+    <None Include="VintageMods.Mods.WaypointExtensions_Debug.saproj" />
+    <None Include="VintageMods.Mods.WaypointExtensions_Release.saproj" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\VintageMods.Core.Client\VintageMods.Core.Client.csproj" />
     <ProjectReference Include="..\VintageMods.Core.Common\VintageMods.Core.Common.csproj" />
-    <ProjectReference Include="..\VintageMods.Core.Contracts\VintageMods.Core.Contracts.csproj" />
     <ProjectReference Include="..\VintageMods.Core.FileIO\VintageMods.Core.FileIO.csproj" />
     <ProjectReference Include="..\VintageMods.Core.FluentChat\VintageMods.Core.FluentChat.csproj" />
   </ItemGroup>
@@ -97,7 +105,11 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    &quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; $(ProjectDir)$(ProjectName).saproj&#xD;&#xA;    del &quot;$(TargetDir)*.zip&quot;&#xD;&#xA;    del &quot;$(TargetDir)src\*.json&quot;&#xD;&#xA;    del &quot;$(TargetDir)src\*.pdb&quot;&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)src\Assets\&quot; /y /e /s   &#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;    &quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) src&#xD;&#xA;)" />
+    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    &quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; $(ProjectDir)$(ProjectName)_$(ConfigurationName).saproj&#xD;&#xA;&#xD;&#xA;    del &quot;$(TargetDir)*.zip&quot;&#xD;&#xA;    del &quot;$(SolutionDir).mods\*.zip&quot;&#xD;&#xA;&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)src\Assets\&quot; /y /e /s   &#xD;&#xA;    copy /y &quot;$(TargetDir)*.pdb&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;    copy /y &quot;$(SolutionDir)LICENCE.md&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;&#xD;&#xA;    del &quot;$(TargetDir)src\*.json&quot;&#xD;&#xA;    del &quot;$(TargetDir)src\*.pdb&quot;&#xD;&#xA;    &quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) src&#xD;&#xA;    copy /y &quot;$(TargetDir)*.zip&quot; &quot;$(SolutionDir).mods&quot;&#xD;&#xA;)&#xD;&#xA;IF $(ConfigurationName) == Debug (&#xD;&#xA;    &quot;$(SolutionDir)dbgattach.exe&quot; &quot;Vintage Story Camera Account.exe&quot;&#xD;&#xA;)" />
+  </Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="IF $(ConfigurationName) == Debug (&#xD;&#xA;    &quot;D:\Games\Vintage Story\Vintage Story Camera Account.exe&quot; --addModPath=&quot;C:\Users\Apache\source\repos\VintageMods\VintageMods.Mods.WaypointExtensions\bin\Debug&quot;&#xD;&#xA;)" />
   </Target>
 
 </Project>

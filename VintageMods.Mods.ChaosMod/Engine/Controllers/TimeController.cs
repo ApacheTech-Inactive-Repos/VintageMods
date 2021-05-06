@@ -1,4 +1,4 @@
-﻿namespace VintageMods.Mods.ChaosMod.Engine.Systems
+﻿namespace VintageMods.Mods.ChaosMod.Engine.Controllers
 {
     internal class TimeController
     {

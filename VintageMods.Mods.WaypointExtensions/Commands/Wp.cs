@@ -22,8 +22,7 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
     [FluentChatCommand("wp")]
     internal class Wp : FluentChatCommandBase<ICoreClientAPI>
     {
-        private SortedDictionary<string, WaypointInfoModel> WaypointTypes { get; } =
-            new SortedDictionary<string, WaypointInfoModel>();
+        private SortedDictionary<string, WaypointInfoModel> WaypointTypes { get; } = new();
 
         private string SyntaxList { get; set; } = "";
 
@@ -32,7 +31,7 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
             InitialiseComponents();
         }
 
-        internal void InitialiseComponents()
+        private void InitialiseComponents()
         {
             try
             {

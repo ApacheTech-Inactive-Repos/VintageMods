@@ -16,8 +16,6 @@ namespace VintageMods.Mods.WaypointExtensions.ModSystems
 {
     internal class WpexModSystem : ClientSideModSystem
     {
-        private IClientNetworkChannel _clientChannel;
-
         public override void StartClientSide(ICoreClientAPI api)
         {
             api.RegisterFileManager(
@@ -45,8 +43,18 @@ namespace VintageMods.Mods.WaypointExtensions.ModSystems
             });
         }
 
-        public override void Dispose()
+        private void OnLocationsReceived(TpLocations networkmessage)
         {
+            Api.Logger.Audit("OnLocationsReceived Event Handler");
+        }
+
+        private void OnTranslocateClient(DidTeleport networkmessage)
+        {
+            Api.Logger.Audit("OnTranslocateClient Event Handler");
+        }
+
+        public override void Dispose()
+        {               
             Api.UnregisterFluentChatCommands();
             base.Dispose();
         }

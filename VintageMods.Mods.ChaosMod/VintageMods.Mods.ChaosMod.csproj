@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\ChaosMod\" />
     <Folder Include="Assets\_EmbeddedResources\" />
     <Folder Include="Effects\Meta\" />
     <Folder Include="Effects\Misc\" />
@@ -25,7 +24,6 @@
     <Folder Include="Effects\Items\" />
     <Folder Include="Effects\Weather\" />
     <Folder Include="Effects\Player\" />
-    <Folder Include="Assets\" />
   </ItemGroup>
 
   <ItemGroup>

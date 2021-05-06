@@ -365,3 +365,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 /VintageMods.Sandbox
 /VintageMods.Mods.Sandbox
+/.mods

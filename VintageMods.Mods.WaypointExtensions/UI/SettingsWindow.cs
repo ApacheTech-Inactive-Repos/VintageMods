@@ -1,4 +1,5 @@
 ﻿using VintageMods.Core.Client.Extensions;
+using VintageMods.Core.Common.Extensions;
 using VintageMods.Core.Common.Reflection;
 using VintageMods.Core.FileIO.Extensions;
 using VintageMods.Core.FluentChat.Exenstions;
@@ -30,7 +31,7 @@ namespace VintageMods.Mods.WaypointExtensions.UI
         {
             ClearComposers();
 
-            var rows = new[]{ 0f, 1f, 1.5f, 2.5f };
+            var rows = new[]{ 0f, 1f, 1.5f, 2.5f, 3.0f };
             const float width = 500f;
 
             var guiComposer = Api.AsClientMain().GetField<_bvSYObLd2oM85Dv2HoTeTbRHsaK>("GuiComposers")
@@ -62,9 +63,13 @@ namespace VintageMods.Mods.WaypointExtensions.UI
                 .AddSwitch(AutoTraderChanged, 
                     ElementStdBounds.MenuButton(rows[2], EnumDialogArea.LeftTop).WithFixedOffset(350.0, 0), "AutoTraderWaypoints");
 
+            // Donate Button.
+            guiComposer.AddButton(LangEx.UI("SettingsWindow.Labels.Donate"), OnDonateButton,
+                ElementStdBounds.MenuButton(rows[3]).WithFixedWidth(width));
+
             // Back Button.
             guiComposer.AddButton(Lang.Get("pause-back2game"), OnBackToGame,
-                ElementStdBounds.MenuButton(rows[3]).WithFixedWidth(width));
+                ElementStdBounds.MenuButton(rows[4]).WithFixedWidth(width));
 
             guiComposer.GetSwitch("AutoTranslocatorWaypoints").On = Settings.AutoTranslocatorWaypoints;
             guiComposer.GetSwitch("AutoTraderWaypoints").On = Settings.AutoTraderWaypoints;
@@ -82,6 +87,12 @@ namespace VintageMods.Mods.WaypointExtensions.UI
         {
             Settings.AutoTraderWaypoints = state;
             SaveSettings();
+        }
+
+        private bool OnDonateButton()
+        {
+            GameHelpers.OpenBrowser("https://bit.ly/APGDonate");
+            return true;
         }
 
         private bool OnBackToGame()

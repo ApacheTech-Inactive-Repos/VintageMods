@@ -1,10 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties Reactor_Commands="" Reactor_Configuration="" Reactor_Deploy="0" Reactor_Enabled="0" Reactor_Output="" Reactor_Project="" /></VisualStudio></ProjectExtensions>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
 
 </Project>

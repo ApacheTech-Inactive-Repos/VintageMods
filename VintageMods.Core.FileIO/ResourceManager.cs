@@ -36,7 +36,7 @@ namespace VintageMods.Core.FileIO
         /// <typeparam name="TData">The type of the data object to deserialise the ProtoContract file into.</typeparam>
         /// <param name="fileName">Name of the file to parse.</param>
         /// <returns>An instance of <see cref="TData" />, populated with deserialised data from the ProtoContract file.</returns>
-        public static TData ParseProtoResourceAs<TData>(string fileName) where TData : class
+        public static TData ParseBinaryResourceAs<TData>(string fileName) where TData : class
         {
             var assembly = typeof(TData).Assembly;
             var stream = GetResourceStream(assembly, fileName);

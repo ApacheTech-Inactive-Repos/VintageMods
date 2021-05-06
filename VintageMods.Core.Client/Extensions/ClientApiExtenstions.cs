@@ -113,7 +113,6 @@ namespace VintageMods.Core.Client.Extensions
         public static bool WaypointExistsWithinRadius(this ICoreClientAPI api, BlockPos pos, int radius, Func<Waypoint, bool> comparer = null)
         {
             var waypointMapLayer = api.ModLoader.GetModSystem<WorldMapManager>().WaypointMapLayer();
-
             var waypoints =
                 waypointMapLayer.ownWaypoints.Where(wp =>
                     wp.Position.AsBlockPos.InRangeHorizontally(pos.X, pos.Z, radius)).ToList();

@@ -1,4 +1,4 @@
-﻿namespace VintageMods.Mods.ChaosMod.Engine.Systems
+﻿namespace VintageMods.Mods.ChaosMod.Engine.Spawners
 {
     internal class CreatureSpawner
     {
