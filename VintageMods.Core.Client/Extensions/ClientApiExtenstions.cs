@@ -120,6 +120,23 @@ namespace VintageMods.Core.Client.Extensions
             return comparer == null || waypoints.Any(p => comparer(p));
         }
 
+
+
+        /// <summary>
+        ///     Determines whether any waypoints exist at a specific block position.
+        /// </summary>
+        /// <param name="api">The core game API this method was called from.</param>
+        /// <param name="pos">The position to check for waypoints at.</param>
+        /// <param name="comparer">Optional parameters to narrow down waypoint scanning.</param>
+        /// <returns><c>true</c> if any waypoints are found, <c>false</c> otherwise.</returns>
+        public static bool WaypointExistsAtPos(this ICoreClientAPI api, BlockPos pos, Func<Waypoint, bool> comparer = null)
+        {
+            var waypointMapLayer = api.ModLoader.GetModSystem<WorldMapManager>().WaypointMapLayer();
+            var waypoints = waypointMapLayer.ownWaypoints.Where(wp => wp.Position.AsBlockPos.Equals(pos)).ToList();
+            if (!waypoints.Any()) return false;
+            return comparer == null || waypoints.Any(p => comparer(p));
+        }
+
         /// <summary>
         ///     Gets the position relative to spawn, given an absolute position within the game world.
         /// </summary>

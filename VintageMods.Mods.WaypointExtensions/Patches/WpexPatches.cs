@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using HarmonyLib;
 using VintageMods.Core.Client.Extensions;
+using VintageMods.Core.Common.Extensions;
 using VintageMods.Core.Common.Reflection;
 using VintageMods.Core.FileIO.Extensions;
 using VintageMods.Core.FluentChat.Exenstions;
@@ -52,13 +53,14 @@ namespace VintageMods.Mods.WaypointExtensions.Patches
             var sourcePos = __instance.Pos.RelativeToSpawn(Api.World);
             var destPos = __instance.TargetLocation.RelativeToSpawn(Api.World);
 
-            if (Api.WaypointExistsWithinRadius(__instance.Pos, 5, p => p.Icon == "spiral")) return true;
-            if (Api.WaypointExistsWithinRadius(__instance.TargetLocation, 5, p => p.Icon == "spiral")) return true;
-            
+            // Add Source TL Waypoint.
+            if (Api.WaypointExistsAtPos(__instance.Pos, p => p.Icon == "spiral")) return true;
             Api.AddWaypointAtPos(sourcePos, "spiral", "Fuchsia", 
                 LangEx.Message("TranslocatorWaypoint",destPos.X, destPos.Y, destPos.Z), false);
             Api.Logger.VerboseDebug($"Added Waypoint: Translocator to ({destPos.X}, {destPos.Y}, {destPos.Z})");
 
+            // Add Destination TL Waypoint.
+            if (Api.WaypointExistsAtPos(__instance.TargetLocation, p => p.Icon == "spiral")) return true;
             Api.AddWaypointAtPos(destPos, "spiral", "Fuchsia",
                 LangEx.Message("TranslocatorWaypoint", sourcePos.X, sourcePos.Y, sourcePos.Z), false);
             Api.Logger.VerboseDebug($"Added Waypoint: Translocator to ({sourcePos.X}, {sourcePos.Y}, {sourcePos.Z})");
@@ -73,13 +75,30 @@ namespace VintageMods.Mods.WaypointExtensions.Patches
             ref Dictionary<long, TeleportingEntity> ___tpingEntities, 
             ref TeleporterLocation ___tpLocation)
         {
-            // Still very hacky. It would be very nice to get a proper way of setting this waypoint.
+            // TODO: Still very hacky. It would be very nice to get a proper way of setting this waypoint.
+            //
+            // Developer's Notes:   As of Game Version 1.14.10. There is currently no way to gather information
+            //                      about the target side of a Teleporter block, other than its name, from the
+            //                      Client API. In order for this to work, I would need to trick the server into
+            //                      sending the client the updated list of teleporters on the server.
+            //
+            //                      This should be possible by mimicking the action of refreshing the GUI dialogue
+            //                      without the dialogue box needing to be opened. However, parts of the dialogue
+            //                      logic is locked behind a GameMode check. I could, internally switch the player
+            //                      to creative and back, purely for this check, and it might even be possible to
+            //                      do this check at player login, before the user has control of the player character.
+            //
+            //                      I'd then store the list of teleporters in memory, ready for use, if needed.
+            //
             if (JustTeleported > 0) return true;
             if (!Settings.AutoTranslocatorWaypoints) return true;
             if (!___tpingEntities.ContainsKey(Api.World.Player.Entity.EntityId)) return true;
-            if (Api.WaypointExistsWithinRadius(__instance.Pos, 3, p => p.Icon == "spiral")) return true;
+            if (___tpingEntities[Api.World.Player.Entity.EntityId].SecondsPassed < 3f) return true;
 
-            var title = LangEx.Message("TeleporterWaypoint", ___tpLocation?.TargetName ?? "Unknown");
+            // Add Source TP Waypoint.
+            if (Api.WaypointExistsAtPos(__instance.Pos, p => p.Icon == "spiral")) return true;
+            var title = LangEx.Message("TeleporterWaypoint", 
+                ___tpLocation?.TargetName?.IfNullOrWhitespace("Unknown"));
             var sourcePos = __instance.Pos.RelativeToSpawn(Api.World);
             Api.AddWaypointAtPos(sourcePos, "spiral", "SpringGreen", title, false);
             Api.Logger.VerboseDebug($"Added Waypoint: {title}");
