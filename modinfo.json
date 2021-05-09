@@ -1,0 +1,12 @@
+{
+  "type": "Code",
+  "name": "VintageMods - MOD_TITLE",
+  "side": "Client|Server|Universal",
+  "modid": "MOD_ID",
+  "description": "MOD_DESCRIPTION",
+  "authors": [ "Apache" ],
+  "version": "1.0.0",
+  "dependencies": {
+
+  }
+}

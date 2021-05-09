@@ -83,6 +83,5 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
             return _traderColours.SingleOrDefault(p => 
                 path.ToLowerInvariant().EndsWith(p.Key)).Value ?? "White";
         }
-
     }
 }

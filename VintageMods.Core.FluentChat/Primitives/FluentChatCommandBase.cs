@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using JetBrains.Annotations;
 using VintageMods.Core.Common.Reflection;
 using VintageMods.Core.FluentChat.Exenstions;
 using Vintagestory.API.Common;
 using Vintagestory.Client.NoObf;
 
-// ReSharper disable VirtualMemberNeverOverridden.Global
-// ReSharper disable UnusedParameter.Global
-// ReSharper disable MemberCanBeProtected.Global
-
 namespace VintageMods.Core.FluentChat.Primitives
 {
+    [UsedImplicitly(ImplicitUseTargetFlags.WithInheritors)]
     public abstract class FluentChatCommandBase<TApi> : IDisposable where TApi : ICoreAPI
     {
         protected TApi Api { get; }

@@ -11,6 +11,8 @@
 
   "Errors.InvalidArgument": "Waypoint Extensions: Invalid Argument.",
   "Errors.TraderNotFound": "No traders have been found within range of the player.",
+  "Errors.TranslocatorNotFound": "No fixed translocators have been found within range of the player.",
+  "Errors.TeleporterNotFound": "No teleporter blocks have been found within range of the player.",
   "Errors.WaypointAlreadyExists": "A waypoint for this trader already exists.",
 
   "Messages.AutoTrader": "Automatic Trader Waypoints: {0}",

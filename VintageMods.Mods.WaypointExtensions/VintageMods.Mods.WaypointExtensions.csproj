@@ -13,6 +13,7 @@
     <EnableNETAnalyzers>false</EnableNETAnalyzers>
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageLicenseFile>LICENCE.md</PackageLicenseFile>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -52,6 +53,10 @@
   <ItemGroup>
     <None Include="VintageMods.Mods.WaypointExtensions_Debug.saproj" />
     <None Include="VintageMods.Mods.WaypointExtensions_Release.saproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2021.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -105,7 +110,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    &quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; $(ProjectDir)$(ProjectName)_$(ConfigurationName).saproj&#xD;&#xA;&#xD;&#xA;    del &quot;$(TargetDir)*.zip&quot;&#xD;&#xA;    del &quot;$(SolutionDir).mods\*.zip&quot;&#xD;&#xA;&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)src\Assets\&quot; /y /e /s   &#xD;&#xA;    copy /y &quot;$(TargetDir)*.pdb&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;    copy /y &quot;$(SolutionDir)LICENCE.md&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;&#xD;&#xA;    del &quot;$(TargetDir)src\*.json&quot;&#xD;&#xA;    del &quot;$(TargetDir)src\*.pdb&quot;&#xD;&#xA;    &quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) src&#xD;&#xA;    copy /y &quot;$(TargetDir)*.zip&quot; &quot;$(SolutionDir).mods&quot;&#xD;&#xA;)&#xD;&#xA;IF $(ConfigurationName) == Debug (&#xD;&#xA;    &quot;$(SolutionDir)dbgattach.exe&quot; &quot;Vintage Story Camera Account.exe&quot;&#xD;&#xA;)" />
+    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    &quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; $(ProjectDir)$(ProjectName)_$(ConfigurationName).saproj&#xD;&#xA;&#xD;&#xA;    del &quot;$(TargetDir)*.zip&quot;&#xD;&#xA;    del &quot;$(SolutionDir).mods\*.zip&quot;&#xD;&#xA;    del &quot;$(TargetDir)src\*.json&quot;&#xD;&#xA;    del &quot;$(TargetDir)src\*.pdb&quot;&#xD;&#xA;&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)src\Assets\&quot; /y /e /s   &#xD;&#xA;    :: copy /y &quot;$(TargetDir)*.pdb&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;    copy /y &quot;$(SolutionDir)LICENCE.md&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;&#xD;&#xA;    &quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) src&#xD;&#xA;    copy /y &quot;$(TargetDir)*.zip&quot; &quot;$(SolutionDir).mods&quot;&#xD;&#xA;)&#xD;&#xA;IF $(ConfigurationName) == Debug (&#xD;&#xA;    &quot;$(SolutionDir)dbgattach.exe&quot; &quot;Vintage Story Camera Account.exe&quot;&#xD;&#xA;)" />
   </Target>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

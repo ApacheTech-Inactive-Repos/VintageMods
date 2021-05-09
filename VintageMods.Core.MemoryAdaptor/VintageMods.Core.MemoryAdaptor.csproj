@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -11,6 +10,10 @@
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="VintageMods.Core.MemoryAdaptor.saproj" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Net.Native.Compiler" Version="2.2.9-rel-29512-01">
       <PrivateAssets>all</PrivateAssets>

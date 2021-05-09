@@ -14,7 +14,7 @@ using Vintagestory.GameContent;
 
 namespace VintageMods.Core.Client.Extensions
 {
-    public static class ClientApiExtenstions
+    public static class ClientApiExtensions
     {
         /// <summary>
         ///     Gets the world seed.
@@ -100,6 +100,29 @@ namespace VintageMods.Core.Client.Extensions
             game?.EnqueueMainThreadTask(() => game.ShowChatMessage(message), "");
         }
 
+        public static TBlockEntity GetNearestBlockEntity<TBlockEntity>(this IWorldAccessor world, BlockPos pos, 
+            float horRange, float vertRange, Func<TBlockEntity, bool> predicate) where TBlockEntity : BlockEntity
+        {
+            TBlockEntity blockEntity = null;
+            var minPos = pos.AddCopy(-horRange, -vertRange, -horRange);
+            var maxPos = pos.AddCopy(horRange, vertRange, horRange);
+            world.BlockAccessor.WalkBlocks(minPos, maxPos, (block, blockPos) =>
+            {
+                var entity = world.BlockAccessor.GetBlockEntity(blockPos);
+                if (entity == null) return;
+                if (entity.GetType() == typeof(TBlockEntity) && predicate((TBlockEntity)entity))
+                {
+                    blockEntity = (TBlockEntity)entity;
+                }
+            }, true);
+            return blockEntity;
+        }
+
+        public static TBlockEntity GetNearestBlockEntity<TBlockEntity>(this IWorldAccessor world, BlockPos pos, 
+            float horRange, float vertRange) where TBlockEntity : BlockEntity
+        {
+            return world.GetNearestBlockEntity<TBlockEntity>(pos, horRange, vertRange, block => true);
+        }
 
 
         /// <summary>

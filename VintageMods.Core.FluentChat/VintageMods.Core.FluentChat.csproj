@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2021.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\VintageMods.Core.Common\VintageMods.Core.Common.csproj" />
   </ItemGroup>
 

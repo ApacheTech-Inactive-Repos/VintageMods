@@ -1,5 +1,4 @@
-﻿using System;
-using VintageMods.Core.Client.ModSystems;
+﻿using VintageMods.Core.Client.ModSystems;
 using VintageMods.Core.Common.Attributes;
 using VintageMods.Core.FileIO.Enum;
 using VintageMods.Core.FileIO.Extensions;
@@ -24,18 +23,10 @@ namespace VintageMods.Mods.WaypointExtensions.ModSystems
                 ("wpex-custom-waypoints.data", FileScope.World),
                 ("wpex-settings.data", FileScope.World)
             );
-
-            api.RegisterClientChatCommand<Wp>();
-            api.RegisterClientChatCommand<Wpex>();
-            api.RegisterClientChatCommand<Wpt>();
-
-            // Will eventually be shipped to Campaign Cartographer Mod.
-            api.RegisterClientChatCommand<Cm>();
-            api.RegisterClientChatCommand<Gps>();
+            RegisterChatCommands(api);
 
             var settingsWindow = new SettingsWindow(api);
-            api.Input.RegisterHotKey("wpex-settings", "Waypoint Extensions Settings", GlKeys.F7,
-                HotkeyType.GUIOrOtherControls);
+            api.Input.RegisterHotKey("wpex-settings", "Waypoint Extensions Settings", GlKeys.F7, HotkeyType.GUIOrOtherControls);
             api.Input.SetHotKeyHandler("wpex-settings", a =>
             {
                 api.Event.RegisterCallback(d => settingsWindow.Toggle(), 100);
@@ -43,14 +34,17 @@ namespace VintageMods.Mods.WaypointExtensions.ModSystems
             });
         }
 
-        private void OnLocationsReceived(TpLocations networkmessage)
+        private static void RegisterChatCommands(ICoreClientAPI api)
         {
-            Api.Logger.Audit("OnLocationsReceived Event Handler");
-        }
+            api.RegisterClientChatCommand<Wp>();
+            api.RegisterClientChatCommand<Wpex>();
+            api.RegisterClientChatCommand<Wpt>();
+            api.RegisterClientChatCommand<Wptl>();
+            api.RegisterClientChatCommand<Wptp>();
 
-        private void OnTranslocateClient(DidTeleport networkmessage)
-        {
-            Api.Logger.Audit("OnTranslocateClient Event Handler");
+            // Will eventually be shipped to Campaign Cartographer Mod.
+            api.RegisterClientChatCommand<Cm>();
+            api.RegisterClientChatCommand<Gps>();
         }
 
         public override void Dispose()
