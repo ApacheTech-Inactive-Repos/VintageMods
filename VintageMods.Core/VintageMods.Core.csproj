@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Apache\source\repos\VintageMods\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\FluentChat\Lang\en.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\FluentChat\Lang\en.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Apache\source\repos\VintageMods\.editorconfig" />
+  </ItemGroup>
+
+</Project>

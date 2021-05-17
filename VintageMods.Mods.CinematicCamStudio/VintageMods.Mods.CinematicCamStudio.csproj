@@ -16,12 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VintageMods.Core.Client\VintageMods.Core.Client.csproj" />
-    <ProjectReference Include="..\VintageMods.Core.Common\VintageMods.Core.Common.csproj" />
-    <ProjectReference Include="..\VintageMods.Core.Maths\VintageMods.Core.Maths.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>D:\Games\Vintage Story\Lib\0Harmony.dll</HintPath>
       <Private>false</Private>
