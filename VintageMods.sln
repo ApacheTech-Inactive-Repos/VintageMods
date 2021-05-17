@@ -70,6 +70,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Boilerplate Files", "Boiler
 		modinfo.json = modinfo.json
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Issue Templates", "Issue Templates", "{88E39749-272C-4484-B03B-CD67DBD5F6E8}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug-report.md = .github\ISSUE_TEMPLATE\bug-report.md
+		.github\ISSUE_TEMPLATE\feature-request.md = .github\ISSUE_TEMPLATE\feature-request.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug + Flatworld|Any CPU = Debug + Flatworld|Any CPU
@@ -273,6 +279,7 @@ Global
 		{FE7F5EC6-5C78-44B2-9FA0-52358BF131D7} = {22E915C1-51AF-4F31-9900-617CE6D04CC3}
 		{83F31113-42AF-4DFB-947B-A4F78E93A083} = {1B89572E-5A97-49B9-A03D-5C8FE736A6C4}
 		{0161BA6F-EA31-4BE4-89DD-2657973BBD37} = {77C14A47-AE4F-413C-B059-592543EB29E1}
+		{88E39749-272C-4484-B03B-CD67DBD5F6E8} = {77C14A47-AE4F-413C-B059-592543EB29E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87615F59-7699-4480-89A6-75F0B9529D0B}
