@@ -321,11 +321,27 @@
                 <Merging />
             </Assembly>
             <Assembly AssemblyName="System.Security.Principal.Windows, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-                <Merging />
+                <Merging Merge="1">
+                    <Pruning Prune="1">
+                        <Exclusion />
+                    </Pruning>
+                    <Obfuscation />
+                    <ControlFlow />
+                    <MemberRefsProxy />
+                    <ResourcesCompression />
+                </Merging>
                 <Embedding Compress="1" Embed="1" Encrypt="1" />
             </Assembly>
             <Assembly AssemblyName="System.Security.AccessControl, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-                <Merging />
+                <Merging Merge="1">
+                    <Pruning Prune="0">
+                        <Exclusion />
+                    </Pruning>
+                    <Obfuscation />
+                    <ControlFlow />
+                    <MemberRefsProxy />
+                    <ResourcesCompression />
+                </Merging>
                 <Embedding Compress="1" Embed="1" Encrypt="1" />
             </Assembly>
             <Assembly AssemblyName="System.CodeDom, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
@@ -343,7 +359,7 @@
             </Assembly>
             <Assembly AssemblyName="System.Reflection.Emit.Lightweight, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
                 <Merging Merge="1">
-                    <Pruning Prune="0">
+                    <Pruning Prune="1">
                         <Exclusion />
                     </Pruning>
                     <Obfuscation />
@@ -355,7 +371,7 @@
             </Assembly>
             <Assembly AssemblyName="System.Reflection.Emit.ILGeneration, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
                 <Merging Merge="1">
-                    <Pruning Prune="0">
+                    <Pruning Prune="1">
                         <Exclusion />
                     </Pruning>
                     <Obfuscation />
@@ -526,7 +542,7 @@
             </Assembly>
             <Assembly AssemblyName="Microsoft.CSharp, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
                 <Merging Merge="1">
-                    <Pruning Prune="0">
+                    <Pruning Prune="1">
                         <Exclusion />
                     </Pruning>
                     <Obfuscation />
@@ -920,7 +936,7 @@
             </Assembly>
             <Assembly AssemblyName="System.Security.Permissions, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
                 <Merging Merge="1">
-                    <Pruning Prune="0">
+                    <Pruning Prune="1">
                         <Exclusion />
                     </Pruning>
                     <Obfuscation />
@@ -931,8 +947,8 @@
                 <Embedding Compress="1" Encrypt="1" />
             </Assembly>
             <Assembly AssemblyName="System.Dynamic, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-                <Merging Merge="1">
-                    <Pruning Prune="0">
+                <Merging Merge="0">
+                    <Pruning Prune="1">
                         <Exclusion />
                     </Pruning>
                     <Obfuscation />

@@ -273,29 +273,7 @@
                     <ResourcesCompression Compress="0" />
                     <MemberRefsProxy Proxy="0" />
                     <Pruning Prune="0">
-                        <Exclusion>
-                            <Token Table="WholeType">
-                                <Assembly>VintageMods.Mods.WaypointExtensions</Assembly>
-                                <Module>VintageMods.Mods.WaypointExtensions.dll</Module>
-                                <ItemType>Class</ItemType>
-                                <Namespace>VintageMods.Mods.WaypointExtensions.Context</Namespace>
-                                <Name>VintageModsDbContext</Name>
-                            </Token>
-                            <Token Table="WholeType">
-                                <Assembly>VintageMods.Mods.WaypointExtensions</Assembly>
-                                <Module>VintageMods.Mods.WaypointExtensions.dll</Module>
-                                <ItemType>Class</ItemType>
-                                <Namespace>VintageMods.Mods.WaypointExtensions.Context</Namespace>
-                                <Name>WpexDbContext</Name>
-                            </Token>
-                            <Token Table="WholeType">
-                                <Assembly>VintageMods.Mods.WaypointExtensions</Assembly>
-                                <Module>VintageMods.Mods.WaypointExtensions.dll</Module>
-                                <ItemType>Class</ItemType>
-                                <Namespace>VintageMods.Mods.WaypointExtensions.Context</Namespace>
-                                <Name>WpexWaypoint</Name>
-                            </Token>
-                        </Exclusion>
+                        <Exclusion />
                     </Pruning>
                     <Obfuscation Obfuscate="0">
                         <Exclusion />
@@ -507,7 +485,15 @@
                 <Embedding Compress="1" Encrypt="1" />
             </Assembly>
             <Assembly AssemblyName="Microsoft.CSharp, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-                <Merging />
+                <Merging Merge="0">
+                    <Pruning Prune="1">
+                        <Exclusion />
+                    </Pruning>
+                    <Obfuscation />
+                    <ControlFlow />
+                    <MemberRefsProxy />
+                    <ResourcesCompression />
+                </Merging>
                 <Embedding Compress="1" Embed="0" Encrypt="1" />
             </Assembly>
             <Assembly AssemblyName="System.Diagnostics.Tools, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -879,6 +865,10 @@
                 <Embedding Compress="1" Encrypt="1" />
             </Assembly>
             <Assembly AssemblyName="VSCreativeMod, Culture=neutral, PublicKeyToken=null">
+                <Merging />
+                <Embedding Compress="1" Encrypt="1" />
+            </Assembly>
+            <Assembly AssemblyName="Vintagestory, Culture=neutral, PublicKeyToken=null">
                 <Merging />
                 <Embedding Compress="1" Encrypt="1" />
             </Assembly>

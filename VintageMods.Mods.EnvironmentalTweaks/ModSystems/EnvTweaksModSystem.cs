@@ -6,6 +6,7 @@ using VintageMods.Core.FileIO.Extensions;
 using VintageMods.Mods.EnvironmentalTweaks.Config;
 using VintageMods.Mods.EnvironmentalTweaks.HarmonyPatches;
 using Vintagestory.API.Client;
+using Vintagestory.API.Common;
 
 // ReSharper disable UnusedType.Global
 
@@ -20,13 +21,9 @@ namespace VintageMods.Mods.EnvironmentalTweaks.ModSystems
             var settingsFile = api.RegisterFileManager().RegisterFile("EnvTweaks.config.json", FileScope.Global);
             EnvTweaksPatches.Api = api;
             EnvTweaksPatches.Settings = settingsFile.ParseJsonAsObject<ModSettings>();
-            
-            api.RegisterCommand("EnvTweaks", 
-                "Change settings for Environmental Tweaks.", 
-                "[lightning|rain|hail|snow|sounds|shake] [on|off]", 
-                (id, args) =>
-            {
 
+            void Handler(int _, CmdArgs args)
+            {
                 if (args.Length == 0)
                 {
                     api.ShowChatMessage("Environmental Tweaks: [lightning|rain|hail|snow|sounds|shake] [on|off]");
@@ -78,12 +75,22 @@ namespace VintageMods.Mods.EnvironmentalTweaks.ModSystems
                         api.ShowChatMessage($"Camera Shake: {state}");
                         EnvTweaksPatches.Settings.AllowCameraShake = state;
                         break;
+
                     default:
-                        api.ShowChatMessage("Environmental Tweaks: [lightning|rain|hail|snow|sounds|shake] [on|off]");
+                        api.ShowChatMessage("Environmental Tweaks: [settings|lightning|rain|hail|snow|sounds|shake] [on|off]");
                         break;
                 }
+
                 settingsFile.SaveAsJson(EnvTweaksPatches.Settings);
-            });
+            }
+
+            api.RegisterCommand("EnvTweaks", 
+                "Change settings for Environmental Tweaks.",
+                "[settings|lightning|rain|hail|snow|sounds|shake] [on|off]", Handler);
+
+            api.RegisterCommand("et",
+                "Change settings for Environmental Tweaks.",
+                "[settings|lightning|rain|hail|snow|sounds|shake] [on|off]", Handler);
         }
     }
 }

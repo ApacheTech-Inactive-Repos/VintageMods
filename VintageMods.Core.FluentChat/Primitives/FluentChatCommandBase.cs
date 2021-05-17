@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Reflection;
 using JetBrains.Annotations;
+using VintageMods.Core.Common.Extensions;
 using VintageMods.Core.Common.Reflection;
 using VintageMods.Core.FluentChat.Exenstions;
 using Vintagestory.API.Common;
 using Vintagestory.Client.NoObf;
+using System.Dynamic;
 
 namespace VintageMods.Core.FluentChat.Primitives
 {
@@ -62,6 +64,7 @@ namespace VintageMods.Core.FluentChat.Primitives
         public virtual void OnCustomOption(string option, CmdArgs args)
         {
             ((ClientMain)Api.World).ShowChatMessage(HelpText());
+
         }
 
         /// <summary>

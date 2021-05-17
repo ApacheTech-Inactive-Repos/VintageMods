@@ -23,6 +23,10 @@
       <HintPath>D:\Games\Vintage Story\Lib\protobuf-net.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="Vintagestory">
+      <HintPath>D:\Games\Vintage Story\Vintagestory.exe</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="VintagestoryAPI">
       <HintPath>D:\Games\Vintage Story\VintagestoryAPI.dll</HintPath>
       <Private>false</Private>

@@ -22,6 +22,7 @@ namespace VintageMods.Core.Common
         public static Assembly VSCreativeMod => typeof(BlockCommand).Assembly;
         public static Assembly VintagestoryAPI => typeof(ICoreClientAPI).Assembly;
         public static Assembly VintagestoryLib => typeof(ClientMain).Assembly;
+        public static Assembly VintagestoryExe => typeof(_ByclZEiUogCrWqCZYQJBFsIZ2kO).Assembly;
 
         public static IReadOnlyList<Assembly> All { get; } = new List<Assembly>
         {

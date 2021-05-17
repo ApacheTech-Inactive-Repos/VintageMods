@@ -29,16 +29,17 @@ namespace VintageMods.Core.MemoryAdaptor.Marshaling
             else
                 CanBeStoredInRegisters =
                     IsIntPtr ||
-                    TypeCode == TypeCode.Boolean ||
-                    TypeCode == TypeCode.Byte ||
-                    TypeCode == TypeCode.Char ||
-                    TypeCode == TypeCode.Int16 ||
-                    TypeCode == TypeCode.Int32 ||
-                    TypeCode == TypeCode.Int64 ||
-                    TypeCode == TypeCode.SByte ||
-                    TypeCode == TypeCode.Single ||
-                    TypeCode == TypeCode.UInt16 ||
-                    TypeCode == TypeCode.UInt32;
+                    TypeCode 
+                        is TypeCode.Boolean 
+                        or TypeCode.Byte 
+                        or TypeCode.Char 
+                        or TypeCode.Int16 
+                        or TypeCode.Int32 
+                        or TypeCode.Int64 
+                        or TypeCode.SByte 
+                        or TypeCode.Single 
+                        or TypeCode.UInt16 
+                        or TypeCode.UInt32;
         }
 
         /// <summary>
@@ -69,18 +70,7 @@ namespace VintageMods.Core.MemoryAdaptor.Marshaling
         private static bool Test()
         {
             return IsIntPtr ||
-                   TypeCode == TypeCode.Int64 ||
-                   TypeCode == TypeCode.UInt64 ||
-                   TypeCode == TypeCode.Boolean ||
-                   TypeCode == TypeCode.Byte ||
-                   TypeCode == TypeCode.Char ||
-                   TypeCode == TypeCode.Int16 ||
-                   TypeCode == TypeCode.Int32 ||
-                   TypeCode == TypeCode.Int64 ||
-                   TypeCode == TypeCode.SByte ||
-                   TypeCode == TypeCode.Single ||
-                   TypeCode == TypeCode.UInt16 ||
-                   TypeCode == TypeCode.UInt32;
+                   TypeCode is TypeCode.Int64 or TypeCode.UInt64 or TypeCode.Boolean or TypeCode.Byte or TypeCode.Char or TypeCode.Int16 or TypeCode.Int32 or TypeCode.Int64 or TypeCode.SByte or TypeCode.Single or TypeCode.UInt16 or TypeCode.UInt32;
         }
 
         /// <summary>

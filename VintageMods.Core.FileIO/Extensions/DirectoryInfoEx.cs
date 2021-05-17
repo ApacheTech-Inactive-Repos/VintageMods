@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using Vintagestory.API.Client;
+using Vintagestory.API.Config;
 
 namespace VintageMods.Core.FileIO.Extensions
 {
@@ -29,6 +32,33 @@ namespace VintageMods.Core.FileIO.Extensions
             }
             foreach (var di in dir.GetDirectories()) RecursiveSearch(di, fileName);
             return null;
+        }
+
+        public static DirectoryInfo CreateIfNeeded(this DirectoryInfo di)
+        {
+            if (!di.Exists) di.Create();
+            return di;
+        }
+
+        public static void WithFiles(this DirectoryInfo di, string filter, Action<FileInfo> action)
+        {
+            var files = di.GetFiles(filter);
+            foreach (var file in files)
+            {
+                action(file);
+            }
+        }
+
+        public static void LoadAssemblies(this DirectoryInfo di)
+        {
+            di.WithFiles("*.dll", file => AssemblyEx.LoadLibrary(file.FullName));
+        }
+
+        public static void AddToEnvironmentPath(this DirectoryInfo di)
+        {
+            var envSearchPathName = RuntimeEnv.EnvSearchPathName;
+            var value = $"{di.FullName};{Environment.GetEnvironmentVariable(envSearchPathName)}";
+            Environment.SetEnvironmentVariable(envSearchPathName, value);
         }
     }
 }

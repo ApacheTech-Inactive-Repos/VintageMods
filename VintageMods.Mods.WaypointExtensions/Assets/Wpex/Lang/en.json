@@ -46,5 +46,11 @@
   "ChatCommands.wpex.SyntaxMessage": "[purge-icon|purge-nearby]",
 
   "ChatCommands.gps.Description": "Broadcasts your current coordinates as an in-game chat message.",
-  "ChatCommands.gps.SyntaxMessage": ""
+  "ChatCommands.gps.SyntaxMessage": "",
+
+  "ChatCommands.wptl.Description": "Adds a waypoint to a fixed translocator, within five blocks of the player.",
+  "ChatCommands.wptl.SyntaxMessage": "[pin]",
+
+  "ChatCommands.wptp.Description": "Broadcasts your current coordinates as an in-game chat message.",
+  "ChatCommands.wptp.SyntaxMessage": "[pin]"
 }

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,6 +17,10 @@
     </Reference>
     <Reference Include="protobuf-net">
       <HintPath>D:\Games\Vintage Story\Lib\protobuf-net.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Vintagestory">
+      <HintPath>D:\Games\Vintage Story\Vintagestory.exe</HintPath>
       <Private>false</Private>
     </Reference>
     <Reference Include="VintagestoryAPI">

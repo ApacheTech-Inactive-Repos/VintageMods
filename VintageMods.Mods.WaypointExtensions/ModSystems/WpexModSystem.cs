@@ -1,5 +1,6 @@
 ﻿using VintageMods.Core.Client.ModSystems;
 using VintageMods.Core.Common.Attributes;
+using VintageMods.Core.Common.Extensions;
 using VintageMods.Core.FileIO.Enum;
 using VintageMods.Core.FileIO.Extensions;
 using VintageMods.Core.FluentChat.Exenstions;
