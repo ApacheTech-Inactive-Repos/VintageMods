@@ -15,7 +15,7 @@ There are a number of mods within this solution. Please state which mod you woul
 
 **Is your feature request related to a problem? If not, why is your feature needed?**
 
-A clear and concise description of what the problem is. Ex. As a Mod Developer, I sometimes find that [...], or As a Player, I would like to be able to [...]
+A clear description of what the problem is. Ex. As a Mod Developer, I sometimes find that [...], or As a Player, I would like to be able to [...]
 
 **Describe the solution you'd like**
 
@@ -23,7 +23,7 @@ Please take your time, and give as much detail as possible. The more you type he
 
 **Describe alternatives you've considered**
 
-A clear and description of any alternative solutions or features you've considered.
+A clear description of any alternative solutions or features you've considered.
 
 **Additional context**
 
