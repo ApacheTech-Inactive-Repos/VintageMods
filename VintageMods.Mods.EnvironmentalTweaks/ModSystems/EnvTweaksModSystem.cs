@@ -1,8 +1,8 @@
 ﻿using System.Text;
-using VintageMods.Core.Client.ModSystems;
-using VintageMods.Core.Common.Attributes;
-using VintageMods.Core.FileIO.Enum;
-using VintageMods.Core.FileIO.Extensions;
+using VintageMods.Core.Attributes;
+using VintageMods.Core.IO.Enum;
+using VintageMods.Core.IO.Extensions;
+using VintageMods.Core.ModSystems;
 using VintageMods.Mods.EnvironmentalTweaks.Config;
 using VintageMods.Mods.EnvironmentalTweaks.HarmonyPatches;
 using Vintagestory.API.Client;

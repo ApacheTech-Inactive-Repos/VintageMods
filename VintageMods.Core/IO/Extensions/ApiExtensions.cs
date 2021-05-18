@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using VintageMods.Core.Common.Attributes;
-using VintageMods.Core.FileIO.Enum;
+using VintageMods.Core.Attributes;
+using VintageMods.Core.IO.Enum;
 using Vintagestory.API.Common;
 
 // ReSharper disable UnusedMember.Global
 
-namespace VintageMods.Core.FileIO.Extensions
+namespace VintageMods.Core.IO.Extensions
 {
     public static class ApiExtensions
     {

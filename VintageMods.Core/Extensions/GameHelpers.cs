@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace VintageMods.Core.Common.Extensions
+namespace VintageMods.Core.Extensions
 {
     public static class GameHelpers
     {

@@ -1,5 +1,5 @@
-﻿using VintageMods.Core.Client.Extensions;
-using VintageMods.Core.Common.Reflection;
+﻿using VintageMods.Core.Extensions;
+using VintageMods.Core.Reflection;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;

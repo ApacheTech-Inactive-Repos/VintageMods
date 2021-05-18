@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using VintageMods.Core.Common.Attributes;
+using VintageMods.Core.Attributes;
 using VintageMods.Core.FluentChat.Attributes;
 using VintageMods.Core.FluentChat.Primitives;
 using Vintagestory.API.Client;

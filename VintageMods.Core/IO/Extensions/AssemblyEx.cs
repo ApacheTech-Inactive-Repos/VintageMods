@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VintageMods.Core.FileIO.Extensions
+namespace VintageMods.Core.IO.Extensions
 {
     public static class AssemblyEx
     {

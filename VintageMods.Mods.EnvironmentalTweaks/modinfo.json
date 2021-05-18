@@ -1,6 +1,6 @@
 ﻿{
   "type": "Code",
-  "name": "VintageMods - Environmental Tweaks",
+  "name": "[VintageMods] Environmental Tweaks",
   "side": "Client",
   "modid": "envtweaks",
   "description": "Removes rain, lightning, weather sounds, fog effects, and involuntary camera shakes such as shivering, and when at low health.",

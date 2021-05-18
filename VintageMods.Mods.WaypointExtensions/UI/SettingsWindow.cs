@@ -1,8 +1,7 @@
-﻿using VintageMods.Core.Client.Extensions;
-using VintageMods.Core.Common.Extensions;
-using VintageMods.Core.Common.Reflection;
-using VintageMods.Core.FileIO.Extensions;
+﻿using VintageMods.Core.Extensions;
 using VintageMods.Core.FluentChat.Exenstions;
+using VintageMods.Core.IO.Extensions;
+using VintageMods.Core.Reflection;
 using VintageMods.Mods.WaypointExtensions.Model;
 using Vintagestory.API.Client;
 using Vintagestory.API.Config;

@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
@@ -109,5 +109,4 @@
     <EditorConfigFiles Update="C:\Users\Apache\source\repos\VintageMods\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
-  <!-- Clean Tasks -->
 </Project>

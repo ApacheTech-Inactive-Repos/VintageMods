@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using VintageMods.Core.Common.Reflection;
+using VintageMods.Core.Reflection;
 using Vintagestory.API.Client;
 using Vintagestory.GameContent;
 
-namespace VintageMods.Core.Common.Extensions
+namespace VintageMods.Core.Extensions
 {
     /// <summary>
     ///     Extension Methods for the World Map Manager.

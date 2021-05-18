@@ -1,13 +1,11 @@
-﻿using VintageMods.Core.Client.ModSystems;
-using VintageMods.Core.Common.Attributes;
-using VintageMods.Core.Common.Extensions;
-using VintageMods.Core.FileIO.Enum;
-using VintageMods.Core.FileIO.Extensions;
+﻿using VintageMods.Core.Attributes;
 using VintageMods.Core.FluentChat.Exenstions;
+using VintageMods.Core.IO.Enum;
+using VintageMods.Core.IO.Extensions;
+using VintageMods.Core.ModSystems;
 using VintageMods.Mods.WaypointExtensions.Commands;
 using VintageMods.Mods.WaypointExtensions.UI;
 using Vintagestory.API.Client;
-using Vintagestory.GameContent;
 
 // ReSharper disable UnusedType.Global
 
@@ -28,9 +26,9 @@ namespace VintageMods.Mods.WaypointExtensions.ModSystems
 
             var settingsWindow = new SettingsWindow(api);
             api.Input.RegisterHotKey("wpex-settings", "Waypoint Extensions Settings", GlKeys.F7, HotkeyType.GUIOrOtherControls);
-            api.Input.SetHotKeyHandler("wpex-settings", a =>
+            api.Input.SetHotKeyHandler("wpex-settings", _ =>
             {
-                api.Event.RegisterCallback(d => settingsWindow.Toggle(), 100);
+                api.Event.RegisterCallback(_ => settingsWindow.Toggle(), 100);
                 return true;
             });
         }

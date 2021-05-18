@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using VintageMods.Core.Common.Reflection;
+using VintageMods.Core.Reflection;
 using Vintagestory.API.Client;
 using Vintagestory.Client.NoObf;
 

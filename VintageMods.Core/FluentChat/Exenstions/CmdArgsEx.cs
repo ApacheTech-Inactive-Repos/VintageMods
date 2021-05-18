@@ -1,6 +1,6 @@
 ﻿using Vintagestory.API.Common;
 
-namespace VintageMods.Core.Common.Extensions
+namespace VintageMods.Core.Extensions
 {
     /// <summary>
     ///     Extension Methods for the CmdArgs data structure.

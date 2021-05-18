@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Reflection;
-using VintageMods.Core.Common.Attributes;
+using VintageMods.Core.Attributes;
 using VintageMods.Core.FluentChat.Attributes;
 using Vintagestory.API.Config;
 

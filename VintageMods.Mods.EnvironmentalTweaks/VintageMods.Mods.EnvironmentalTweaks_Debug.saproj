@@ -1,5 +1,5 @@
 <SmartAssemblyProject ProjectId="{34c000fa-43a3-4bd4-bc28-8df7b01c801b}" Version="2.0">
-    <MainAssemblyFileName>C:\Users\Apache\source\repos\VintageMods\VintageMods.Mods.WaypointExtensions\bin\Debug\netstandard2.0\VintageMods.Mods.WaypointExtensions.dll</MainAssemblyFileName>
+    <MainAssemblyFileName>C:\Users\Apache\source\repos\VintageMods\VintageMods.Mods.EnvironmentalTweaks\bin\Debug\netstandard2.0\VintageMods.Mods.EnvironmentalTweaks.dll</MainAssemblyFileName>
     <FriendlyName>VintageMods.Mods.WaypointExtensions</FriendlyName>
     <CompanyName>ApacheTech Solutions</CompanyName>
     <Configuration Name="Release">
@@ -273,7 +273,29 @@
                     <ResourcesCompression Compress="0" />
                     <MemberRefsProxy Proxy="0" />
                     <Pruning Prune="0">
-                        <Exclusion />
+                        <Exclusion>
+                            <Token Table="WholeType">
+                                <Assembly>VintageMods.Mods.WaypointExtensions</Assembly>
+                                <Module>VintageMods.Mods.WaypointExtensions.dll</Module>
+                                <ItemType>Class</ItemType>
+                                <Namespace>VintageMods.Mods.WaypointExtensions.Context</Namespace>
+                                <Name>VintageModsDbContext</Name>
+                            </Token>
+                            <Token Table="WholeType">
+                                <Assembly>VintageMods.Mods.WaypointExtensions</Assembly>
+                                <Module>VintageMods.Mods.WaypointExtensions.dll</Module>
+                                <ItemType>Class</ItemType>
+                                <Namespace>VintageMods.Mods.WaypointExtensions.Context</Namespace>
+                                <Name>WpexDbContext</Name>
+                            </Token>
+                            <Token Table="WholeType">
+                                <Assembly>VintageMods.Mods.WaypointExtensions</Assembly>
+                                <Module>VintageMods.Mods.WaypointExtensions.dll</Module>
+                                <ItemType>Class</ItemType>
+                                <Namespace>VintageMods.Mods.WaypointExtensions.Context</Namespace>
+                                <Name>WpexWaypoint</Name>
+                            </Token>
+                        </Exclusion>
                     </Pruning>
                     <Obfuscation Obfuscate="0">
                         <Exclusion />
@@ -870,13 +892,25 @@
                     <MemberRefsProxy />
                     <ResourcesCompression />
                 </Merging>
-                <Embedding Compress="1" Embed="1" Encrypt="1" />
+                <Embedding Compress="1" Encrypt="1" />
             </Assembly>
             <Assembly AssemblyName="Vintagestory, Culture=neutral, PublicKeyToken=null">
                 <Merging />
                 <Embedding Compress="1" Encrypt="1" />
             </Assembly>
+            <Assembly AssemblyName="VintageMods.Mods.EnvironmentalTweaks, Culture=neutral, PublicKeyToken=null">
+                <Merging>
+                    <ResourcesCompression />
+                    <MemberRefsProxy />
+                    <Pruning>
+                        <Exclusion />
+                    </Pruning>
+                    <Obfuscation />
+                    <ControlFlow />
+                </Merging>
+                <Embedding />
+            </Assembly>
         </Assemblies>
-        <Destination DestinationFileName="C:\Users\Apache\source\repos\VintageMods\VintageMods.Mods.WaypointExtensions\bin\Debug\netstandard2.0\src\VintageMods.Mods.WaypointExtensions.dll" />
+        <Destination DestinationFileName="C:\Users\Apache\source\repos\VintageMods\VintageMods.Mods.EnvironmentalTweaks\bin\Debug\netstandard2.0\src\VintageMods.Mods.EnvironmentalTweaks.dll" />
     </Configuration>
 </SmartAssemblyProject>

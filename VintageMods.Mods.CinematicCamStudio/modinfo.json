@@ -1,6 +1,6 @@
 ﻿{
   "type": "Code",
-  "name": "Cinematic Cam Studio",
+  "name": "[VintageMods] Cinematic Cam Studio",
   "side": "Client",
   "modid": "ats_ccs",
   "description": "A complete overhaul of the in-game cinematic camera; based on BauerCam, and CMDCam Minecraft Mods.",

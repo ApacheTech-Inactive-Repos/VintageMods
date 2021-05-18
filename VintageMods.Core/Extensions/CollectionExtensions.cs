@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace VintageMods.Core.Common.Extensions
+namespace VintageMods.Core.Extensions
 {
     public static class CollectionExtensions
     {
@@ -10,6 +10,7 @@ namespace VintageMods.Core.Common.Extensions
         {
             return values.DefaultIfEmpty(null).FirstOrDefault();
         }
+
         public static T FirstOrNull<T>(this IEnumerable<T> values, Func<T, bool> predicate) where T : class
         {
             return values.DefaultIfEmpty(null).FirstOrDefault(predicate);

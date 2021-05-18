@@ -16,6 +16,10 @@
 #Disabled projects
 VintageMods.Sandbox/*
 
+#Local Output Folders
+.mods/
+.gac/
+
 # Mono auto generated files
 mono_crash.*
 

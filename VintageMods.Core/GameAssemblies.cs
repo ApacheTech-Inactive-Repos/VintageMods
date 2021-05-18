@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
-using VintageMods.Core.Common.Extensions;
+using VintageMods.Core.Extensions;
 using Vintagestory.API.Client;
 using Vintagestory.Client.NoObf;
 using Vintagestory.GameContent;
@@ -13,7 +13,7 @@ using Vintagestory.GameContent;
 // ReSharper disable InconsistentNaming
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace VintageMods.Core.Common
+namespace VintageMods.Core
 {
     public static class GameAssemblies
     {
@@ -26,7 +26,7 @@ namespace VintageMods.Core.Common
 
         public static IReadOnlyList<Assembly> All { get; } = new List<Assembly>
         {
-            VSEssentials, VSSurvivalMod, VSCreativeMod, VintagestoryAPI, VintagestoryLib
+            VSEssentials, VSSurvivalMod, VSCreativeMod, VintagestoryAPI, VintagestoryLib, VintagestoryExe
         };
 
         public static Type FindType(this Assembly assembly, string typeName)

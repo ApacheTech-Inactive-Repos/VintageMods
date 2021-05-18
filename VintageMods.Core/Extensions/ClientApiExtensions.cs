@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using VintageMods.Core.Common.Extensions;
-using VintageMods.Core.Common.Reflection;
+using VintageMods.Core.Reflection;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -12,7 +11,7 @@ using Vintagestory.GameContent;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedType.Global
 
-namespace VintageMods.Core.Client.Extensions
+namespace VintageMods.Core.Extensions
 {
     public static class ClientApiExtensions
     {

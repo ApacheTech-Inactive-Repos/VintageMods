@@ -8,23 +8,44 @@ using System.Runtime.CompilerServices;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable NonReadonlyMemberInGetHashCode
 
-namespace VintageMods.Core.Common.Primitives
+namespace VintageMods.Core.Primitives
 {
+    /// <summary>
+    /// Class StringEnum.
+    /// Implements the <see cref="System.IEquatable{T}" />
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="System.IEquatable{T}" />
     public abstract class StringEnum<T> : IEquatable<T> where T : StringEnum<T>, new()
     {
+        /// <summary>
+        ///     The value given to this StringEnum member.
+        /// </summary>
         protected string Value;
 
-        private static readonly Dictionary<string, T> ValueDict = new Dictionary<string, T>();
+        /// <summary>
+        /// The value dictionary
+        /// </summary>
+        private static readonly Dictionary<string, T> ValueDict = new();
 
+        /// <summary>
+        ///     Creates the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>T.</returns>
         protected static T Create(string value)
         {
             if (value == null) return default;
             var obj1 = new T { Value = value };
-            var obj2 = obj1;
-            ValueDict.Add(value, obj2);
-            return obj2;
+            ValueDict.Add(value, obj1);
+            return obj1;
         }
 
+        /// <summary>
+        ///     Performs an implicit conversion from <see cref="VintageMods.Core.Primitives.StringEnum{T}" /> to <see cref="System.String" />.
+        /// </summary>
+        /// <param name="enumValue">The enum value.</param>
+        /// <returns>The result of the conversion.</returns>
         public static implicit operator string(StringEnum<T> enumValue)
         {
             return enumValue.Value;

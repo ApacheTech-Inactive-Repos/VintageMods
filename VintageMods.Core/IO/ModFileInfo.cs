@@ -3,10 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
-using VintageMods.Core.FileIO.Extensions;
+using VintageMods.Core.IO.Extensions;
+
 // ReSharper disable UnusedMember.Global
 
-namespace VintageMods.Core.FileIO
+namespace VintageMods.Core.IO
 {
     /// <summary>
     ///     Manages a file used to collate and store mod information.

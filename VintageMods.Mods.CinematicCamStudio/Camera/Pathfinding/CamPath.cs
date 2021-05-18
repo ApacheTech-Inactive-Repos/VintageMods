@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using VintageMods.Core.Common.Reflection;
+using VintageMods.Core.Reflection;
 using VintageMods.Mods.CinematicCamStudio.Camera.Modes;
 using VintageMods.Mods.CinematicCamStudio.Camera.Motion;
 using VintageMods.Mods.CinematicCamStudio.Camera.Targetting;

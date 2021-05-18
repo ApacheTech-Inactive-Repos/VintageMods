@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using VintageMods.Core.FileIO.Enum;
-using VintageMods.Core.FileIO.Extensions;
+using VintageMods.Core.IO.Enum;
+using VintageMods.Core.IO.Extensions;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace VintageMods.Core.FileIO
+namespace VintageMods.Core.IO
 {
     /// <summary>
     ///     Provides a means for handling files, including embedded resources, used within a mod.

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VintageMods.Core.Client.Extensions;
-using VintageMods.Core.Common.Extensions;
-using VintageMods.Core.FileIO;
-using VintageMods.Core.FileIO.Extensions;
+using VintageMods.Core.Extensions;
 using VintageMods.Core.FluentChat.Attributes;
 using VintageMods.Core.FluentChat.Exenstions;
 using VintageMods.Core.FluentChat.Primitives;
+using VintageMods.Core.IO;
+using VintageMods.Core.IO.Extensions;
 using VintageMods.Mods.WaypointExtensions.Extensions;
 using VintageMods.Mods.WaypointExtensions.Model;
 using Vintagestory.API.Client;

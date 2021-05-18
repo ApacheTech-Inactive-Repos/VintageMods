@@ -3,6 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +26,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="VintageMods.Mods.EnvironmentalTweaks.saproj" />
+    <None Include="VintageMods.Mods.EnvironmentalTweaks_Debug.saproj" />
+    <None Include="VintageMods.Mods.EnvironmentalTweaks_Release.saproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VintageMods.Core\VintageMods.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,9 +72,5 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    &quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; $(ProjectDir)$(ProjectName).saproj&#xD;&#xA;    del &quot;$(TargetDir)*.zip&quot;&#xD;&#xA;    del &quot;$(TargetDir)publish\*.json&quot;&#xD;&#xA;    del &quot;$(TargetDir)publish\*.pdb&quot;&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)publish\Assets\&quot; /s /e /y &#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)publish&quot;&#xD;&#xA;    &quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) publish&#xD;&#xA;)" />
-  </Target>
 
 </Project>

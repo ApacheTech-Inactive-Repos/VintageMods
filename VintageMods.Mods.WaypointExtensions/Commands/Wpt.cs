@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using VintageMods.Core.Client.Extensions;
-using VintageMods.Core.Common.Enum;
+using VintageMods.Core.Enum;
+using VintageMods.Core.Extensions;
 using VintageMods.Core.FluentChat.Attributes;
 using VintageMods.Core.FluentChat.Exenstions;
 using VintageMods.Core.FluentChat.Primitives;

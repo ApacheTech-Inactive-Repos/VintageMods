@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using ProtoBuf;
 
-namespace VintageMods.Core.FileIO.Extensions
+namespace VintageMods.Core.IO.Extensions
 {
     public static class ProtoEx
     {

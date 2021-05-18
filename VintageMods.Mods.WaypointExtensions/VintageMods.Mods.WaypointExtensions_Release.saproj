@@ -21,7 +21,7 @@
                 <Embedding Compress="1" Encrypt="1" />
             </Assembly>
             <Assembly AssemblyName="VintageMods.Core.Common, Culture=neutral, PublicKeyToken=null">
-                <Merging Merge="1">
+                <Merging Merge="0">
                     <Pruning Prune="1">
                         <Exclusion />
                     </Pruning>
@@ -35,7 +35,7 @@
                 <Embedding Compress="1" Encrypt="1" />
             </Assembly>
             <Assembly AssemblyName="VintageMods.Core.Client, Culture=neutral, PublicKeyToken=null">
-                <Merging Merge="1">
+                <Merging Merge="0">
                     <Pruning Prune="1">
                         <Exclusion />
                     </Pruning>
@@ -61,7 +61,7 @@
                 <Embedding Compress="1" Encrypt="1" />
             </Assembly>
             <Assembly AssemblyName="VintageMods.Core.FluentChat, Culture=neutral, PublicKeyToken=null">
-                <Merging Merge="1">
+                <Merging Merge="0">
                     <Pruning Prune="1">
                         <Exclusion />
                     </Pruning>
@@ -79,7 +79,7 @@
                 <Embedding Compress="1" Encrypt="1" />
             </Assembly>
             <Assembly AssemblyName="VintageMods.Core.FileIO, Culture=neutral, PublicKeyToken=null">
-                <Merging Merge="1">
+                <Merging Merge="0">
                     <Pruning Prune="1">
                         <Exclusion />
                     </Pruning>
@@ -870,6 +870,18 @@
             </Assembly>
             <Assembly AssemblyName="Vintagestory, Culture=neutral, PublicKeyToken=null">
                 <Merging />
+                <Embedding Compress="1" Encrypt="1" />
+            </Assembly>
+            <Assembly AssemblyName="VintageMods.Core, Culture=neutral, PublicKeyToken=null">
+                <Merging Merge="1">
+                    <Pruning Prune="1">
+                        <Exclusion />
+                    </Pruning>
+                    <Obfuscation />
+                    <ControlFlow />
+                    <MemberRefsProxy />
+                    <ResourcesCompression />
+                </Merging>
                 <Embedding Compress="1" Encrypt="1" />
             </Assembly>
         </Assemblies>

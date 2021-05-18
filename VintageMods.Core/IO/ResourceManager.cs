@@ -4,9 +4,9 @@ using System.Reflection;
 using System.Resources;
 using System.Text;
 using Newtonsoft.Json;
-using VintageMods.Core.FileIO.Extensions;
+using VintageMods.Core.IO.Extensions;
 
-namespace VintageMods.Core.FileIO
+namespace VintageMods.Core.IO
 {
     /// <summary>
     ///     Controls access to embedded resources within assemblies,

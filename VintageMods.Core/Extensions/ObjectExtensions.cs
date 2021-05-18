@@ -2,7 +2,7 @@
 using System.Dynamic;
 using System.Runtime.CompilerServices;
 
-namespace VintageMods.Core.Common.Extensions
+namespace VintageMods.Core.Extensions
 {
     /// <summary>
     ///     Dynamically associates properties to an instance of an object.

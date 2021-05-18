@@ -1,4 +1,4 @@
-﻿namespace VintageMods.Core.Common.Extensions
+﻿namespace VintageMods.Core.Extensions
 {
     public static class StringExtensions
     {

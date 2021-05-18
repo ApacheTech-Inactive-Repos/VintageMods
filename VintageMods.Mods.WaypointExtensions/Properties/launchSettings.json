@@ -1,12 +1,1 @@
-{
-  "profiles": {
-    "VintageMods.Mods.WaypointExtensions": {
-      "commandName": "Executable",
-      "executablePath": "D:\\Games\\Vintage Story\\Vintage Story.exe",
-      "commandLineArgs": "--addModPath=\"C:\\Users\\Apache\\source\\repos\\VintageMods\\VintageMods.Mods.WaypointExtensions\\bin\\Debug\"",
-      "workingDirectory": "D:\\Games\\Vintage Story\\",
-      "sqlDebugging": false,
-      "nativeDebugging": false
-    }
-  }
-}
+{}

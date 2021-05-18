@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using HarmonyLib;
-using VintageMods.Core.Common.Reflection;
-using VintageMods.Core.FileIO.Extensions;
+using VintageMods.Core.IO.Extensions;
+using VintageMods.Core.Reflection;
 using VintageMods.Mods.EnvironmentalTweaks.Config;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;

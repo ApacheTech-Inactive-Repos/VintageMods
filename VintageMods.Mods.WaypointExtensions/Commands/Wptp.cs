@@ -1,10 +1,9 @@
 ﻿using JetBrains.Annotations;
-using VintageMods.Core.Client.Extensions;
-using VintageMods.Core.Common.Extensions;
-using VintageMods.Core.Common.Reflection;
+using VintageMods.Core.Extensions;
 using VintageMods.Core.FluentChat.Attributes;
 using VintageMods.Core.FluentChat.Exenstions;
 using VintageMods.Core.FluentChat.Primitives;
+using VintageMods.Core.Reflection;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.GameContent;
@@ -35,7 +34,7 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
         {
             var found = false;
             var teleporter = Api.World.GetNearestBlockEntity<BlockEntityTeleporter>(Api.World.Player.Entity.Pos.AsBlockPos,
-                5f, 1f, p =>
+                5f, 1f, _ =>
                 {
                     found = true;
                     return true;

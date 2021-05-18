@@ -5,6 +5,10 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="modinfo.json" />
   </ItemGroup>
@@ -13,6 +17,15 @@
     <Content Include="modinfo.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="VintageMods.Mods.CinematicCamStudio_Debug.saproj" />
+    <None Include="VintageMods.Mods.CinematicCamStudio_Release.saproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VintageMods.Core\VintageMods.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,9 +66,5 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;    del &quot;$(TargetDir)*.pdb&quot;&#xD;&#xA;    del &quot;$(TargetDir)*.deps.json&quot;&#xD;&#xA;)" />
-  </Target>
 
 </Project>

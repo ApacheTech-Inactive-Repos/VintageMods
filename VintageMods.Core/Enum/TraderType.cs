@@ -1,10 +1,10 @@
-﻿using VintageMods.Core.Common.Primitives;
+﻿using VintageMods.Core.Primitives;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedType.Global
 // ReSharper disable StringLiteralTypo
 
-namespace VintageMods.Core.Common.Enum
+namespace VintageMods.Core.Enum
 {    public sealed class TraderType : StringEnum<TraderType>
     {
         public static string Artisan = Create("artisan");

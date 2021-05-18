@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
-using Vintagestory.API.Client;
 using Vintagestory.API.Config;
 
-namespace VintageMods.Core.FileIO.Extensions
+namespace VintageMods.Core.IO.Extensions
 {
     public static class DirectoryInfoEx
     {

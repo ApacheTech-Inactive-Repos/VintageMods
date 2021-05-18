@@ -7,7 +7,7 @@ using HarmonyLib;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedType.Global
 
-namespace VintageMods.Core.Common.Reflection
+namespace VintageMods.Core.Reflection
 {
     public static class HarmonyReflectionExtensions
     {
