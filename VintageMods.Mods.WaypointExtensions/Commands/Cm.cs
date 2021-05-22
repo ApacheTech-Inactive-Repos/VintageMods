@@ -2,7 +2,7 @@
 using System.Linq;
 using VintageMods.Core.Extensions;
 using VintageMods.Core.FluentChat.Attributes;
-using VintageMods.Core.FluentChat.Exenstions;
+using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.FluentChat.Primitives;
 using VintageMods.Core.Reflection;
 using Vintagestory.API.Client;

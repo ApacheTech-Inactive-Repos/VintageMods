@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using VintageMods.Core.IO.Extensions;
 
@@ -12,6 +13,7 @@ namespace VintageMods.Core.IO
     ///     Controls access to embedded resources within assemblies,
     ///     allowing them to be parsed as strings or strongly-typed objects.
     /// </summary>
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public static class ResourceManager
     {
         /// <summary>

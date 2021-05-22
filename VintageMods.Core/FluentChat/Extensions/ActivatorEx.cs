@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VintageMods.Core.FluentChat.Exenstions
+namespace VintageMods.Core.FluentChat.Extensions
 {
     public static class ActivatorEx
     {

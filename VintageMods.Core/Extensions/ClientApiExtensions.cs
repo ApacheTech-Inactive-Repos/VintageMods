@@ -23,16 +23,18 @@ namespace VintageMods.Core.Extensions
         {
             return api?.World?.Seed.ToString();
         }
-
+        
         public static ClientMain AsClientMain(this ICoreClientAPI api)
         {
             return api.World as ClientMain;
         }
+
         public static object GetVanillaClientSystem(this ICoreClientAPI api, string name)
         {
             var clientSystems = (api.World as ClientMain).GetField<ClientSystem[]>("clientSystems");
             return clientSystems.FirstOrDefault(p => p.Name == name);
         }
+
         public static void UnregisterCommand(this ICoreClientAPI capi, string cmd)
         {
             var eventManager = (capi.World as ClientMain).GetField<ClientEventManager>("eventManager");
@@ -43,6 +45,7 @@ namespace VintageMods.Core.Extensions
             }
             eventManager.SetField("chatCommands", chatCommands);
         }
+
         public static void UnregisterVanillaClientSystem<T>(this ICoreClientAPI capi) where T : ClientSystem
         {
             var clientMain = capi.World as ClientMain;
@@ -56,6 +59,7 @@ namespace VintageMods.Core.Extensions
             }
             clientMain.SetField("clientSystems", clientSystems.ToArray());
         }
+
         public static void UnregisterVanillaClientSystem(this ICoreClientAPI capi, string name)
         {
             var clientMain = capi.World as ClientMain;
@@ -69,7 +73,6 @@ namespace VintageMods.Core.Extensions
             }
             clientMain.SetField("clientSystems", clientSystems.ToArray());
         }
-
         public static T GetVanillaClientSystem<T>(this ICoreClientAPI api) where T : ClientSystem
         {
             var clientSystems = (api.World as ClientMain).GetField<ClientSystem[]>("clientSystems");
@@ -105,7 +108,7 @@ namespace VintageMods.Core.Extensions
             TBlockEntity blockEntity = null;
             var minPos = pos.AddCopy(-horRange, -vertRange, -horRange);
             var maxPos = pos.AddCopy(horRange, vertRange, horRange);
-            world.BlockAccessor.WalkBlocks(minPos, maxPos, (block, blockPos) =>
+            world.BlockAccessor.WalkBlocks(minPos, maxPos, (_, blockPos) =>
             {
                 var entity = world.BlockAccessor.GetBlockEntity(blockPos);
                 if (entity == null) return;
@@ -120,10 +123,9 @@ namespace VintageMods.Core.Extensions
         public static TBlockEntity GetNearestBlockEntity<TBlockEntity>(this IWorldAccessor world, BlockPos pos, 
             float horRange, float vertRange) where TBlockEntity : BlockEntity
         {
-            return world.GetNearestBlockEntity<TBlockEntity>(pos, horRange, vertRange, block => true);
+            return world.GetNearestBlockEntity<TBlockEntity>(pos, horRange, vertRange, _ => true);
         }
-
-
+        
         /// <summary>
         ///     Determines whether any waypoints exist within a given radius of a block position.
         /// </summary>
@@ -141,9 +143,7 @@ namespace VintageMods.Core.Extensions
             if (!waypoints.Any()) return false;
             return comparer == null || waypoints.Any(p => comparer(p));
         }
-
-
-
+        
         /// <summary>
         ///     Determines whether any waypoints exist at a specific block position.
         /// </summary>
@@ -196,10 +196,9 @@ namespace VintageMods.Core.Extensions
         public static void AddWaypointAtPos(
             this ICoreClientAPI api, BlockPos pos, string icon, string colour, string title, bool pinned)
         {
-            var blockPos = pos;
-            if (blockPos is null) return;
+            if (pos is null) return;
             api.SendChatMessage(
-                $"/waypoint addati {icon} {blockPos.X} {blockPos.Y} {blockPos.Z} {(pinned ? "true" : "false")} {colour} {title}");
+                $"/waypoint addati {icon} {pos.X} {pos.Y} {pos.Z} {(pinned ? "true" : "false")} {colour} {title}");
         }
     }
 }

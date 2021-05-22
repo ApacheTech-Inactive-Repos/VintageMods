@@ -1,6 +1,6 @@
 ﻿using Vintagestory.API.Common;
 
-namespace VintageMods.Core.Extensions
+namespace VintageMods.Core.FluentChat.Extensions
 {
     /// <summary>
     ///     Extension Methods for the CmdArgs data structure.

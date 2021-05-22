@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using VintageMods.Core.MemoryAdaptor.Assembly.Assemblers;
 using VintageMods.Core.MemoryAdaptor.Assembly.CallingConventions;
-using VintageMods.Core.MemoryAdaptor.Marshaling;
+using VintageMods.Core.MemoryAdaptor.Marshalling;
 using VintageMods.Core.MemoryAdaptor.Memory;
 using VintageMods.Core.MemoryAdaptor.Native.Types;
 using VintageMods.Core.MemoryAdaptor.Threads;

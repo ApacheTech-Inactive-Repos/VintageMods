@@ -1,6 +1,6 @@
 using System;
 
-namespace VintageMods.Core.MemoryAdaptor.Marshaling
+namespace VintageMods.Core.MemoryAdaptor.Marshalling
 {
     /// <summary>
     ///     Defines an IDisposable interface with a known state.

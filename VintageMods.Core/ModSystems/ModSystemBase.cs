@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using HarmonyLib;
 using JetBrains.Annotations;
+using VintageMods.Core.IO;
+using VintageMods.Core.IO.Extensions;
 using Vintagestory.API.Common;
 
 namespace VintageMods.Core.ModSystems
@@ -20,6 +22,12 @@ namespace VintageMods.Core.ModSystems
         /// </summary>
         /// <value>The Harmony instance used to add patches for this mod.</value>
         protected Harmony ModPatches { get; }
+
+        /// <summary>
+        ///     Gets the file manager used to file system IO Operations.
+        /// </summary>
+        /// <value>The file manager.</value>
+        protected FileManager Files { get; }
 
         /// <summary>
         ///     Initialises a new instance of the <see cref="ModSystemBase{TApi}"/> class.
@@ -43,6 +51,7 @@ namespace VintageMods.Core.ModSystems
         public override void Start(ICoreAPI api)
         {
             Api = api as TApi;
+            api.RegisterFileManager();
             ApplyHarmonyPatches();
             api.Logger.Notification($"  {_patchAssembly.GetName()} - Patched Methods:");
             foreach (var val in ModPatches.GetPatchedMethods())

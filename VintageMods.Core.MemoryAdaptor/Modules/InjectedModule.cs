@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using VintageMods.Core.MemoryAdaptor.Marshaling;
+using VintageMods.Core.MemoryAdaptor.Marshalling;
 
 namespace VintageMods.Core.MemoryAdaptor.Modules
 {

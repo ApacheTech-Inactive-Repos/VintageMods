@@ -2,17 +2,17 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using VintageMods.Core.IO.Extensions;
-
-// ReSharper disable UnusedMember.Global
 
 namespace VintageMods.Core.IO
 {
     /// <summary>
-    ///     Manages a file used to collate and store mod information.
+    ///     Manages a file used to collate and store mod information. This class cannot be inherited.
     /// </summary>
-    public class ModFileInfo
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    public sealed class ModFileInfo
     {
         private readonly FileInfo _fileOnDisk;
 

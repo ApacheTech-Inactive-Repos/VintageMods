@@ -3,7 +3,7 @@ using System.Linq;
 using VintageMods.Core.Enum;
 using VintageMods.Core.Extensions;
 using VintageMods.Core.FluentChat.Attributes;
-using VintageMods.Core.FluentChat.Exenstions;
+using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.FluentChat.Primitives;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;

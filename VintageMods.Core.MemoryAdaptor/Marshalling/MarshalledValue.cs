@@ -3,7 +3,7 @@ using System.Text;
 using VintageMods.Core.MemoryAdaptor.Memory;
 using VintageMods.Core.MemoryAdaptor.Utilities;
 
-namespace VintageMods.Core.MemoryAdaptor.Marshaling
+namespace VintageMods.Core.MemoryAdaptor.Marshalling
 {
     /// <summary>
     ///     Class marshalling a value into the remote process.

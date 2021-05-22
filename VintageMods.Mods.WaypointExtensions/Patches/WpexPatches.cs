@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using HarmonyLib;
 using VintageMods.Core.Extensions;
-using VintageMods.Core.FluentChat.Exenstions;
+using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.IO.Extensions;
 using VintageMods.Core.Reflection;
 using VintageMods.Mods.WaypointExtensions.Model;

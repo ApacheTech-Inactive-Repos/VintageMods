@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace VintageMods.Core.FluentChat.Exenstions
+namespace VintageMods.Core.FluentChat.Extensions
 {
     public static class DelegateEx
     {

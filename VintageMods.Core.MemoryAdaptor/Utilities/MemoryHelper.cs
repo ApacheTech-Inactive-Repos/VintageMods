@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-using VintageMods.Core.MemoryAdaptor.Marshaling;
+using VintageMods.Core.MemoryAdaptor.Marshalling;
 using VintageMods.Core.MemoryAdaptor.Native;
 using VintageMods.Core.MemoryAdaptor.Native.Types;
 

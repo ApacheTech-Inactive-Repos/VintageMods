@@ -1,9 +1,14 @@
 ﻿using System.ComponentModel;
+using JetBrains.Annotations;
 
 namespace VintageMods.Core.Extensions
 {
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public static class EnumExtensions
     {
+        /// <summary>
+        ///     Gets the description for the enum member, decorated with a DescriptionAttribute.
+        /// </summary>
         public static string GetDescription(this System.Enum value)
         {
             var fi = value.GetType().GetField(value.ToString());

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Reflection;
 using JetBrains.Annotations;
-using VintageMods.Core.FluentChat.Exenstions;
 using Vintagestory.API.Common;
 using Vintagestory.Client.NoObf;
-using System.Dynamic;
+using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.Reflection;
 
 namespace VintageMods.Core.FluentChat.Primitives

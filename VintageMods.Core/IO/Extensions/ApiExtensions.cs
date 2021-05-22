@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Reflection;
 using VintageMods.Core.Attributes;
-using VintageMods.Core.IO.Enum;
 using Vintagestory.API.Common;
 
 // ReSharper disable UnusedMember.Global
@@ -13,32 +12,30 @@ namespace VintageMods.Core.IO.Extensions
     {
         private static FileManager _fileManagerInstance;
 
-        public static FileManager RegisterFileManager(this ICoreAPI api, 
-            params (string FileName, FileScope FileScope)[] files)
+        /// <summary>
+        ///     Registers a file manager with the mod.
+        /// </summary>
+        /// <param name="api">The core game API.</param>
+        /// <returns>A file manager that can be used to read from, and write to the filesystem.</returns>
+        public static FileManager RegisterFileManager(this ICoreAPI api)
         {
             var rootFolder = Assembly.GetCallingAssembly().GetCustomAttributes()
                 .OfType<ModDomainAttribute>().FirstOrDefault()?.RootFolder ?? "Common";
-
             _fileManagerInstance = new FileManager(api, rootFolder);
-            foreach (var (fileName, fileScope) in files)
-            {
-                _fileManagerInstance.RegisterFile(fileName, fileScope);
-            }
-
             return _fileManagerInstance;
         }
 
-        public static FileManager FileManager(this ICoreAPI api, string rootFolder = null)
-        {
-            if (string.IsNullOrEmpty(rootFolder)) return _fileManagerInstance;
-            return _fileManagerInstance ??= new FileManager(api, rootFolder);
-        }
-
-       public static ModFileInfo GetModFile(this ICoreAPI api, string fileName)
+        /// <summary>
+        ///     Retrieves a registered file from the mod's file manager.
+        /// </summary>
+        /// <param name="api">The core game API.</param>
+        /// <param name="fileName">The name of the file to retrieve.</param>
+        /// <returns>A previously registered file that can be read from, or written to.</returns>
+        public static ModFileInfo GetModFile(this ICoreAPI api, string fileName)
         {
             try
             {
-                return _fileManagerInstance.ModFiles[fileName];
+                return _fileManagerInstance[fileName];
             }
             catch (Exception e)
             {

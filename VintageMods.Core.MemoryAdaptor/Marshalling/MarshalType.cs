@@ -2,10 +2,11 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using VintageMods.Core.MemoryAdaptor.Memory;
+
 // ReSharper disable StaticMemberInGenericType
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace VintageMods.Core.MemoryAdaptor.Marshaling
+namespace VintageMods.Core.MemoryAdaptor.Marshalling
 {
     /// <summary>
     ///     Static class providing tools for extracting information related to types.

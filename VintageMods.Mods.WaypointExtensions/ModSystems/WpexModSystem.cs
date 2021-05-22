@@ -1,7 +1,6 @@
 ﻿using VintageMods.Core.Attributes;
-using VintageMods.Core.FluentChat.Exenstions;
+using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.IO.Enum;
-using VintageMods.Core.IO.Extensions;
 using VintageMods.Core.ModSystems;
 using VintageMods.Mods.WaypointExtensions.Commands;
 using VintageMods.Mods.WaypointExtensions.UI;
@@ -16,12 +15,11 @@ namespace VintageMods.Mods.WaypointExtensions.ModSystems
     {
         public override void StartClientSide(ICoreClientAPI api)
         {
-            api.RegisterFileManager(
-                ("wpex-global-config.data", FileScope.Global),
-                ("wpex-default-waypoints.data", FileScope.Global),
-                ("wpex-custom-waypoints.data", FileScope.World),
-                ("wpex-settings.data", FileScope.World)
-            );
+            Files.RegisterFile("wpex-global-config.data", FileScope.Global);
+            Files.RegisterFile("wpex-default-waypoints.data", FileScope.Global);
+            Files.RegisterFile("wpex-custom-waypoints.data", FileScope.World);
+            Files.RegisterFile("wpex-settings.data", FileScope.World);
+
             RegisterChatCommands(api);
 
             var settingsWindow = new SettingsWindow(api);

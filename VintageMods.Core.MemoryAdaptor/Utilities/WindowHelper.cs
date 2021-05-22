@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using VintageMods.Core.MemoryAdaptor.Marshaling;
+using VintageMods.Core.MemoryAdaptor.Marshalling;
 using VintageMods.Core.MemoryAdaptor.Native;
 using VintageMods.Core.MemoryAdaptor.Native.Types;
 using VintageMods.Core.MemoryAdaptor.Windows;

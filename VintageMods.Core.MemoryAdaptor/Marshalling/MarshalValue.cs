@@ -7,7 +7,7 @@
  * See the file LICENSE for more information.
 */
 
-namespace VintageMods.Core.MemoryAdaptor.Marshaling
+namespace VintageMods.Core.MemoryAdaptor.Marshalling
 {
     /// <summary>
     ///     The factory to create instance of the <see cref="MarshalledValue{T}" /> class.

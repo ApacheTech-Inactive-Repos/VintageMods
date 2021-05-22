@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using VintageMods.Core.MemoryAdaptor.Marshaling;
+using VintageMods.Core.MemoryAdaptor.Marshalling;
 using VintageMods.Core.MemoryAdaptor.Native.Types;
 using VintageMods.Core.MemoryAdaptor.Utilities;
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using VintageMods.Core.MemoryAdaptor.Marshaling;
+using VintageMods.Core.MemoryAdaptor.Marshalling;
 
 namespace VintageMods.Core.MemoryAdaptor.Native.Types
 {

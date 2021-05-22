@@ -28,30 +28,29 @@ namespace VintageMods.Core.Extensions
         /// <returns>A dynamic collection of properties associated with an object instance.</returns>
         public static dynamic DynamicProperties(this object obj) => ExtendedData.GetValue(obj, _ => new ExpandoObject());
 
+        
         public static T As<T>(this object obj)
         {
             var typeCode = Type.GetTypeCode(typeof(T));
-            switch (typeCode)
+            return typeCode switch
             {
-                case TypeCode.Boolean:
-                case TypeCode.Byte:
-                case TypeCode.Char:
-                case TypeCode.Decimal:
-                case TypeCode.Double:
-                case TypeCode.Int16:
-                case TypeCode.Int32:
-                case TypeCode.Int64:
-                case TypeCode.Object:
-                case TypeCode.SByte:
-                case TypeCode.Single:
-                case TypeCode.String:
-                case TypeCode.UInt16:
-                case TypeCode.UInt32:
-                case TypeCode.UInt64:
-                    return (T)obj;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                TypeCode.Boolean => (T) obj,
+                TypeCode.Byte => (T) obj,
+                TypeCode.Char => (T) obj,
+                TypeCode.Decimal => (T) obj,
+                TypeCode.Double => (T) obj,
+                TypeCode.Int16 => (T) obj,
+                TypeCode.Int32 => (T) obj,
+                TypeCode.Int64 => (T) obj,
+                TypeCode.Object => (T) obj,
+                TypeCode.SByte => (T) obj,
+                TypeCode.Single => (T) obj,
+                TypeCode.String => (T) obj,
+                TypeCode.UInt16 => (T) obj,
+                TypeCode.UInt32 => (T) obj,
+                TypeCode.UInt64 => (T) obj,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }

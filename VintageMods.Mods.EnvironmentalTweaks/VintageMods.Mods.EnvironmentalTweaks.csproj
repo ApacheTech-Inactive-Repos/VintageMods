@@ -4,6 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <Copyright>Copyright © 2016-2021 ApacheTech Solutions. All Rights Reserved.</Copyright>
+    <PackageLicenseFile>LICENCE.md</PackageLicenseFile>
+    <Version>1.1.0</Version>
+    <Authors>Apache</Authors>
+    <Company>ApacheTech Solutions</Company>
+    <Product>Environmental Tweaks</Product>
+    <Description>A client-side "Code" Mod for the game, Vintage Story, by Anego Studios. Allows the player to disable annoying costmetic weather and temperature effects.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -13,6 +20,10 @@
   <ItemGroup>
     <None Remove="Assets\_EmbeddedResources\Global\EnvTweaks.config.json" />
     <None Remove="modinfo.json" />
+    <None Include="..\LICENCE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using VintageMods.Core.Extensions;
-using VintageMods.Core.FluentChat.Exenstions;
+using VintageMods.Core.FluentChat.Extensions;
+using VintageMods.Core.Helpers;
 using VintageMods.Core.IO.Extensions;
 using VintageMods.Core.Reflection;
 using VintageMods.Mods.WaypointExtensions.Model;
@@ -90,7 +91,7 @@ namespace VintageMods.Mods.WaypointExtensions.UI
 
         private bool OnDonateButton()
         {
-            GameHelpers.OpenBrowser("https://bit.ly/APGDonate");
+            CrossPlatformHelpers.OpenBrowser("https://bit.ly/APGDonate");
             return true;
         }
 

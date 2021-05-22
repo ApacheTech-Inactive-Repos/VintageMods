@@ -25,7 +25,7 @@
             }
             return index >= Points.Count 
                 ? _endVec 
-                : PointVecs[index];
+                : PointVectors[index];
         }
 
         public override double ValueAt(double mu, int pointIndex, int pointIndexNext)

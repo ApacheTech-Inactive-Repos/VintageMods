@@ -7,13 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{22E915C1-5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mods", "Mods", "{D71BA92B-27FA-41AF-A395-0EB1CEA9EA37}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{790EACD8-22EA-426E-AD3F-D087CED5A345}"
-	ProjectSection(SolutionItems) = preProject
-		FodyWeavers.xml = FodyWeavers.xml
-		FodyWeavers.xsd = FodyWeavers.xsd
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Mods.Sandbox", "VintageMods.Mods.Sandbox\VintageMods.Mods.Sandbox.csproj", "{B7B664BE-F550-4D97-B6D5-90F5CF9AA63A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Mods.EnvironmentalTweaks", "VintageMods.Mods.EnvironmentalTweaks\VintageMods.Mods.EnvironmentalTweaks.csproj", "{37D8D74B-5B8C-4745-96F1-9B64F633ED9E}"
@@ -56,6 +49,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VintageMods.Tools.GameLaunc
 		{DDA4C852-DAE1-40FA-A2BF-A3458F1B8894} = {DDA4C852-DAE1-40FA-A2BF-A3458F1B8894}
 		{B7B664BE-F550-4D97-B6D5-90F5CF9AA63A} = {B7B664BE-F550-4D97-B6D5-90F5CF9AA63A}
 		{431650E1-78BD-4FE9-A0A8-2668023DA374} = {431650E1-78BD-4FE9-A0A8-2668023DA374}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FodyWeavers", "FodyWeavers", "{5D266B6A-A92F-4894-BCD9-392DC89C09AC}"
+	ProjectSection(SolutionItems) = preProject
+		FodyWeavers.xml = FodyWeavers.xml
+		FodyWeavers.xsd = FodyWeavers.xsd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{8F8F6B7F-5479-4B41-8645-B4D1C59793DB}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
@@ -145,6 +149,8 @@ Global
 		{88E39749-272C-4484-B03B-CD67DBD5F6E8} = {77C14A47-AE4F-413C-B059-592543EB29E1}
 		{5BCF4C0E-3B42-4703-944E-762AD14DEC37} = {22E915C1-51AF-4F31-9900-617CE6D04CC3}
 		{D1BD4A0A-6595-4D72-9B09-9CEC49D2246C} = {1B89572E-5A97-49B9-A03D-5C8FE736A6C4}
+		{5D266B6A-A92F-4894-BCD9-392DC89C09AC} = {77C14A47-AE4F-413C-B059-592543EB29E1}
+		{8F8F6B7F-5479-4B41-8645-B4D1C59793DB} = {77C14A47-AE4F-413C-B059-592543EB29E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87615F59-7699-4480-89A6-75F0B9529D0B}

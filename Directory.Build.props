@@ -3,14 +3,20 @@
   <!-- Pre Build Tasks -->
 
   <Target Name="PreBuild" AfterTargets="PreBuildEvent">
-    <Exec Command="del /s /f /q &quot;$(TargetDir)*&quot;"/>
+    <Exec Command="del /s /f /q &quot;$(TargetDir)*&quot; &gt;nul 2&gt;&amp;1"/>
     <Exec Command="IF $(ProjectName.IndexOf(&quot;VintageMods.Tools&quot;)) == -1 (for /f %%f in ('dir /ad /b &quot;$(TargetDir)&quot;') do rd /s /q &quot;$(TargetDir)%%f&quot;)"/>
   </Target>
 
   <!-- Post Build Tasks -->
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="IF $(ProjectName.IndexOf(&quot;VintageMods.Mods&quot;)) == 0 (&#xD;&#xA;&#xD;&#xA;:: Run SmartAssembly :: &#xD;&#xA;    &quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; $(ProjectDir)$(ProjectName)_$(ConfigurationName).saproj&#xD;&#xA;&#xD;&#xA;:: Delete Zip Files :: &#xD;&#xA;    del &quot;$(TargetDir)*.zip&quot;&#xD;&#xA;    del &quot;$(SolutionDir).mods\$(ProjectName)*.zip&quot;&#xD;&#xA;&#xD;&#xA;:: Clean up Target Directory ::&#xD;&#xA;    IF $(ConfigurationName) == Release (&#xD;&#xA;          del &quot;$(TargetDir)src\*.json&quot;&#xD;&#xA;          del &quot;$(TargetDir)src\*.pdb&quot;&#xD;&#xA;    )&#xD;&#xA;&#xD;&#xA;:: Copy necessary files to src directory ::&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)src\Assets\&quot; /y /e /s   &#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;    copy /y &quot;$(SolutionDir)LICENCE.md&quot; &quot;$(TargetDir)src&quot;&#xD;&#xA;&#xD;&#xA;:: Package Mod ::&#xD;&#xA;    &quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) src&#xD;&#xA;&#xD;&#xA;:: Copy Packaged Mod to Debuggable mods folder. ::&#xD;&#xA;    copy /y &quot;$(TargetDir)*.zip&quot; &quot;$(SolutionDir).mods&quot;&#xD;&#xA;)" />
+    <Exec Command="IF $(ProjectName.IndexOf(&quot;VintageMods.Mods&quot;)) == 0 (&#xD;&#xA;&#xD;&#xA;
+                    :: Run SmartAssembly :: &#xD;&#xA;    &quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; $(ProjectDir)$(ProjectName)_$(ConfigurationName).saproj&#xD;&#xA;&#xD;&#xA;
+                    :: Delete Zip Files :: &#xD;&#xA;    del &quot;$(TargetDir)*.zip&quot;&gt;nul 2&gt;&amp;1&#xD;&#xA;    del &quot;$(SolutionDir).mods\$(ProjectName)*.zip&quot;&gt;nul 2&gt;&amp;1&#xD;&#xA;&#xD;&#xA;
+                    :: Clean up Target Directory ::&#xD;&#xA;    IF $(ConfigurationName) == Release (&#xD;&#xA;          del &quot;$(TargetDir)src\*.json&quot; &gt;nul 2&gt;&amp;1&#xD;&#xA;          del &quot;$(TargetDir)src\*.pdb&quot; &gt;nul 2&gt;&amp;1&#xD;&#xA;    )&#xD;&#xA;&#xD;&#xA;
+                    :: Copy necessary files to src directory ::&#xD;&#xA;    xcopy &quot;$(TargetDir)Assets\&quot; &quot;$(TargetDir)src\Assets\&quot; /y /e /s &gt;nul 2&gt;&amp;1&#xD;&#xA;    copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)src&quot; &gt;nul 2&gt;&amp;1&#xD;&#xA;    copy /y &quot;$(SolutionDir)LICENCE.md&quot; &quot;$(TargetDir)src&quot; &gt;nul 2&gt;&amp;1&#xD;&#xA;&#xD;&#xA;
+                    :: Package Mod ::&#xD;&#xA;    &quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) src&#xD;&#xA;&#xD;&#xA;
+                    :: Copy Packaged Mod to Debuggable mods folder. ::&#xD;&#xA;    copy /y &quot;$(TargetDir)*.zip&quot; &quot;$(SolutionDir).mods&quot; &gt;nul 2&gt;&amp;1&#xD;&#xA;)" />
   </Target>
 
   <!-- Clean Tasks -->
@@ -18,5 +24,6 @@
   <Target Name="PostClean" AfterTargets="AfterClean">
     <RemoveDir Directories="$(ProjectDir)bin" />
     <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
+    <Exec Command="del /s &quot;$(SolutionDir).mods\$(ProjectName)*.zip&quot; &gt;nul 2&gt;&amp;1" />
   </Target>
 </Project>

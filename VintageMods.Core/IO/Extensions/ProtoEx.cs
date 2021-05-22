@@ -7,6 +7,9 @@ namespace VintageMods.Core.IO.Extensions
 {
     public static class ProtoEx
     {
+        /// <summary>
+        ///     Serialises the specified record.
+        /// </summary>
         public static IEnumerable<byte> Serialise<T>(T record) where T : class
         {
             if (null == record) return null;
@@ -15,6 +18,9 @@ namespace VintageMods.Core.IO.Extensions
             return stream.ToArray();
         }
 
+        /// <summary>
+        ///     Deserialises the specified data.
+        /// </summary>
         public static T Deserialise<T>(IEnumerable<byte> data) where T : class
         {
             if (null == data) return null;

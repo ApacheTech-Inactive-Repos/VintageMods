@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace VintageMods.Core.Maths.Interpolation
 {
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers | ImplicitUseTargetFlags.WithInheritors)]
     public abstract class InterpolationBase : IInterpolator
     {
-        protected readonly Dictionary<double, double> Points = new Dictionary<double, double>();
-        protected readonly List<double> PointVecs;
+        protected readonly Dictionary<double, double> Points = new();
+        protected readonly List<double> PointVectors;
 
-        public InterpolationBase(double[] times, double[] points)
+        protected InterpolationBase(double[] times, double[] points)
         {
             if (points.Length < 2)
                 throw new ArgumentException("At least two points are needed!", nameof(points));
@@ -17,11 +19,10 @@ namespace VintageMods.Core.Maths.Interpolation
                 throw new ArgumentException("Invalid times array!", nameof(times));
 
             for (var i = 0; i < points.Length; i++) Points.Add(times[i], points[i]);
-            PointVecs = new List<double>(points);
+            PointVectors = new List<double>(points);
         }
 
-
-        public InterpolationBase(params double[] points)
+        protected InterpolationBase(params double[] points)
         {
             if (points.Length < 2)
                 throw new ArgumentException("At least two points are needed!", nameof(points));
@@ -34,12 +35,12 @@ namespace VintageMods.Core.Maths.Interpolation
                 time += stepLength;
             }
 
-            PointVecs = new List<double>(points);
+            PointVectors = new List<double>(points);
         }
 
         protected virtual double GetValue(int index)
         {
-            return PointVecs[index];
+            return PointVectors[index];
         }
 
         public double ValueAt(double t)

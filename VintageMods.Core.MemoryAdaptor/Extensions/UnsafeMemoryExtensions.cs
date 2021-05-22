@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using VintageMods.Core.MemoryAdaptor.Marshaling;
+using VintageMods.Core.MemoryAdaptor.Marshalling;
 using VintageMods.Core.MemoryAdaptor.Native;
 
 namespace VintageMods.Core.MemoryAdaptor.Extensions

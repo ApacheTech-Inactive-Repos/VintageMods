@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text;
-using VintageMods.Core.MemoryAdaptor.Marshaling;
+using VintageMods.Core.MemoryAdaptor.Marshalling;
 
 namespace VintageMods.Core.MemoryAdaptor.Assembly
 {

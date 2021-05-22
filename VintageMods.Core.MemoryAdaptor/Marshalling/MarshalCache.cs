@@ -7,7 +7,7 @@ using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace VintageMods.Core.MemoryAdaptor.Marshaling
+namespace VintageMods.Core.MemoryAdaptor.Marshalling
 {
     [SuppressMessage("ReSharper", "StaticMemberInGenericType")]
     public static class MarshalCache<T>

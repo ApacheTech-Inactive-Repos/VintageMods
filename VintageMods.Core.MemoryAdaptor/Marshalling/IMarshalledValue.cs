@@ -1,7 +1,7 @@
 using System;
 using VintageMods.Core.MemoryAdaptor.Memory;
 
-namespace VintageMods.Core.MemoryAdaptor.Marshaling
+namespace VintageMods.Core.MemoryAdaptor.Marshalling
 {
     /// <summary>
     ///     Interface representing a value within the memory of a remote process.

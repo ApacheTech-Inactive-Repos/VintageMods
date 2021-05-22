@@ -7,16 +7,18 @@ using VintageMods.Core.FluentChat.Primitives;
 using Vintagestory.API.Client;
 using Vintagestory.API.Config;
 using Vintagestory.Client.NoObf;
-// ReSharper disable UnusedMember.Global
 
+// ReSharper disable UnusedMember.Global
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace VintageMods.Core.FluentChat.Exenstions
+namespace VintageMods.Core.FluentChat.Extensions
 {
+    /// <summary>
+    ///     Utility class that adds extension methods for handling file IO within VintageMods mods.
+    /// </summary>
     public static class FluentApiEx
     {
-        private static Dictionary<string, FluentChatCommandBase<ICoreClientAPI>> ClientCommands { get; } 
-            = new Dictionary<string, FluentChatCommandBase<ICoreClientAPI>>();
+        private static Dictionary<string, FluentChatCommandBase<ICoreClientAPI>> ClientCommands { get; } = new();
 
         /// <summary>
         ///     Registers the client chat command with the core client app.
@@ -69,7 +71,7 @@ namespace VintageMods.Core.FluentChat.Exenstions
                     cmd.Options.Add(option.Name, methodInfo);
                 }
             }
-            
+
             var description = cmdAttribute.Description ??= $"{modDomain}:ChatCommands.{cmdAttribute.Name}.Description";
             var syntaxMessage = cmdAttribute.SyntaxMessage ??= $"{modDomain}:ChatCommands.{cmdAttribute.Name}.SyntaxMessage";
 
@@ -81,6 +83,10 @@ namespace VintageMods.Core.FluentChat.Exenstions
             ClientCommands.Add(cmdAttribute.Name, cmd);
         }
 
+        /// <summary>
+        ///     Un-registers any fluent chat commands that have been registered by the mod.
+        /// </summary>
+        /// <param name="api">The core game API.</param>
         public static void UnregisterFluentChatCommands(this ICoreClientAPI api)
         {
             foreach (var cmd in ClientCommands.Values) cmd.Dispose();

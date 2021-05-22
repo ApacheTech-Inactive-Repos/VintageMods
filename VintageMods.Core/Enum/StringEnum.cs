@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable NonReadonlyMemberInGetHashCode
 
-namespace VintageMods.Core.Primitives
+namespace VintageMods.Core.Enum
 {
     /// <summary>
     /// Class StringEnum.
@@ -42,7 +42,7 @@ namespace VintageMods.Core.Primitives
         }
 
         /// <summary>
-        ///     Performs an implicit conversion from <see cref="VintageMods.Core.Primitives.StringEnum{T}" /> to <see cref="System.String" />.
+        ///     Performs an implicit conversion from <see cref="StringEnum{T}" /> to <see cref="System.String" />.
         /// </summary>
         /// <param name="enumValue">The enum value.</param>
         /// <returns>The result of the conversion.</returns>
