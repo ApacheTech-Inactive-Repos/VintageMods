@@ -12,7 +12,7 @@ using Vintagestory.Client.NoObf;
 
 namespace VintageMods.Mods.CinematicCamStudio.ClientSystems
 {
-    internal class SystemCinematicCam : ClientSystem
+    internal class SystemCamStudio : ClientSystem
     {
         private readonly ClientMain _game;
         private readonly ICoreClientAPI _capi;
@@ -22,7 +22,7 @@ namespace VintageMods.Mods.CinematicCamStudio.ClientSystems
         private readonly ClientPlatformAbstract _platform;
         private BlockPos _origin;
 
-        public SystemCinematicCam(ClientMain game) : base(game)
+        public SystemCamStudio(ClientMain game) : base(game)
         {
             _game = game;
             _capi = (ICoreClientAPI)game.Api;

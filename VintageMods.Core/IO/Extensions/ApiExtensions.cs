@@ -4,8 +4,6 @@ using System.Reflection;
 using VintageMods.Core.Attributes;
 using Vintagestory.API.Common;
 
-// ReSharper disable UnusedMember.Global
-
 namespace VintageMods.Core.IO.Extensions
 {
     public static class ApiExtensions
@@ -19,7 +17,7 @@ namespace VintageMods.Core.IO.Extensions
         /// <returns>A file manager that can be used to read from, and write to the filesystem.</returns>
         public static FileManager RegisterFileManager(this ICoreAPI api)
         {
-            var rootFolder = Assembly.GetCallingAssembly().GetCustomAttributes()
+            var rootFolder = Assembly.GetExecutingAssembly().GetCustomAttributes()
                 .OfType<ModDomainAttribute>().FirstOrDefault()?.RootFolder ?? "Common";
             _fileManagerInstance = new FileManager(api, rootFolder);
             return _fileManagerInstance;

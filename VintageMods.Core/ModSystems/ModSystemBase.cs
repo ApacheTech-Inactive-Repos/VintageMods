@@ -13,7 +13,7 @@ namespace VintageMods.Core.ModSystems
     /// <typeparam name="TApi">The type of the API.</typeparam>
     /// <seealso cref="ModSystem" />
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers|ImplicitUseTargetFlags.WithInheritors)]
-    public class ModSystemBase<TApi> : ModSystem where TApi : class, ICoreAPI
+    public abstract class ModSystemBase<TApi> : ModSystem where TApi : class, ICoreAPI
     {
         private readonly Assembly _patchAssembly;
 
@@ -27,7 +27,7 @@ namespace VintageMods.Core.ModSystems
         ///     Gets the file manager used to file system IO Operations.
         /// </summary>
         /// <value>The file manager.</value>
-        protected FileManager Files { get; }
+        protected FileManager Files { get; private set; }
 
         /// <summary>
         ///     Initialises a new instance of the <see cref="ModSystemBase{TApi}"/> class.
@@ -51,7 +51,7 @@ namespace VintageMods.Core.ModSystems
         public override void Start(ICoreAPI api)
         {
             Api = api as TApi;
-            api.RegisterFileManager();
+            Files = api.RegisterFileManager();
             ApplyHarmonyPatches();
             api.Logger.Notification($"  {_patchAssembly.GetName()} - Patched Methods:");
             foreach (var val in ModPatches.GetPatchedMethods())

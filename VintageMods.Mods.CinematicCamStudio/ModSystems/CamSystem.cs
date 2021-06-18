@@ -5,6 +5,7 @@ using Vintagestory.API.Client;
 // ReSharper disable UnusedType.Global
 
 [assembly: ModDomain("cinecam", "CineCam")]
+
 namespace VintageMods.Mods.CinematicCamStudio.ModSystems
 {
     internal class CamSystem : ClientSideModSystem
