@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using HarmonyLib;
+using JetBrains.Annotations;
 using VintageMods.Core.IO.Extensions;
 using VintageMods.Core.Reflection;
 using VintageMods.Mods.EnvironmentalTweaks.Config;
@@ -10,31 +11,58 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.Client.NoObf;
 using Vintagestory.GameContent;
-// ReSharper disable IdentifierTypo
 
+// ReSharper disable IdentifierTypo
 // ReSharper disable StringLiteralTypo
-// ReSharper disable UnusedMember.Local
-// ReSharper disable UnusedType.Global
 // ReSharper disable InconsistentNaming
 
 namespace VintageMods.Mods.EnvironmentalTweaks.HarmonyPatches
 {
-    [HarmonyPatch]
+    [HarmonyPatch] // Identified this class as a Harmony Patch. Will be loaded and interpreted by the Harmony instance for this mod.
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)] // Part of JetBrains ReSharper.
     public static class EnvTweaksPatches
     {
+        /// <summary>
+        ///     Gets or sets the client side API for the game.
+        /// </summary>
+        /// <value>The API to use for internal game function calls.</value>
         internal static ICoreClientAPI Api { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the user controlled settings, for the various patches within the mod.
+        /// </summary>
+        /// <value>An instance of the POCO settings class.</value>
         internal static ModSettings Settings { get; set; }
 
+        /// <summary>
+        ///     Initialises static members of the <see cref="EnvTweaksPatches"/> class.
+        /// </summary>
         static EnvTweaksPatches()
         {
+            // Populate the settings class, if necessary, whenever this class is called statically.
+            //
+            // NOTE: This will likely change in future, as a more robust framework is built around settings files.
+            //       For a stand-alone mod like this, grabbing the settings file here is ok, but I would like to 
+            //       have either, an inheritable base class for Harmony Patches, or dock the settings class into
+            //       the mod system, and pass that inject that entire ModSystem into the patch class, using
+            //       Dependency Inversion. They can also be exposed via the API, in the same way that the file
+            //       manager is now, within VintageMods.Core.
             var settingsFile = Api?.GetModFile("EnvTweaks.config.json");
             Settings = settingsFile?.ParseJsonAsObject<ModSettings>() ?? new ModSettings();
         }
 
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(ClientMain), "AddCameraShake")]
+        [HarmonyPrefix] // Specifies that this patch is a prefix to the method, and will run before the original method is called.
+        [HarmonyPatch(typeof(ClientMain), "AddCameraShake")] // The strongly-typed class, and reflection-safe string name of the method to patch.
         private static bool Patch_ClientMain_AddCameraShake()
         {
+            // Prefix patches return a BOOL.
+            //  - If true, the original method is run, after the prefix.
+            //  - If false, the original method is skipped entirely.
+
+            // Postfix patches return VOID.
+            //  - Postfix patches will always be run after the original method.
+
+            // Only run the original method, if the mod settings allow.
             return Settings.AllowCameraShake;
         }
 
@@ -374,12 +402,12 @@ namespace VintageMods.Mods.EnvironmentalTweaks.HarmonyPatches
         private static Random _rand;
 
         private static WeatherSystemClient _ws;
-        private static BlockPos _tmpPos = new BlockPos();
-        private static BlockPos _centerPos = new BlockPos();
-        private static Vec3d _particlePos = new Vec3d();
+        private static BlockPos _tmpPos = new();
+        private static BlockPos _centerPos = new();
+        private static Vec3d _particlePos = new();
         private static Block _lblock;
         private static int[,] _lowResRainHeightMap = new int[16, 16];
-        private static Vec3f _parentVeloSnow = new Vec3f();
+        private static Vec3f _parentVeloSnow = new();
         private static int _rainParticleColor;
 
         private static SimpleParticleProperties _splashParticles;
