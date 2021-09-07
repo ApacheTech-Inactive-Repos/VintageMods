@@ -54,7 +54,17 @@ namespace VintageMods.Core.IO
         /// <returns><c>true</c> if the embedded resource is found, <c>false</c> otherwise.</returns>
         public static bool ResourceExists(Assembly assembly, string fileName)
         {
-            return assembly.GetManifestResourceNames().Any(p => p.EndsWith(fileName));
+            //return assembly.GetManifestResourceNames().Any(p => p.EndsWith(fileName));
+
+            foreach (var resource in assembly.GetManifestResourceNames())
+            {
+                if (resource.EndsWith(fileName))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -75,6 +85,20 @@ namespace VintageMods.Core.IO
                 throw new FileNotFoundException($"Embedded data file not found: {fileName}");
 
             return stream;
+        }
+
+        /// <summary>
+        ///     Disembeds an embedded resource to specified location.
+        /// </summary>
+        /// <param name="assembly">The assembly to load the resource from.</param>
+        /// <param name="resourceName">The manifest name of the resource.</param>
+        /// <param name="fileName">The full path to where the file should be copied to.</param>
+        public static void DisembedResource(Assembly assembly, string resourceName, string fileName)
+        {
+            if (!ResourceExists(assembly, resourceName)) return;
+            var stream64 = GetResourceStream(assembly, resourceName);
+            using var file = File.OpenWrite(fileName);
+            stream64.CopyTo(file);
         }
     }
 }

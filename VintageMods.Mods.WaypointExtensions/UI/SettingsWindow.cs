@@ -3,7 +3,7 @@ using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.Helpers;
 using VintageMods.Core.IO.Extensions;
 using VintageMods.Core.Reflection;
-using VintageMods.Mods.WaypointExtensions.Model;
+using VintageMods.Mods.WaypointExtensions.ModSystems;
 using Vintagestory.API.Client;
 using Vintagestory.API.Config;
 
@@ -15,27 +15,27 @@ namespace VintageMods.Mods.WaypointExtensions.UI
     internal class SettingsWindow : GuiDialog
     {
         private ICoreClientAPI Api { get; }
-        private WorldSettings Settings { get; }
+        private WpexModSystem Mod { get; }
 
-        public override string ToggleKeyCombinationCode { get; } = "wpex-settings";
+        public override string ToggleKeyCombinationCode => "wpex-settings";
         public override bool PrefersUngrabbedMouse => false;
 
         public SettingsWindow(ICoreClientAPI api) : base(api)
         {
             Api = api;
-            Settings = Api.GetModFile("wpex-settings.data").ParseJsonAsObject<WorldSettings>();
+            Mod = api.ModLoader.GetModSystem<WpexModSystem>();
             ComposeWindow();
         }
 
-        private void ComposeWindow()
+        internal void ComposeWindow()
         {
             ClearComposers();
 
             var rows = new[]{ 0f, 1f, 1.5f, 2.5f, 3.0f };
             const float width = 500f;
 
-            var guiComposer = Api.AsClientMain().GetField<_bvSYObLd2oM85Dv2HoTeTbRHsaK>("GuiComposers")
-                ._403CRofqD634BJaTEqEFq1F8chu("wpex-settings", ElementStdBounds.AutosizedMainDialog)
+            var guiComposer = Api.AsClientMain().GetField<_StXBMM8Q2xaQSKhBHeEmltxFTQbA>("GuiComposers")
+                ._97FCHLWkmmjhCMaeKs7QSKwP1NU("wpex-settings", ElementStdBounds.AutosizedMainDialog)
                 .AddShadedDialogBG(ElementStdBounds.DialogBackground()
                     .WithFixedPadding(GuiStyle.ElementToDialogPadding, GuiStyle.ElementToDialogPadding), false)
                 .BeginChildElements();
@@ -71,21 +71,21 @@ namespace VintageMods.Mods.WaypointExtensions.UI
             guiComposer.AddButton(Lang.Get("pause-back2game"), OnBackToGame,
                 ElementStdBounds.MenuButton(rows[4]).WithFixedWidth(width));
 
-            guiComposer.GetSwitch("AutoTranslocatorWaypoints").On = Settings.AutoTranslocatorWaypoints;
-            guiComposer.GetSwitch("AutoTraderWaypoints").On = Settings.AutoTraderWaypoints;
+            guiComposer.GetSwitch("AutoTranslocatorWaypoints").On = Mod.Settings.AutoTranslocatorWaypoints;
+            guiComposer.GetSwitch("AutoTraderWaypoints").On = Mod.Settings.AutoTraderWaypoints;
 
             SingleComposer = guiComposer.EndChildElements().Compose();
         }
 
         private void AutoTranslocatorChanged(bool state)
         {
-            Settings.AutoTranslocatorWaypoints = state;
+            Mod.Settings.AutoTranslocatorWaypoints = state;
             SaveSettings();
         }
 
         private void AutoTraderChanged(bool state)
         {
-            Settings.AutoTraderWaypoints = state;
+            Mod.Settings.AutoTraderWaypoints = state;
             SaveSettings();
         }
 
@@ -104,7 +104,7 @@ namespace VintageMods.Mods.WaypointExtensions.UI
 
         private void SaveSettings()
         {
-            Api.GetModFile("wpex-settings.data").SaveAsJson(Settings);
+            Api.GetModFile("wpex-settings.data").SaveAsJson(Mod.Settings);
         }
     }
 }

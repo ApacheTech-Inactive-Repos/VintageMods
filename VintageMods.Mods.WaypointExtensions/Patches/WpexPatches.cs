@@ -18,6 +18,12 @@ using Vintagestory.GameContent;
 
 namespace VintageMods.Mods.WaypointExtensions.Patches
 {
+    public abstract class HarmonyPatchCollection<TSettings>
+    {
+
+    }
+
+
     [HarmonyPatch]
     public static class WpexPatches
     {
@@ -66,7 +72,7 @@ namespace VintageMods.Mods.WaypointExtensions.Patches
             var destPos = __instance.TargetLocation.RelativeToSpawn(Api.World);
 
             // Add Source TL Waypoint.
-            if (!Api.WaypointExistsAtPos(__instance.Pos, p => p.Icon == "spiral"))
+            if (!Api.WaypointExistsAtPos(__instance.Pos))
             {
                 Api.AddWaypointAtPos(sourcePos, "spiral", "Fuchsia",
                     LangEx.Message("TranslocatorWaypoint", destPos.X, destPos.Y, destPos.Z), false);
@@ -74,7 +80,7 @@ namespace VintageMods.Mods.WaypointExtensions.Patches
             }
 
             // Add Destination TL Waypoint.
-            if (!Api.WaypointExistsAtPos(__instance.TargetLocation, p => p.Icon == "spiral"))
+            if (!Api.WaypointExistsAtPos(__instance.TargetLocation))
             {
                 Api.AddWaypointAtPos(destPos, "spiral", "Fuchsia",
                     LangEx.Message("TranslocatorWaypoint", sourcePos.X, sourcePos.Y, sourcePos.Z), false);

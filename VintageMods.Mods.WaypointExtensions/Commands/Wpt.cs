@@ -65,7 +65,7 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
                 var pos = trader.Pos.AsBlockPos.RelativeToSpawn(Api.World);
                 var displayName = trader.GetBehavior<EntityBehaviorNameTag>().DisplayName;
 
-                if (Api.WaypointExistsWithinRadius(trader.Pos.AsBlockPos, 10, 
+                if (Api.WaypointExistsWithinRadius(trader.Pos.AsBlockPos, 10, 10, 
                     p => p.Icon == "trader" && p.Title.Contains(displayName)))
                 {
                     Api.ShowChatMessage(LangEx.Error("WaypointAlreadyExists"));

@@ -8,16 +8,16 @@ using Vintagestory.Client.NoObf;
 
 namespace VintageMods.Core.Threading.ClientSystems
 {
-    public class VintageModsAsync : ClientSystem
+    public class ClientSystemAsyncActions : ClientSystem
     {
-        private static ConcurrentQueue<Action> AsyncActions { get; set; } = new ConcurrentQueue<Action>();
-        private static ConcurrentQueue<Action> MainThreadActions { get; set; } = new ConcurrentQueue<Action>();
+        private static ConcurrentQueue<Action> AsyncActions { get; set; } = new();
+        private static ConcurrentQueue<Action> MainThreadActions { get; set; } = new();
 
         private readonly ClientMain _game;
 
-        public VintageModsAsync(ClientMain game) : base(game) { _game = game; }
+        public ClientSystemAsyncActions(ClientMain game) : base(game) { _game = game; }
 
-        public override string Name => "VintageModsAsync";
+        public override string Name => "AsyncActions";
 
         public override EnumClientSystemType GetSystemType() => EnumClientSystemType.Misc;
 

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using HarmonyLib;
 using JetBrains.Annotations;
 using VintageMods.Core.IO;
@@ -15,8 +16,13 @@ namespace VintageMods.Core.ModSystems
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers|ImplicitUseTargetFlags.WithInheritors)]
     public abstract class ModSystemBase<TApi> : ModSystem where TApi : class, ICoreAPI
     {
-        private readonly Assembly _patchAssembly;
+        /// <summary>
+        ///     Gets the mod name.
+        /// </summary>
+        /// <value>The name of the mod.</value>
+        public string Id { get; }
 
+        private readonly Assembly _patchAssembly;
         /// <summary>
         ///     Gets the Harmony instance used to add patches for this mod.
         /// </summary>
@@ -28,14 +34,15 @@ namespace VintageMods.Core.ModSystems
         /// </summary>
         /// <value>The file manager.</value>
         protected FileManager Files { get; private set; }
-
+        
         /// <summary>
         ///     Initialises a new instance of the <see cref="ModSystemBase{TApi}"/> class.
         /// </summary>
-        protected ModSystemBase()
+        public ModSystemBase(Assembly assembly, string id)
         {
-            _patchAssembly = Assembly.GetExecutingAssembly();
+            _patchAssembly = assembly ?? Assembly.GetExecutingAssembly();
             ModPatches = new Harmony(_patchAssembly.FullName);
+            Id = id;
         }
 
         /// <summary>
@@ -52,7 +59,7 @@ namespace VintageMods.Core.ModSystems
         {
             Api = api as TApi;
             Files = api.RegisterFileManager();
-            ApplyHarmonyPatches();
+            ApplyHarmonyPatches(_patchAssembly);
             api.Logger.Notification($"  {_patchAssembly.GetName()} - Patched Methods:");
             foreach (var val in ModPatches.GetPatchedMethods())
             {
@@ -60,12 +67,22 @@ namespace VintageMods.Core.ModSystems
             }
         }
 
+        private byte _retries;
         /// <summary>
         ///     Applies the harmony patches for this mod.
         /// </summary>
-        protected virtual void ApplyHarmonyPatches()
+        protected virtual void ApplyHarmonyPatches(Assembly assembly)
         {
-            ModPatches.PatchAll(_patchAssembly);
+            try
+            {
+                ModPatches.PatchAll(assembly);
+            }
+            catch (Exception ex)
+            {
+                Api.Logger.Audit($"{ex.Message}");
+                ModPatches.PatchAll(assembly == Assembly.GetExecutingAssembly() ? Assembly.GetCallingAssembly() : Assembly.GetExecutingAssembly());
+                if (++_retries == 3) throw;
+            }
         }
 
         /// <summary>

@@ -27,7 +27,6 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
         public override void OnNoOption(string option, CmdArgs args)
         {
             var player = Api.World.Player;
-
             var displayPos = player.Entity.Pos.AsBlockPos.RelativeToSpawn(Api.World);
             Api.ShowChatMessage(LangEx.Message("RecentreOnPlayer", player.PlayerName, displayPos.X, displayPos.Z));
             RecentreMap(player.Entity.Pos.XYZ);
@@ -36,11 +35,9 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
         public override void OnCustomOption(string option, CmdArgs args)
         {
             var player = Api.World.Player;
-
             var displayPos = player.Entity.Pos.AsBlockPos.RelativeToSpawn(Api.World);
             Api.ShowChatMessage(LangEx.Message("RecentreOnPlayer", player.PlayerName, displayPos.X, displayPos.Z));
             RecentreMap(player.Entity.Pos.XYZ);
-            
         }
 
         [FluentChatOption("plr")]
@@ -52,7 +49,6 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
             var playerList = Api.World.AllOnlinePlayers.Where(p => 
                 p.PlayerName.ToLowerInvariant().StartsWith(name.ToLowerInvariant())).ToList();
             if (playerList.Any()) player = (IClientPlayer)playerList.First();
-
             var displayPos = player.Entity.Pos.AsBlockPos.RelativeToSpawn(Api.World);
             Api.ShowChatMessage(LangEx.Message("RecentreOnPlayer", player.PlayerName, displayPos.X, displayPos.Z));
             RecentreMap(player.Entity.Pos.XYZ);
@@ -65,7 +61,6 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
             var playerPos = Api.World.Player.Entity.Pos.AsBlockPos;
             var x = args.PopInt().GetValueOrDefault(playerPos.X);
             var z = args.PopInt().GetValueOrDefault(playerPos.Z);
-
             var pos = new BlockPos(x, 1, z).Add(Api.World.DefaultSpawnPosition.AsBlockPos);
             Api.ShowChatMessage(LangEx.Message("RecentreOnPosition", x, z));
             RecentreMap(pos.ToVec3d());

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using JetBrains.Annotations;
 using Vintagestory.API.Config;
 
@@ -64,15 +66,6 @@ namespace VintageMods.Core.IO.Extensions
         }
 
         /// <summary>
-        ///     Loads a number of assemblies from a specified directory.
-        /// </summary>
-        /// <param name="di">The directory to load the DLL libraries from.</param>
-        public static void LoadAssemblies(this DirectoryInfo di)
-        {
-            di.WithFiles("*.dll", file => AssemblyEx.LoadLibrary(file.FullName));
-        }
-
-        /// <summary>
         ///     Adds the directory to the Environment PATH variable.
         /// </summary>
         /// <param name="di">The director to add.</param>
@@ -81,6 +74,18 @@ namespace VintageMods.Core.IO.Extensions
             var envSearchPathName = RuntimeEnv.EnvSearchPathName;
             var value = $"{di.FullName};{Environment.GetEnvironmentVariable(envSearchPathName)}";
             Environment.SetEnvironmentVariable(envSearchPathName, value);
+        }
+
+        /// <summary>
+        ///     Returns a file list from the current directory matching the given set of extensions and
+        ///     using a value to determine whether to search subdirectories.
+        /// </summary>
+        /// <param name="di">The director to search.</param>
+        /// <returns>An array of type <see cref="FileInfo"/>.</returns>
+        public static IEnumerable<FileInfo> GetFiles(this DirectoryInfo di, SearchOption searchOption, params string[] extensions)
+        {
+            if (extensions == null) throw new ArgumentNullException(nameof(extensions));
+            return extensions.SelectMany(p => di.GetFiles(p, searchOption));
         }
     }
 }

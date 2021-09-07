@@ -1,63 +1,70 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>9</LangVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>9</LangVersion>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
-  </PropertyGroup>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <EditorConfigFiles Remove="C:\Users\Apache\source\repos\VintageMods\.editorconfig" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="C:\Users\Apache\source\repos\VintageMods\.editorconfig" />
-  </ItemGroup>
+	<ItemGroup>
+		<EditorConfigFiles Remove="C:\Users\Apache\source\repos\VintageMods\.editorconfig" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2021.1.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="C:\Users\Apache\source\repos\VintageMods\.editorconfig" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>D:\Games\Vintage Story\Lib\0Harmony.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>D:\Games\Vintage Story\Lib\Newtonsoft.Json.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="protobuf-net">
-      <HintPath>D:\Games\Vintage Story\Lib\protobuf-net.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="Vintagestory">
-      <HintPath>D:\Games\Vintage Story\Vintagestory.exe</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="VintagestoryAPI">
-      <HintPath>D:\Games\Vintage Story\VintagestoryAPI.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="VintagestoryLib">
-      <HintPath>D:\Games\Vintage Story\VintagestoryLib.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="VSCreativeMod">
-      <HintPath>D:\Games\Vintage Story\Mods\VSCreativeMod.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="VSEssentials">
-      <HintPath>D:\Games\Vintage Story\Mods\VSEssentials.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="VSSurvivalMod">
-      <HintPath>D:\Games\Vintage Story\Mods\VSSurvivalMod.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
+		<PackageReference Include="System.ComponentModel.Composition" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="0Harmony">
+			<HintPath>D:\Games\Vintage Story\Lib\0Harmony.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Microsoft.CSharp">
+		  <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Microsoft.CSharp.dll</HintPath>
+		  <Private>true</Private>
+		</Reference>
+		<Reference Include="Newtonsoft.Json">
+			<HintPath>D:\Games\Vintage Story\Lib\Newtonsoft.Json.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="protobuf-net">
+			<HintPath>D:\Games\Vintage Story\Lib\protobuf-net.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Vintagestory">
+			<HintPath>D:\Games\Vintage Story\Vintagestory.exe</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="VintagestoryAPI">
+			<HintPath>D:\Games\Vintage Story\VintagestoryAPI.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="VintagestoryLib">
+			<HintPath>D:\Games\Vintage Story\VintagestoryLib.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="VSCreativeMod">
+			<HintPath>D:\Games\Vintage Story\Mods\VSCreativeMod.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="VSEssentials">
+			<HintPath>D:\Games\Vintage Story\Mods\VSEssentials.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="VSSurvivalMod">
+			<HintPath>D:\Games\Vintage Story\Mods\VSSurvivalMod.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
 
 </Project>

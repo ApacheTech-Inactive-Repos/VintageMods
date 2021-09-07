@@ -1,4 +1,5 @@
-﻿using Vintagestory.API.Common;
+﻿using System.Reflection;
+using Vintagestory.API.Common;
 using Vintagestory.API.Server;
 
 namespace VintageMods.Core.ModSystems
@@ -23,6 +24,14 @@ namespace VintageMods.Core.ModSystems
         public override bool ShouldLoad(EnumAppSide forSide)
         {
             return forSide == EnumAppSide.Server;
+        }
+
+        /// <summary>
+        ///     Initialises a new instance of the <see cref="ServerSideModSystem" /> class.
+        /// </summary>
+        /// <param name="assembly">The mod assembly used to create this instance.</param>
+        protected ServerSideModSystem(string id) : base(Assembly.GetCallingAssembly(), id)
+        {
         }
     }
 }

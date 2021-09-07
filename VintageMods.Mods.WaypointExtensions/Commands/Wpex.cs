@@ -4,9 +4,9 @@ using VintageMods.Core.Extensions;
 using VintageMods.Core.FluentChat.Attributes;
 using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.FluentChat.Primitives;
-using VintageMods.Core.IO;
 using VintageMods.Core.IO.Extensions;
 using VintageMods.Core.Reflection;
+using VintageMods.Mods.WaypointExtensions.ModSystems;
 using VintageMods.Mods.WaypointExtensions.Patches;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -22,14 +22,13 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
     public class Wpex : FluentChatCommandBase<ICoreClientAPI>
     {
         private readonly WorldMapManager _mapManager;
-
-        private ModFileInfo SettingsFile { get; }
+        
+        private WpexModSystem Mod { get; }
 
         public Wpex(ICoreClientAPI api) : base(api)
         {
             _mapManager = Api.ModLoader.GetModSystem<WorldMapManager>();
-
-            SettingsFile = api.GetModFile("wpex-settings.data");
+            Mod = api.ModLoader.GetModSystem<WpexModSystem>();
             WpexPatches.Api = api;
         }
 
@@ -53,27 +52,17 @@ namespace VintageMods.Mods.WaypointExtensions.Commands
         [FluentChatOption("auto-tl")]
         private void AutomaticTranslocators(string option, CmdArgs args)
         {
-            if (args.Length == 0)
-            {
-                Api.ShowChatMessage(LangEx.Message("AutoTranslocator", WpexPatches.Settings.AutoTranslocatorWaypoints));
-                return;
-            }
-            WpexPatches.Settings.AutoTranslocatorWaypoints = args.PopWord("off") == "on";
-            SettingsFile.SaveAsJson(WpexPatches.Settings);
-            Api.ShowChatMessage(LangEx.Message("AutoTranslocator", WpexPatches.Settings.AutoTranslocatorWaypoints));
+            Mod.Settings.AutoTranslocatorWaypoints = !Mod.Settings.AutoTranslocatorWaypoints;
+            Api.GetModFile("wpex-settings.data").SaveAsJson(Mod.Settings);
+            Api.ShowChatMessage(LangEx.Message("AutoTranslocator", Mod.Settings.AutoTranslocatorWaypoints));
         }
 
-        [FluentChatOption("auto-trader")]
+        [FluentChatOption("auto-tr")]
         private void AutomaticTraders(string option, CmdArgs args)
         {
-            if (args.Length == 0)
-            {
-                Api.ShowChatMessage(LangEx.Message("AutoTrader", WpexPatches.Settings.AutoTraderWaypoints));
-                return;
-            }
-            WpexPatches.Settings.AutoTraderWaypoints = args.PopWord("off") == "on";
-            SettingsFile.SaveAsJson(WpexPatches.Settings);
-            Api.ShowChatMessage(LangEx.Message("AutoTrader", WpexPatches.Settings.AutoTraderWaypoints));
+            Mod.Settings.AutoTraderWaypoints = !Mod.Settings.AutoTraderWaypoints;
+            Api.GetModFile("wpex-settings.data").SaveAsJson(Mod.Settings);
+            Api.ShowChatMessage(LangEx.Message("AutoTrader", Mod.Settings.AutoTraderWaypoints));
         }
 
         private bool OnInteractWithTrader()

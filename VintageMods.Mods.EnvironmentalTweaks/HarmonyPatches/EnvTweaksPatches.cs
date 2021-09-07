@@ -74,6 +74,114 @@ namespace VintageMods.Mods.EnvironmentalTweaks.HarmonyPatches
         }
 
         [HarmonyPrefix]
+        [HarmonyPatch(typeof(WeatherDataSnapshot), "SetAmbientLerped")]
+        private static bool Patch_WeatherDataSnapshot_SetAmbientLerped_Prefix(ref WeatherDataSnapshot __instance, WeatherPattern left, WeatherPattern right, float w, float addFogDensity = 0f)
+        {
+            var num = GameMath.Clamp(1f - (float)Math.Pow(1.1 - __instance.climateCond.Rainfall, 4.0), 0f, 1f);
+
+            if (Settings.AllowFog)
+            {
+                __instance.Ambient.FlatFogDensity.Value = (right.State.nowMistDensity * w + left.State.nowMistDensity * (1f - w)) / 250f;
+                __instance.Ambient.FlatFogDensity.Weight = 1f;
+                __instance.Ambient.FlatFogDensity.Weight *= num;
+
+                __instance.Ambient.FlatFogYPos.Value = right.State.nowMistYPos * w + left.State.nowMistYPos * (1f - w);
+                __instance.Ambient.FlatFogYPos.Weight = 1f;
+
+                __instance.Ambient.FogDensity.Value = (addFogDensity + right.State.nowFogDensity * w + left.State.nowFogDensity * (1f - w)) / 1000f;
+                __instance.Ambient.FogDensity.Weight = num;
+
+                __instance.Ambient.FogBrightness.Value = right.State.nowFogBrightness * w + left.State.nowFogBrightness * (1f - w);
+                __instance.Ambient.FogBrightness.Weight = 1f;
+            }
+            else
+            {
+                __instance.Ambient.FlatFogDensity.Value = 0f;
+                __instance.Ambient.FlatFogDensity.Weight = 0f;
+
+                __instance.Ambient.FlatFogYPos.Value = 0f;
+                __instance.Ambient.FlatFogYPos.Weight = 0f;
+
+                __instance.Ambient.FogDensity.Value = 0f;
+                __instance.Ambient.FogDensity.Weight = 0f;
+
+                __instance.Ambient.FogBrightness.Value = 0f;
+                __instance.Ambient.FogBrightness.Weight = 0f;
+            }
+
+            if (Settings.AllowClouds)
+            {
+            }
+            else
+            {
+                __instance.Ambient.CloudBrightness.Value = 0f;
+                __instance.Ambient.CloudBrightness.Weight = 0f;
+
+                __instance.Ambient.CloudDensity.Value = 0f;
+                __instance.Ambient.CloudDensity.Weight = 0f;
+            }
+
+            __instance.Ambient.CloudBrightness.Value = right.State.nowCloudBrightness * w + left.State.nowCloudBrightness * (1f - w);
+            __instance.Ambient.CloudBrightness.Weight = 1f;
+
+            __instance.Ambient.CloudDensity.Value = right.State.nowbaseThickness * w + left.State.nowbaseThickness * (1f - w);
+            __instance.Ambient.CloudDensity.Weight = 1f;
+
+            __instance.Ambient.SceneBrightness.Value = left.State.nowSceneBrightness;
+            __instance.Ambient.SceneBrightness.Weight = 1f;
+
+            return false;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(WeatherDataSnapshot), "SetAmbient")]
+        private static bool Patch_WeatherDataSnapshot_SetAmbient_Prefix(ref WeatherDataSnapshot __instance, WeatherPattern left, float addFogDensity = 0f)
+        {
+            var num = GameMath.Clamp(1f - (float)Math.Pow(1.1 - __instance.climateCond.Rainfall, 4.0), 0f, 1f);
+
+            if (Settings.AllowFog)
+            {
+                __instance.Ambient.FlatFogDensity.Value = left.State.nowMistDensity / 250f;
+                __instance.Ambient.FlatFogDensity.Weight = 1f;
+                __instance.Ambient.FlatFogDensity.Weight *= num;
+
+                __instance.Ambient.FlatFogYPos.Value = left.State.nowMistYPos;
+                __instance.Ambient.FlatFogYPos.Weight = 1f;
+
+                __instance.Ambient.FogDensity.Value = (addFogDensity + left.State.nowFogDensity) / 1000f;
+                __instance.Ambient.FogDensity.Weight = num;
+
+                __instance.Ambient.FogBrightness.Value = left.State.nowFogBrightness;
+                __instance.Ambient.FogBrightness.Weight = 1f;
+            }
+            else
+            {
+                __instance.Ambient.FlatFogDensity.Value = 0f;
+                __instance.Ambient.FlatFogDensity.Weight = 0f;
+
+                __instance.Ambient.FlatFogYPos.Value = 0f;
+                __instance.Ambient.FlatFogYPos.Weight = 0f;
+
+                __instance.Ambient.FogDensity.Value = 0f;
+                __instance.Ambient.FogDensity.Weight = 0f;
+
+                __instance.Ambient.FogBrightness.Value = 0f;
+                __instance.Ambient.FogBrightness.Weight = 0f;
+            }
+
+            __instance.Ambient.CloudBrightness.Value = left.State.nowCloudBrightness;
+            __instance.Ambient.CloudBrightness.Weight = 1f;
+
+            __instance.Ambient.CloudDensity.Value = left.State.nowbaseThickness;
+            __instance.Ambient.CloudDensity.Weight = 1f;
+
+            __instance.Ambient.SceneBrightness.Value = left.State.nowSceneBrightness;
+            __instance.Ambient.SceneBrightness.Weight = 1f;
+
+            return false;
+        }
+
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(SystemRenderPlayerEffects), "onBeforeRender")]
         private static bool Patch_SystemRenderPlayerEffects_onBeforeRender(
             ref SystemRenderPlayerEffects __instance, float dt, ref ClientMain ___game, ref int ___maxDynLights, 
@@ -141,9 +249,16 @@ namespace VintageMods.Mods.EnvironmentalTweaks.HarmonyPatches
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(WeatherSimulationLightning), "ClientTick")]
-        private static bool Patch_WeatherSimulationLightning_ClientTick()
+        private static bool Patch_WeatherSimulationLightning_ClientTick_Prefix()
         {
             return Settings.AllowLightning;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(CloudRenderer), "CloudTick")]
+        private static bool Patch_CloudRenderer_CloudTick_Prefix()
+        {
+            return Settings.AllowClouds;
         }
 
         [HarmonyPrefix]

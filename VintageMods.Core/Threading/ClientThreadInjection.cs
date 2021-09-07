@@ -33,14 +33,14 @@ namespace VintageMods.Core.Threading
             return new Stack<ClientSystem>((world as ClientMain).GetField<ClientSystem[]>("clientSystems"));
         }
 
-        public static void InjectClientThread(this ICoreClientAPI capi, string name, int ms,
+        public static void InjectClientThread(this ICoreClientAPI capi, string name,
             params ClientSystem[] systems)
         {
-            capi.World.InjectClientThread(name, ms, systems);
+            capi.World.InjectClientThread(name, systems);
         }
 
 
-        private static object CreateClientThread(IClientWorldAccessor world, string name, int ms,
+        private static object CreateClientThread(IClientWorldAccessor world, string name,
             IEnumerable<ClientSystem> systems)
         {
             var instance = ClientThread.CreateInstance();
@@ -50,14 +50,13 @@ namespace VintageMods.Core.Threading
             instance.SetField("lastFramePassedTime", new Stopwatch());
             instance.SetField("totalPassedTime", new Stopwatch());
             instance.SetField("paused", false);
-            instance.SetField("sleepMs", ms);
             return instance;
         }
 
-        public static void InjectClientThread(this IClientWorldAccessor world, string name, int ms,
+        public static void InjectClientThread(this IClientWorldAccessor world, string name,
             params ClientSystem[] systems)
         {
-            var instance = CreateClientThread(world, name, ms, systems);
+            var instance = CreateClientThread(world, name, systems);
             var clientThreads = world.GetClientThreads();
             var vanillaSystems = world.GetVanillaSystems();
 

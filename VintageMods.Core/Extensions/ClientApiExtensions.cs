@@ -4,8 +4,10 @@ using VintageMods.Core.Reflection;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 using Vintagestory.Client.NoObf;
 using Vintagestory.GameContent;
+using Vintagestory.Server;
 
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMember.Global
@@ -27,6 +29,16 @@ namespace VintageMods.Core.Extensions
         public static ClientMain AsClientMain(this ICoreClientAPI api)
         {
             return api.World as ClientMain;
+        }
+
+        public static ServerMain AsServerMain(this ICoreServerAPI api)
+        {
+            return api.World as ServerMain;
+        }
+
+        public static ICoreClientAPI AsApi(this ClientMain game)
+        {
+            return game.Api as ICoreClientAPI;
         }
 
         public static object GetVanillaClientSystem(this ICoreClientAPI api, string name)
@@ -134,14 +146,20 @@ namespace VintageMods.Core.Extensions
         /// <param name="radius">The radius around the origin position.</param>
         /// <param name="comparer">Optional parameters to narrow down waypoint scanning.</param>
         /// <returns><c>true</c> if any waypoints are found, <c>false</c> otherwise.</returns>
-        public static bool WaypointExistsWithinRadius(this ICoreClientAPI api, BlockPos pos, int radius, Func<Waypoint, bool> comparer = null)
+        public static bool WaypointExistsWithinRadius(this ICoreClientAPI api, BlockPos pos, int horizontalRadius, int verticalRadius, Func<Waypoint, bool> comparer = null)
         {
             var waypointMapLayer = api.ModLoader.GetModSystem<WorldMapManager>().WaypointMapLayer();
             var waypoints =
                 waypointMapLayer.ownWaypoints.Where(wp =>
-                    wp.Position.AsBlockPos.InRangeHorizontally(pos.X, pos.Z, radius)).ToList();
+                    wp.Position.AsBlockPos.InRangeCubic(pos, horizontalRadius, verticalRadius)).ToList();
             if (!waypoints.Any()) return false;
             return comparer == null || waypoints.Any(p => comparer(p));
+        }
+
+        public static bool InRangeCubic(this BlockPos pos, BlockPos relativeToBlock, int horizontalRadius = 10, int verticalRadius = 10)
+        {
+            if (!pos.InRangeHorizontally(relativeToBlock.X, relativeToBlock.Z, horizontalRadius)) return false;
+            return pos.Y <= relativeToBlock.Y + verticalRadius && pos.Y >= relativeToBlock.Y - verticalRadius;
         }
         
         /// <summary>

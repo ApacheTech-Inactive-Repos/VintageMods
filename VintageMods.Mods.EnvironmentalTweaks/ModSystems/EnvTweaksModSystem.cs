@@ -21,14 +21,16 @@ namespace VintageMods.Mods.EnvironmentalTweaks.ModSystems
             var settingsFile = api.RegisterFileManager().RegisterFile("EnvTweaks.config.json", FileScope.Global);
             EnvTweaksPatches.Api = api;
             EnvTweaksPatches.Settings = settingsFile.ParseJsonAsObject<ModSettings>();
+            var syntaxMessage = "[settings|lightning|rain|hail|snow|sounds|shake|fog|clouds] [on|off]";
 
             void Handler(int _, CmdArgs args)
             {
                 if (args.Length == 0)
                 {
-                    api.ShowChatMessage("Environmental Tweaks: [lightning|rain|hail|snow|sounds|shake] [on|off]");
+                    api.ShowChatMessage($"Environmental Tweaks: {syntaxMessage}");
                     return;
                 }
+
 
                 var option = args.PopWord();
                 var state = args.PopWord("off").ToLowerInvariant() == "on";
@@ -43,6 +45,9 @@ namespace VintageMods.Mods.EnvironmentalTweaks.ModSystems
                         sb.AppendLine($"Hail Particles: {EnvTweaksPatches.Settings.AllowHail}");
                         sb.AppendLine($"Snow Particles: {EnvTweaksPatches.Settings.AllowSnow}");
                         sb.AppendLine($"Camera Shake: {EnvTweaksPatches.Settings.AllowCameraShake}");
+                        sb.AppendLine($"Fog Effects: {EnvTweaksPatches.Settings.AllowFog}");
+                        sb.AppendLine($"Fog Effects: {EnvTweaksPatches.Settings.AllowFog}");
+                        sb.AppendLine($"Show Clouds: {EnvTweaksPatches.Settings.AllowClouds}");
                         api.SendChatMessage(".clearchat");
                         api.ShowChatMessage(sb.ToString());
                         break;
@@ -76,21 +81,26 @@ namespace VintageMods.Mods.EnvironmentalTweaks.ModSystems
                         EnvTweaksPatches.Settings.AllowCameraShake = state;
                         break;
 
+                    case "fog":
+                        api.ShowChatMessage($"Fog Effects: {state}");
+                        EnvTweaksPatches.Settings.AllowFog = state;
+                        break;
+
+                    case "clouds":
+                        api.ShowChatMessage($"Show Clouds: {state}");
+                        EnvTweaksPatches.Settings.AllowClouds = state;
+                        break;
+
                     default:
-                        api.ShowChatMessage("Environmental Tweaks: [settings|lightning|rain|hail|snow|sounds|shake] [on|off]");
+                        api.ShowChatMessage($"Environmental Tweaks: {syntaxMessage}");
                         break;
                 }
 
                 settingsFile.SaveAsJson(EnvTweaksPatches.Settings);
             }
 
-            api.RegisterCommand("EnvTweaks", 
-                "Change settings for Environmental Tweaks.",
-                "[settings|lightning|rain|hail|snow|sounds|shake] [on|off]", Handler);
-
-            api.RegisterCommand("et",
-                "Change settings for Environmental Tweaks.",
-                "[settings|lightning|rain|hail|snow|sounds|shake] [on|off]", Handler);
+            api.RegisterCommand("EnvTweaks", "Change settings for Environmental Tweaks.", syntaxMessage, Handler);
+            api.RegisterCommand("et", "Change settings for Environmental Tweaks.", syntaxMessage, Handler);
         }
     }
 }

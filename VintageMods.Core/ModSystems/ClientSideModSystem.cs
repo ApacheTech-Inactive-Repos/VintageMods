@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Reflection;
+using JetBrains.Annotations;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 
@@ -22,6 +23,14 @@ namespace VintageMods.Core.ModSystems
         public override bool ShouldLoad(EnumAppSide forSide)
         {
             return forSide == EnumAppSide.Client;
+        }
+
+        /// <summary>
+        ///     Initialises a new instance of the <see cref="ClientSideModSystem"/> class.
+        /// </summary>
+        /// <param name="assembly">The mod assembly used to create this instance.</param>
+        protected ClientSideModSystem(string id) : base(Assembly.GetCallingAssembly(), id)
+        {
         }
     }
 }

@@ -24,11 +24,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Wpex\Lang\en.json" />
-    <None Remove="Assets\_EmbeddedResources\Global\wpex-default-waypoints.data" />
-    <None Remove="Assets\_EmbeddedResources\Global\wpex-global-config.data" />
-    <None Remove="Assets\_EmbeddedResources\World\wpex-custom-waypoints.data" />
-    <None Remove="Assets\_EmbeddedResources\World\wpex-settings.data" />
+    <None Remove="assets\wpex\lang\en.json" />
+    <None Remove="assets\_EmbeddedResources\Global\wpex-default-waypoints.data" />
+    <None Remove="assets\_EmbeddedResources\Global\wpex-global-config.data" />
+    <None Remove="assets\_EmbeddedResources\World\wpex-custom-waypoints.data" />
+    <None Remove="assets\_EmbeddedResources\World\wpex-settings.data" />
     <None Remove="modinfo.json" />
     <None Include="..\LICENCE.md">
       <Pack>True</Pack>
@@ -37,7 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Assets\Wpex\Lang\en.json">
+    <Content Include="assets\wpex\lang\en.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="modinfo.json">
@@ -46,15 +46,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Assets\_EmbeddedResources\Global\wpex-default-waypoints.data" />
-    <EmbeddedResource Include="Assets\_EmbeddedResources\Global\wpex-global-config.data" />
-    <EmbeddedResource Include="Assets\_EmbeddedResources\World\wpex-settings.data" />
-    <EmbeddedResource Include="Assets\_EmbeddedResources\World\wpex-custom-waypoints.data" />
+    <EmbeddedResource Include="assets\_EmbeddedResources\Global\wpex-default-waypoints.data" />
+    <EmbeddedResource Include="assets\_EmbeddedResources\Global\wpex-global-config.data" />
+    <EmbeddedResource Include="assets\_EmbeddedResources\World\wpex-settings.data" />
+    <EmbeddedResource Include="assets\_EmbeddedResources\World\wpex-custom-waypoints.data" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="VintageMods.Mods.WaypointExtensions_Debug.saproj" />
-    <None Include="VintageMods.Mods.WaypointExtensions_Release.saproj" />
+    <None Include="SA_Debug.saproj" />
+    <None Include="SA_Release.saproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -107,6 +107,10 @@
 
   <ItemGroup>
     <EditorConfigFiles Update="C:\Users\Apache\source\repos\VintageMods\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Behaviours\Entities\" />
   </ItemGroup>
 
   <!-- Clean Tasks -->

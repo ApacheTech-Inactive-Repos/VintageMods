@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,5 +6,9 @@
     <AssemblyName>packager</AssemblyName>
     <StartupObject>VintageMods.Tools.ModPackager.Program</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VintageMods.Tools.GameLauncher\VintageMods.Tools.GameLauncher.csproj" />
+  </ItemGroup>
 
 </Project>

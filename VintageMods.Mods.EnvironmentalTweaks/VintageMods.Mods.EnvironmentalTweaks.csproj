@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\_EmbeddedResources\Global\EnvTweaks.config.json" />
+    <None Remove="assets\_EmbeddedResources\Global\EnvTweaks.config.json" />
     <None Remove="modinfo.json" />
     <None Include="..\LICENCE.md">
       <Pack>True</Pack>
@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Assets\_EmbeddedResources\Global\EnvTweaks.config.json" />
+    <EmbeddedResource Include="assets\_EmbeddedResources\Global\EnvTweaks.config.json" />
   </ItemGroup>
 
   <ItemGroup>
