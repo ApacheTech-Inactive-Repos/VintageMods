@@ -3,6 +3,9 @@ using JetBrains.Annotations;
 
 namespace VintageMods.Core.Extensions
 {
+    /// <summary>
+    ///     Contains extension methods for working with enums.
+    /// </summary>
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public static class EnumExtensions
     {

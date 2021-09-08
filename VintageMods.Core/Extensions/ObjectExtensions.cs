@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Dynamic;
 using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 
 namespace VintageMods.Core.Extensions
 {
@@ -17,6 +18,7 @@ namespace VintageMods.Core.Extensions
     /// <remarks>
     ///     If you get 'Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo.Create' you should reference Microsoft.CSharp
     /// </remarks>
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public static class ObjectExtensions
     {
         private static readonly ConditionalWeakTable<object, object> ExtendedData = new();
@@ -28,29 +30,18 @@ namespace VintageMods.Core.Extensions
         /// <returns>A dynamic collection of properties associated with an object instance.</returns>
         public static dynamic DynamicProperties(this object obj) => ExtendedData.GetValue(obj, _ => new ExpandoObject());
 
-        
+
+        /// <summary>
+        ///     Dynamically casts the object instance to a specified type.
+        /// </summary>
+        /// <typeparam name="T">The type of object to cast to.</typeparam>
+        /// <param name="obj">The instance to cast.</param>
+        /// <returns>An instance of Type <typeparamref name="T"/>.</returns>
         public static T As<T>(this object obj)
         {
-            var typeCode = Type.GetTypeCode(typeof(T));
-            return typeCode switch
-            {
-                TypeCode.Boolean => (T) obj,
-                TypeCode.Byte => (T) obj,
-                TypeCode.Char => (T) obj,
-                TypeCode.Decimal => (T) obj,
-                TypeCode.Double => (T) obj,
-                TypeCode.Int16 => (T) obj,
-                TypeCode.Int32 => (T) obj,
-                TypeCode.Int64 => (T) obj,
-                TypeCode.Object => (T) obj,
-                TypeCode.SByte => (T) obj,
-                TypeCode.Single => (T) obj,
-                TypeCode.String => (T) obj,
-                TypeCode.UInt16 => (T) obj,
-                TypeCode.UInt32 => (T) obj,
-                TypeCode.UInt64 => (T) obj,
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            return Type.GetTypeCode(typeof(T)) is TypeCode.DateTime or TypeCode.DBNull or TypeCode.Empty
+                ? throw new ArgumentOutOfRangeException(nameof(T), "Objects of this TypeCode cannot be cast to dynamically.")
+                : (T)obj;
         }
     }
 }

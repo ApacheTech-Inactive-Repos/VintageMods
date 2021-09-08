@@ -45,13 +45,13 @@ namespace VintageMods.Core.ModSystems
         ///     Gets the client network channel.
         /// </summary>
         /// <value>The client network channel.</value>
-        public IClientNetworkChannel ClientNetworkChannel { get; private set; }
+        public IClientNetworkChannel ClientChannel { get; private set; }
 
         /// <summary>
         ///     Gets the server network channel.
         /// </summary>
         /// <value>The server network channel.</value>
-        public IServerNetworkChannel ServerNetworkChannel { get; private set; }
+        public IServerNetworkChannel ServerChannel { get; private set; }
 
         /// <summary>
         ///     Minor convenience method to save yourself the check for/cast to ICoreClientAPI in Start()
@@ -84,12 +84,12 @@ namespace VintageMods.Core.ModSystems
             switch (api.Side)
             {
                 case EnumAppSide.Server:
-                    ServerNetworkChannel = (Sapi ??= api as ICoreServerAPI)?.Network.RegisterChannel(Id)
+                    ServerChannel = (Sapi ??= api as ICoreServerAPI)?.Network.RegisterChannel(Id)
                         .RegisterMessageType<CompositionDataPacket>()
                         .SetMessageHandler<CompositionDataPacket>(OnIncomingServerDataPacket);
                     break;
                 case EnumAppSide.Client:
-                    ClientNetworkChannel = (Capi ??= api as ICoreClientAPI)?.Network.RegisterChannel(Id)
+                    ClientChannel = (Capi ??= api as ICoreClientAPI)?.Network.RegisterChannel(Id)
                         .RegisterMessageType<CompositionDataPacket>()
                         .SetMessageHandler<CompositionDataPacket>(OnIncomingClientDataPacket);
                     break;

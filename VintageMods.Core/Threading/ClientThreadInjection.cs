@@ -30,7 +30,7 @@ namespace VintageMods.Core.Threading
 
         public static Stack<ClientSystem> GetVanillaSystems(this IClientWorldAccessor world)
         {
-            return new Stack<ClientSystem>((world as ClientMain).GetField<ClientSystem[]>("clientSystems"));
+            return new((world as ClientMain).GetField<ClientSystem[]>("clientSystems"));
         }
 
         public static void InjectClientThread(this ICoreClientAPI capi, string name,
