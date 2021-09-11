@@ -102,5 +102,9 @@ namespace VintageMods.Mods.EnvironmentalTweaks.ModSystems
             api.RegisterCommand("EnvTweaks", "Change settings for Environmental Tweaks.", syntaxMessage, Handler);
             api.RegisterCommand("et", "Change settings for Environmental Tweaks.", syntaxMessage, Handler);
         }
+
+        public EnvTweaksModSystem() : base("envtweaks")
+        {
+        }
     }
 }

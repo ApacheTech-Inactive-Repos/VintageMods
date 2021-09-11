@@ -2,12 +2,12 @@
 using Vintagestory.API.Common;
 using Vintagestory.Server;
 
-namespace VintageMods.Core.Threading.ClientSystems
+namespace VintageMods.Core.Threading.Systems
 {
     public class ServerSystemAsyncActions : ServerSystem
     {
-        private static ConcurrentQueue<Action> AsyncActions { get; set; } = new();
-        private static ConcurrentQueue<Action> MainThreadActions { get; set; } = new();
+        private ConcurrentQueue<Action> AsyncActions { get; set; } = new();
+        private ConcurrentQueue<Action> MainThreadActions { get; set; } = new();
 
         private readonly ServerMain _game;
 
@@ -34,12 +34,12 @@ namespace VintageMods.Core.Threading.ClientSystems
             }
         }
 
-        public static void EnqueueAsyncTask(Action action)
+        public void EnqueueAsyncTask(Action action)
         {
             AsyncActions.Enqueue(action);
         }
 
-        public static void EnqueueMainThreadTask(Action action)
+        public void EnqueueMainThreadTask(Action action)
         {
             MainThreadActions.Enqueue(action);
         }

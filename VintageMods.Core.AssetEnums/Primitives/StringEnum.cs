@@ -8,10 +8,10 @@ using System.Runtime.CompilerServices;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable NonReadonlyMemberInGetHashCode
 
-namespace VintageMods.Core.Enum
+namespace VintageMods.Core.AssetEnum.Primitives
 {
     /// <summary>
-    /// Class StringEnum.
+    ///     Class StringEnum.
     /// Implements the <see cref="System.IEquatable{T}" />
     /// </summary>
     /// <typeparam name="T"></typeparam>

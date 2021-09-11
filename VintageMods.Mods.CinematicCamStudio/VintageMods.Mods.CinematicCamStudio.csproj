@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="VintageMods.Mods.CinematicCamStudio_Debug.saproj" />
-    <None Include="VintageMods.Mods.CinematicCamStudio_Release.saproj" />
+    <None Include="SA_Debug.saproj" />
+    <None Include="SA_Release.saproj" />
   </ItemGroup>
 
   <ItemGroup>

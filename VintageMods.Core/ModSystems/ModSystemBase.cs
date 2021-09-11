@@ -40,7 +40,7 @@ namespace VintageMods.Core.ModSystems
         /// </summary>
         public ModSystemBase(Assembly assembly, string id)
         {
-            _patchAssembly = assembly ?? Assembly.GetExecutingAssembly();
+            _patchAssembly = assembly ?? Assembly.GetCallingAssembly();
             ModPatches = new Harmony(_patchAssembly.FullName);
             Id = id;
         }

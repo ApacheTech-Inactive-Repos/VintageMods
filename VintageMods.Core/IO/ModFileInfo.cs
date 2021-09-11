@@ -5,6 +5,7 @@ using System.Reflection;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using VintageMods.Core.IO.Extensions;
+using Vintagestory.API.Datastructures;
 
 namespace VintageMods.Core.IO
 {
@@ -44,10 +45,8 @@ namespace VintageMods.Core.IO
         /// <typeparam name="TModel">The type of list to deserialise into.</typeparam>
         public List<TModel> ParseJsonAsList<TModel>() where TModel : class, new()
         {
-            if (_fileOnDisk.Exists)
-                return JsonConvert.DeserializeObject<List<TModel>>(File.ReadAllText(_fileOnDisk.FullName));
-
-            DisembedFrom(typeof(TModel).Assembly);
+            if (!_fileOnDisk.Exists && ResourceManager.ResourceExists(typeof(TModel).Assembly, _fileOnDisk.Name))
+                DisembedFrom(typeof(TModel).Assembly);
             return JsonConvert.DeserializeObject<List<TModel>>(File.ReadAllText(_fileOnDisk.FullName));
         }
 
@@ -59,6 +58,19 @@ namespace VintageMods.Core.IO
         {
             var bytes = (_fileOnDisk.Exists) ? File.ReadAllBytes(_fileOnDisk.FullName) : new byte[]{ };
             return ProtoEx.Deserialise<TModel>(bytes);
+        }
+
+        /// <summary>
+        ///     Deserialises the specified file as a strongly-typed object.
+        /// </summary>
+        public JsonObject AsRawJsonObject()
+        {
+            if (_fileOnDisk.Exists) return JsonObject.FromJson(_fileOnDisk.OpenText().ReadToEnd());
+            if (ResourceManager.ResourceExists(Assembly.GetCallingAssembly(), _fileOnDisk.Name))
+                DisembedFrom(Assembly.GetCallingAssembly());
+            else
+                throw new FileNotFoundException($"Cannot find physical file, or embedded resource for file: { _fileOnDisk.Name }");
+            return JsonObject.FromJson(_fileOnDisk.OpenText().ReadToEnd());
         }
 
         /// <summary>
@@ -76,12 +88,28 @@ namespace VintageMods.Core.IO
         ///     The embedded resource is read from the same assembly as the underlying object model type,
         ///     and using the same filename as used to instantiate this class.
         /// </summary>
-        public void DisembedFrom(Assembly assembly)
+        public ModFileInfo DisembedFrom(Assembly assembly)
         {
-            if (!ResourceManager.ResourceExists(assembly, _fileOnDisk.Name)) return;
+            if (!ResourceManager.ResourceExists(assembly, _fileOnDisk.Name)) return this;
             using var stream = ResourceManager.GetResourceStream(assembly, _fileOnDisk.Name);
             using var file = File.OpenWrite(_fileOnDisk.FullName);
             stream.CopyTo(file);
+            return this;
+        }
+
+        /// <summary>
+        ///     Copies the contents of an embedded resource to disk.
+        ///     The embedded resource is read from the same assembly as the underlying object model type,
+        ///     and using the same filename as used to instantiate this class.
+        /// </summary>
+        public ModFileInfo Disembed()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            if (!ResourceManager.ResourceExists(assembly, _fileOnDisk.Name)) return this;
+            using var stream = ResourceManager.GetResourceStream(assembly, _fileOnDisk.Name);
+            using var file = File.OpenWrite(_fileOnDisk.FullName);
+            stream.CopyTo(file);
+            return this;
         }
 
         /// <summary>

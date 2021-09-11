@@ -6,12 +6,12 @@ using Vintagestory.Client.NoObf;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedType.Global
 
-namespace VintageMods.Core.Threading.ClientSystems
+namespace VintageMods.Core.Threading.Systems
 {
     public class ClientSystemAsyncActions : ClientSystem
     {
-        private static ConcurrentQueue<Action> AsyncActions { get; set; } = new();
-        private static ConcurrentQueue<Action> MainThreadActions { get; set; } = new();
+        private ConcurrentQueue<Action> AsyncActions { get; set; } = new();
+        private ConcurrentQueue<Action> MainThreadActions { get; set; } = new();
 
         private readonly ClientMain _game;
 
@@ -55,12 +55,12 @@ namespace VintageMods.Core.Threading.ClientSystems
             base.Dispose(game);
         }
 
-        public static void EnqueueAsyncTask(Action action)
+        public void EnqueueAsyncTask(Action action)
         {
             AsyncActions.Enqueue(action);
         }
 
-        public static void EnqueueMainThreadTask(Action action)
+        public void EnqueueMainThreadTask(Action action)
         {
             MainThreadActions.Enqueue(action);
         }

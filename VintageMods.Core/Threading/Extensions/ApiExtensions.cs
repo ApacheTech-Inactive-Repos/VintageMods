@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using VintageMods.Core.Extensions;
-using VintageMods.Core.Threading.ClientSystems;
+using VintageMods.Core.Threading.Systems;
 using Vintagestory.API.Client;
 using Vintagestory.API.Server;
 using Vintagestory.Client.NoObf;

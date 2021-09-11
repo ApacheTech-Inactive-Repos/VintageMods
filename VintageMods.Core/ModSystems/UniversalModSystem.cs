@@ -23,6 +23,13 @@ namespace VintageMods.Core.ModSystems
         }
 
         /// <summary>
+        ///     Initialises a new instance of the <see cref="UniversalModSystem" /> class.
+        /// </summary>
+        protected UniversalModSystem(string id, Assembly assembly) : base(assembly, id)
+        {
+        }
+
+        /// <summary>
         ///     Gets or sets the data packet used for MEF composition.
         /// </summary>
         /// <value>The data packet used for MEF composition.</value>

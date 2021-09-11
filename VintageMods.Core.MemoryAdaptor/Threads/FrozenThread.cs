@@ -23,7 +23,6 @@
         /// <summary>
         ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
-        /// TODO Edit XML Comment Template for Dispose
         public virtual void Dispose()
         {
             // Unfreeze the thread

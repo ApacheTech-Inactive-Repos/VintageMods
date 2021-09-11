@@ -20,6 +20,10 @@ namespace VintageMods.Mods.CinematicCamStudio.ModSystems
         {               
             base.Dispose();
         }
+
+        public CamSystem() : base("cinecam")
+        {
+        }
     }
 }
     

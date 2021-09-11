@@ -25,7 +25,27 @@ namespace VintageMods.Core.Extensions
         {
             return api?.World?.Seed.ToString();
         }
-        
+
+        /// <summary>
+        ///     Converts an agnostic API to a Client-side API.
+        /// </summary>
+        /// <param name="api">The core game API.</param>
+        public static ICoreClientAPI ForClient(this ICoreAPI api)
+        {
+            if (api.Side.IsServer()) return null;
+            return api as ICoreClientAPI;
+        }
+
+        /// <summary>
+        ///     Converts an agnostic API to a Server-side API.
+        /// </summary>
+        /// <param name="api">The core game API.</param>
+        public static ICoreServerAPI ForServer(this ICoreAPI api)
+        {
+            if (api.Side.IsClient()) return null;
+            return api as ICoreServerAPI;
+        }
+
         public static ClientMain AsClientMain(this ICoreClientAPI api)
         {
             return api.World as ClientMain;
@@ -45,6 +65,18 @@ namespace VintageMods.Core.Extensions
         {
             var clientSystems = (api.World as ClientMain).GetField<ClientSystem[]>("clientSystems");
             return clientSystems.FirstOrDefault(p => p.Name == name);
+        }
+
+        public static T GetVanillaClientSystem<T>(this ICoreClientAPI api) where T : ClientSystem
+        {
+            var clientSystems = (api.World as ClientMain).GetField<ClientSystem[]>("clientSystems");
+            return clientSystems.FirstOrDefault(p => p.GetType() == typeof(T)) as T;
+        }
+
+        public static T GetVanillaServerSystem<T>(this ICoreServerAPI sapi) where T : ServerSystem
+        {
+            var systems = sapi.AsServerMain().GetField<ServerSystem[]>("Systems");
+            return systems.FirstOrDefault(p => p.GetType() == typeof(T)) as T;
         }
 
         public static void UnregisterCommand(this ICoreClientAPI capi, string cmd)
@@ -84,11 +116,6 @@ namespace VintageMods.Core.Extensions
                 break;
             }
             clientMain.SetField("clientSystems", clientSystems.ToArray());
-        }
-        public static T GetVanillaClientSystem<T>(this ICoreClientAPI api) where T : ClientSystem
-        {
-            var clientSystems = (api.World as ClientMain).GetField<ClientSystem[]>("clientSystems");
-            return clientSystems.FirstOrDefault(p => p.GetType() == typeof(T)) as T;
         }
 
         /// <summary>

@@ -11,10 +11,15 @@ using Vintagestory.API.Client;
 // ReSharper disable UnusedType.Global
 
 [assembly: ModDomain("wpex", "Waypoint Extensions")]
+
 namespace VintageMods.Mods.WaypointExtensions.ModSystems
 {
     internal class WpexModSystem : ClientSideModSystem
     {
+        public WpexModSystem() : base("wpex")
+        {
+        }
+
         internal WorldSettings Settings { get; private set; }
 
         public override void StartClientSide(ICoreClientAPI api)
@@ -28,7 +33,8 @@ namespace VintageMods.Mods.WaypointExtensions.ModSystems
             RegisterChatCommands(api);
 
             var settingsWindow = new SettingsWindow(api);
-            api.Input.RegisterHotKey("wpex-settings", "Waypoint Extensions Settings", GlKeys.F7, HotkeyType.GUIOrOtherControls);
+            api.Input.RegisterHotKey("wpex-settings", "Waypoint Extensions Settings", GlKeys.F7,
+                HotkeyType.GUIOrOtherControls);
             api.Input.SetHotKeyHandler("wpex-settings", _ =>
             {
                 api.Event.RegisterCallback(_ =>
@@ -54,10 +60,9 @@ namespace VintageMods.Mods.WaypointExtensions.ModSystems
         }
 
         public override void Dispose()
-        {               
+        {
             Api.UnregisterFluentChatCommands();
             base.Dispose();
         }
     }
 }
-    

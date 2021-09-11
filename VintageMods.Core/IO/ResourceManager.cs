@@ -1,11 +1,14 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Resources;
 using System.Text;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using VintageMods.Core.Helpers;
 using VintageMods.Core.IO.Extensions;
+using Vintagestory.API.Util;
 
 namespace VintageMods.Core.IO
 {
@@ -99,6 +102,28 @@ namespace VintageMods.Core.IO
             var stream64 = GetResourceStream(assembly, resourceName);
             using var file = File.OpenWrite(fileName);
             stream64.CopyTo(file);
+        }
+
+        /// <summary>
+        ///     Disembeds embedded assets from a mod library, into the current mod's assets folder.
+        /// </summary>
+        /// <param name="assembly">The assembly to load the embedded assets from.</param>
+        public static void DisembedAssets(Assembly assembly)
+        {
+            var resources = assembly.GetManifestResourceNames();
+            var assemblyName = assembly.GetName().Name;
+
+            foreach (var resource in resources)
+            {
+                if (!resource.StartsWith($"{assemblyName}.assets.")) continue;
+                var str = resource.Replace($"{assemblyName}.assets.", "");
+                var tmp = str.Split(new[] { '.' }, str.CountChars('.'));
+                var fileInfo = new FileInfo(tmp.Aggregate(GamePathsEx.AssetsDirectory, Path.Combine));
+                var stream64 = GetResourceStream(assembly, resource);
+                Directory.CreateDirectory(fileInfo.DirectoryName!);
+                using var file = File.Create(fileInfo.FullName);
+                stream64.CopyTo(file);
+            }
         }
     }
 }

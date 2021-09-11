@@ -47,7 +47,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VintageMods.Tools.GameLaunc
 	ProjectSection(ProjectDependencies) = postProject
 		{37D8D74B-5B8C-4745-96F1-9B64F633ED9E} = {37D8D74B-5B8C-4745-96F1-9B64F633ED9E}
 		{DDA4C852-DAE1-40FA-A2BF-A3458F1B8894} = {DDA4C852-DAE1-40FA-A2BF-A3458F1B8894}
-		{46733483-CFAB-4A89-BFFC-A8487D65C423} = {46733483-CFAB-4A89-BFFC-A8487D65C423}
 		{B7B664BE-F550-4D97-B6D5-90F5CF9AA63A} = {B7B664BE-F550-4D97-B6D5-90F5CF9AA63A}
 		{431650E1-78BD-4FE9-A0A8-2668023DA374} = {431650E1-78BD-4FE9-A0A8-2668023DA374}
 	EndProjectSection
@@ -63,13 +62,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VintageMods.Mods.ManaTest", "VintageMods.Mods.ManaTest\VintageMods.Mods.ManaTest.csproj", "{37C1127F-E0AE-4805-A222-9F47FD1D0177}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Mods.Prototype", "VintageMods.Mods.Prototype\VintageMods.Mods.Prototype.csproj", "{46733483-CFAB-4A89-BFFC-A8487D65C423}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VintageMods.Core.Natives", "VintageMods.Core.Natives\VintageMods.Core.Natives.csproj", "{C307F717-0D4B-45AB-8CC9-3DE0723BD566}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "VintageMods.Core.AssetEnums", "VintageMods.Core.AssetEnums\VintageMods.Core.AssetEnums.shproj", "{5B146732-BAC6-48E3-B67C-9A1F4CCC30E6}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		VintageMods.Core.AssetEnums\VintageMods.Core.AssetEnums.projitems*{5b146732-bac6-48e3-b67c-9a1f4ccc30e6}*SharedItemsImports = 13
+		VintageMods.Core.AssetEnums\VintageMods.Core.AssetEnums.projitems*{5bcf4c0e-3b42-4703-944e-762ad14dec37}*SharedItemsImports = 5
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug + Flatworld|Any CPU = Debug + Flatworld|Any CPU
 		Debug|Any CPU = Debug|Any CPU
@@ -141,30 +140,6 @@ Global
 		{D1BD4A0A-6595-4D72-9B09-9CEC49D2246C}.FastBuild|Any CPU.Build.0 = Debug|Any CPU
 		{D1BD4A0A-6595-4D72-9B09-9CEC49D2246C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1BD4A0A-6595-4D72-9B09-9CEC49D2246C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{37C1127F-E0AE-4805-A222-9F47FD1D0177}.Debug + Flatworld|Any CPU.ActiveCfg = Debug|Any CPU
-		{37C1127F-E0AE-4805-A222-9F47FD1D0177}.Debug + Flatworld|Any CPU.Build.0 = Debug|Any CPU
-		{37C1127F-E0AE-4805-A222-9F47FD1D0177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37C1127F-E0AE-4805-A222-9F47FD1D0177}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37C1127F-E0AE-4805-A222-9F47FD1D0177}.FastBuild|Any CPU.ActiveCfg = Debug|Any CPU
-		{37C1127F-E0AE-4805-A222-9F47FD1D0177}.FastBuild|Any CPU.Build.0 = Debug|Any CPU
-		{37C1127F-E0AE-4805-A222-9F47FD1D0177}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37C1127F-E0AE-4805-A222-9F47FD1D0177}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46733483-CFAB-4A89-BFFC-A8487D65C423}.Debug + Flatworld|Any CPU.ActiveCfg = Debug|Any CPU
-		{46733483-CFAB-4A89-BFFC-A8487D65C423}.Debug + Flatworld|Any CPU.Build.0 = Debug|Any CPU
-		{46733483-CFAB-4A89-BFFC-A8487D65C423}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46733483-CFAB-4A89-BFFC-A8487D65C423}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46733483-CFAB-4A89-BFFC-A8487D65C423}.FastBuild|Any CPU.ActiveCfg = Debug|Any CPU
-		{46733483-CFAB-4A89-BFFC-A8487D65C423}.FastBuild|Any CPU.Build.0 = Debug|Any CPU
-		{46733483-CFAB-4A89-BFFC-A8487D65C423}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46733483-CFAB-4A89-BFFC-A8487D65C423}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C307F717-0D4B-45AB-8CC9-3DE0723BD566}.Debug + Flatworld|Any CPU.ActiveCfg = Debug|Any CPU
-		{C307F717-0D4B-45AB-8CC9-3DE0723BD566}.Debug + Flatworld|Any CPU.Build.0 = Debug|Any CPU
-		{C307F717-0D4B-45AB-8CC9-3DE0723BD566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C307F717-0D4B-45AB-8CC9-3DE0723BD566}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C307F717-0D4B-45AB-8CC9-3DE0723BD566}.FastBuild|Any CPU.ActiveCfg = Debug|Any CPU
-		{C307F717-0D4B-45AB-8CC9-3DE0723BD566}.FastBuild|Any CPU.Build.0 = Debug|Any CPU
-		{C307F717-0D4B-45AB-8CC9-3DE0723BD566}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C307F717-0D4B-45AB-8CC9-3DE0723BD566}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,9 +157,7 @@ Global
 		{D1BD4A0A-6595-4D72-9B09-9CEC49D2246C} = {1B89572E-5A97-49B9-A03D-5C8FE736A6C4}
 		{5D266B6A-A92F-4894-BCD9-392DC89C09AC} = {77C14A47-AE4F-413C-B059-592543EB29E1}
 		{8F8F6B7F-5479-4B41-8645-B4D1C59793DB} = {77C14A47-AE4F-413C-B059-592543EB29E1}
-		{37C1127F-E0AE-4805-A222-9F47FD1D0177} = {D71BA92B-27FA-41AF-A395-0EB1CEA9EA37}
-		{46733483-CFAB-4A89-BFFC-A8487D65C423} = {D71BA92B-27FA-41AF-A395-0EB1CEA9EA37}
-		{C307F717-0D4B-45AB-8CC9-3DE0723BD566} = {22E915C1-51AF-4F31-9900-617CE6D04CC3}
+		{5B146732-BAC6-48E3-B67C-9A1F4CCC30E6} = {22E915C1-51AF-4F31-9900-617CE6D04CC3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {87615F59-7699-4480-89A6-75F0B9529D0B}

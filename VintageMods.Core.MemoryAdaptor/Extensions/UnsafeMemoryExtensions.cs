@@ -39,7 +39,6 @@ namespace VintageMods.Core.MemoryAdaptor.Extensions
         ///     This operation can only convert to delegates adorned with the
         ///     UnmanagedFunctionPointerAttribute
         /// </exception>
-        /// TODO Edit XML Comment Template for ToDelegate`1
         public static T ToDelegate<T>(this IntPtr addr) where T : class
         {
             if (typeof (T).GetCustomAttributes(typeof (UnmanagedFunctionPointerAttribute), true).Length == 0)
@@ -52,7 +51,6 @@ namespace VintageMods.Core.MemoryAdaptor.Extensions
         {
             try
             {
-                // TODO: Optimize this more. The boxing/unboxing required tends to slow this down.
                 // It may be worth it to simply use memcpy to avoid it, but I doubt thats going to give any noticeable increase in speed.
                 if (address == IntPtr.Zero)
                     throw new InvalidOperationException("Cannot retrieve a value at address 0");
