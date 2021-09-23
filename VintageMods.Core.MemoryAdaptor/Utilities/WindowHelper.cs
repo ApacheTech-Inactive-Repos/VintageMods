@@ -102,7 +102,7 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
 
             // Allocate a WindowPlacement structure
             WindowPlacement placement;
-            placement.Length = Marshal.SizeOf(typeof (WindowPlacement));
+            placement.Length = Marshal.SizeOf(typeof(WindowPlacement));
 
             // Get the window placement
             if (!User32.GetWindowPlacement(windowHandle, out placement))
@@ -231,7 +231,7 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
             // Create the data structure
             var flashInfo = new FlashInfo
             {
-                Size = Marshal.SizeOf(typeof (FlashInfo)),
+                Size = Marshal.SizeOf(typeof(FlashInfo)),
                 Hwnd = windowHandle,
                 Flags = flags,
                 Count = count,
@@ -307,7 +307,7 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
         /// </returns>
         public static int MapVirtualKey(Keys key, TranslationTypes translation)
         {
-            return MapVirtualKey((int)key, translation);
+            return MapVirtualKey((int) key, translation);
         }
 
         /// <summary>
@@ -363,7 +363,9 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
                     throw new Win32Exception("Couldn't send the inputs.");
             }
             else
+            {
                 throw new ArgumentException("The parameter cannot be null or empty.", "inputs");
+            }
         }
 
         /// <summary>
@@ -528,7 +530,7 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
         }
 
         /// <summary>
-        /// Gets the main handle
+        ///     Gets the main handle
         /// </summary>
         /// <param name="processName">Name of the process.</param>
         /// <returns>IntPtr.</returns>
@@ -539,13 +541,9 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
 
             var process = firstOrDefault.FirstOrDefault();
 
-            if (process == null)
-            {
-                throw new ArgumentNullException(nameof(process));
-            }
+            if (process == null) throw new ArgumentNullException(nameof(process));
 
             return process.MainWindowHandle;
         }
-
     }
 }

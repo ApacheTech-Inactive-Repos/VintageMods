@@ -62,8 +62,11 @@ namespace VintageMods.Core.MemoryAdaptor.Memory
         public override int Write(IntPtr intPtr, byte[] bytesToWrite)
         {
             using (new MemoryProtection(Handle, intPtr,
-                MarshalType<byte>.Size*bytesToWrite.Length))
+                MarshalType<byte>.Size * bytesToWrite.Length))
+            {
                 MemoryHelper.WriteBytes(Handle, intPtr, bytesToWrite);
+            }
+
             return bytesToWrite.Length;
         }
     }

@@ -24,7 +24,8 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
             var module =
                 Process.GetCurrentProcess()
                     .Modules.Cast<ProcessModule>()
-                    .FirstOrDefault(m => string.Equals(m.ModuleName, moduleName, StringComparison.CurrentCultureIgnoreCase));
+                    .FirstOrDefault(m =>
+                        string.Equals(m.ModuleName, moduleName, StringComparison.CurrentCultureIgnoreCase));
 
             // Check whether there is a module loaded with this name
             if (module == null)
@@ -42,7 +43,6 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
             throw new Win32Exception($"Couldn't get the function address of {functionName}.");
         }
 
-    
 
         /// <summary>
         ///     Frees the loaded dynamic-link library (DLL) module and, if necessary, decrements its reference count.

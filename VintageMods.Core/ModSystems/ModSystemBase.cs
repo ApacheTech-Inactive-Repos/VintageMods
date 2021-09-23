@@ -13,16 +13,29 @@ namespace VintageMods.Core.ModSystems
     /// </summary>
     /// <typeparam name="TApi">The type of the API.</typeparam>
     /// <seealso cref="ModSystem" />
-    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers|ImplicitUseTargetFlags.WithInheritors)]
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers | ImplicitUseTargetFlags.WithInheritors)]
     public abstract class ModSystemBase<TApi> : ModSystem where TApi : class, ICoreAPI
     {
+        private readonly Assembly _patchAssembly;
+
+        private byte _retries;
+
+        /// <summary>
+        ///     Initialises a new instance of the <see cref="ModSystemBase{TApi}" /> class.
+        /// </summary>
+        public ModSystemBase(Assembly assembly, string id)
+        {
+            _patchAssembly = assembly ?? Assembly.GetCallingAssembly();
+            ModPatches = new Harmony(_patchAssembly.FullName);
+            Id = id;
+        }
+
         /// <summary>
         ///     Gets the mod name.
         /// </summary>
         /// <value>The name of the mod.</value>
         public string Id { get; }
 
-        private readonly Assembly _patchAssembly;
         /// <summary>
         ///     Gets the Harmony instance used to add patches for this mod.
         /// </summary>
@@ -34,22 +47,12 @@ namespace VintageMods.Core.ModSystems
         /// </summary>
         /// <value>The file manager.</value>
         protected FileManager Files { get; private set; }
-        
-        /// <summary>
-        ///     Initialises a new instance of the <see cref="ModSystemBase{TApi}"/> class.
-        /// </summary>
-        public ModSystemBase(Assembly assembly, string id)
-        {
-            _patchAssembly = assembly ?? Assembly.GetCallingAssembly();
-            ModPatches = new Harmony(_patchAssembly.FullName);
-            Id = id;
-        }
 
         /// <summary>
         ///     The main API for the game.
         /// </summary>
         /// <value>The main API for the game.</value>
-        protected TApi Api { get; private set; }
+        protected TApi Api { get; private protected set; }
 
         /// <summary>
         ///     Side agnostic Start method, called after all mods received a call to StartPre().
@@ -61,13 +64,9 @@ namespace VintageMods.Core.ModSystems
             Files = api.RegisterFileManager();
             ApplyHarmonyPatches(_patchAssembly);
             api.Logger.Notification($"  {_patchAssembly.GetName()} - Patched Methods:");
-            foreach (var val in ModPatches.GetPatchedMethods())
-            {
-                api.Logger.Notification("    " + val.FullDescription());
-            }
+            foreach (var val in ModPatches.GetPatchedMethods()) api.Logger.Notification("    " + val.FullDescription());
         }
 
-        private byte _retries;
         /// <summary>
         ///     Applies the harmony patches for this mod.
         /// </summary>
@@ -80,7 +79,9 @@ namespace VintageMods.Core.ModSystems
             catch (Exception ex)
             {
                 Api.Logger.Audit($"{ex.Message}");
-                ModPatches.PatchAll(assembly == Assembly.GetExecutingAssembly() ? Assembly.GetCallingAssembly() : Assembly.GetExecutingAssembly());
+                ModPatches.PatchAll(assembly == Assembly.GetExecutingAssembly()
+                    ? Assembly.GetCallingAssembly()
+                    : Assembly.GetExecutingAssembly());
                 if (++_retries == 3) throw;
             }
         }
@@ -90,19 +91,14 @@ namespace VintageMods.Core.ModSystems
         ///     The server will call each Mods Start() method the ascending order of each mods execute order value.
         ///     And thus, as long as every mod registers it's event handlers in the Start() method, all event handlers
         ///     will be called in the same execution order.
-        /// 
         ///     Default execute order of some survival mod parts.
-        /// 
         ///     World Gen:
-        /// 
         ///     - GenTerra: 0
         ///     - RockStrata: 0.1
         ///     - Deposits: 0.2
         ///     - Caves: 0.3
         ///     - BlockLayers: 0.4
-        /// 
         ///     Asset Loading:
-        /// 
         ///     - Json Overrides loader: 0.05
         ///     - Load hardcoded mantle block: 0.1
         ///     - Block and Item Loader: 0.2

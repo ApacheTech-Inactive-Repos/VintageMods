@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using JetBrains.Annotations;
 using VintageMods.Core.Reflection;
 using Vintagestory.API.Client;
 using Vintagestory.GameContent;
@@ -8,17 +9,18 @@ namespace VintageMods.Core.Extensions
     /// <summary>
     ///     Extension Methods for the World Map Manager.
     /// </summary>
-    public static class WorldMapManagerEx
+    [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+    public static class WorldMapManagerExtensions
     {
         /// <summary>
         ///     Returns the map layer used for rendering waypoints.
         /// </summary>
-        /// <param name="mapManager">The <see cref="WorldMapManager"/> instance that this method was called from.</param>
+        /// <param name="mapManager">The <see cref="WorldMapManager" /> instance that this method was called from.</param>
         public static WaypointMapLayer WaypointMapLayer(this WorldMapManager mapManager)
         {
             return mapManager.MapLayers.OfType<WaypointMapLayer>().FirstOrDefault();
         }
-        
+
         /// <summary>
         ///     Trick the server into sending waypoints to the client even if they don't have their map opened.
         ///     Credit to Novocain.

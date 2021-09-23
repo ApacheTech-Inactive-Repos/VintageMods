@@ -80,7 +80,8 @@ namespace VintageMods.Core.MemoryAdaptor.Windows.Keyboard
             VK_RALT = 0xA5 //aka VK_RMENU
         }
 
-        [SuppressMessage("ReSharper", "InconsistentNaming")] private const int KEY_PRESSED = 0x8000;
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
+        private const int KEY_PRESSED = 0x8000;
 
         #endregion
     }

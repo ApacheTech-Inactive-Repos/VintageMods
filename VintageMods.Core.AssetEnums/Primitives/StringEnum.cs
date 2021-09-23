@@ -8,25 +8,30 @@ using System.Runtime.CompilerServices;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable NonReadonlyMemberInGetHashCode
 
-namespace VintageMods.Core.AssetEnum.Primitives
+namespace VintageMods.Core.Primitives
 {
     /// <summary>
     ///     Class StringEnum.
-    /// Implements the <see cref="System.IEquatable{T}" />
+    ///     Implements the <see cref="System.IEquatable{T}" />
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <seealso cref="System.IEquatable{T}" />
     public abstract class StringEnum<T> : IEquatable<T> where T : StringEnum<T>, new()
     {
         /// <summary>
+        ///     The value dictionary
+        /// </summary>
+        private static readonly Dictionary<string, T> ValueDict = new();
+
+        /// <summary>
         ///     The value given to this StringEnum member.
         /// </summary>
         protected string Value;
 
-        /// <summary>
-        /// The value dictionary
-        /// </summary>
-        private static readonly Dictionary<string, T> ValueDict = new();
+        bool IEquatable<T>.Equals(T other)
+        {
+            return Value.Equals(other?.Value);
+        }
 
         /// <summary>
         ///     Creates the specified value.
@@ -36,7 +41,7 @@ namespace VintageMods.Core.AssetEnum.Primitives
         protected static T Create(string value)
         {
             if (value == null) return default;
-            var obj1 = new T { Value = value };
+            var obj1 = new T {Value = value};
             ValueDict.Add(value, obj1);
             return obj1;
         }
@@ -71,11 +76,6 @@ namespace VintageMods.Core.AssetEnum.Primitives
             return Value.Equals((other as T)?.Value ?? other as string);
         }
 
-        bool IEquatable<T>.Equals(T other)
-        {
-            return Value.Equals(other?.Value);
-        }
-
         public override int GetHashCode()
         {
             return Value.GetHashCode();
@@ -98,7 +98,7 @@ namespace VintageMods.Core.AssetEnum.Primitives
                 RuntimeHelpers.RunClassConstructor(typeof(T).TypeHandle);
             if (!caseSensitive)
                 return ValueDict.FirstOrDefault(f =>
-                        f.Key.Equals(value, StringComparison.OrdinalIgnoreCase)).Value;
+                    f.Key.Equals(value, StringComparison.OrdinalIgnoreCase)).Value;
             return ValueDict.TryGetValue(value, out var obj) ? obj : default;
         }
     }

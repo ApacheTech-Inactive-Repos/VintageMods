@@ -38,6 +38,8 @@ namespace VintageMods.Core.Maths.Interpolation
             PointVectors = new List<double>(points);
         }
 
+        public abstract double ValueAt(double mu, int pointIndex, int pointIndexNext);
+
         protected virtual double GetValue(int index)
         {
             return PointVectors[index];
@@ -67,8 +69,10 @@ namespace VintageMods.Core.Maths.Interpolation
                         secondPoint = entry;
                         indexSecond = i;
                     }
+
                     break;
                 }
+
                 firstPoint = entry;
                 indexFirst = i;
                 i++;
@@ -80,9 +84,6 @@ namespace VintageMods.Core.Maths.Interpolation
             var pointDistance = secondPoint.Key - firstPoint.Key;
             var mu = (t - firstPoint.Key) / pointDistance;
             return ValueAt(mu, indexFirst, indexSecond);
-
         }
-
-        public abstract double ValueAt(double mu, int pointIndex, int pointIndexNext);
     }
 }

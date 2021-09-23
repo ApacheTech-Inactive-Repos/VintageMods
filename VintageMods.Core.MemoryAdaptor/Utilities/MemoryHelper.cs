@@ -132,7 +132,8 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
             int nbBytesRead;
 
             // Read the data from the target process
-            if (Kernel32.ReadProcessMemory(processHandle, address, buffer, size, out nbBytesRead) && size == nbBytesRead)
+            if (Kernel32.ReadProcessMemory(processHandle, address, buffer, size, out nbBytesRead) &&
+                size == nbBytesRead)
                 return buffer;
 
             // Else the data couldn't be read, throws an exception
@@ -200,13 +201,17 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
 
                 return memoryInfo64;
             }
+
             return memoryInfo64;
         }
 
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern int VirtualQueryEx(SafeMemoryHandle hProcess, IntPtr lpAddress, out MemoryBasicInformation32 lpBuffer, int dwLength);
+        public static extern int VirtualQueryEx(SafeMemoryHandle hProcess, IntPtr lpAddress,
+            out MemoryBasicInformation32 lpBuffer, int dwLength);
+
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern int VirtualQueryEx(SafeMemoryHandle hProcess, IntPtr lpAddress, out MemoryBasicInformation64 lpBuffer, int dwLength);
+        public static extern int VirtualQueryEx(SafeMemoryHandle hProcess, IntPtr lpAddress,
+            out MemoryBasicInformation64 lpBuffer, int dwLength);
 
         /// <summary>
         ///     Retrieves information about a range of pages within the virtual address space of a specified process.
@@ -227,7 +232,8 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
 
             // The first address must be lower than the second
             if (numberFrom >= numberTo)
-                throw new ArgumentException("The starting address must be lower than the ending address.", "addressFrom");
+                throw new ArgumentException("The starting address must be lower than the ending address.",
+                    "addressFrom");
 
             // Create the variable storing the result of the call of VirtualQueryEx
             int ret;

@@ -31,7 +31,8 @@ namespace VintageMods.Core.Helpers
         };
 
         /// <summary>
-        ///     Scans for a specific type within one of the game's vanilla assemblies. Includes internal classes, and nested private classes. It can then be instantiated via Harmony.
+        ///     Scans for a specific type within one of the game's vanilla assemblies. Includes internal classes, and nested
+        ///     private classes. It can then be instantiated via Harmony.
         /// </summary>
         /// <param name="assembly">The assembly to scan within.</param>
         /// <param name="typeName">The name of the type to scan for.</param>
@@ -42,7 +43,8 @@ namespace VintageMods.Core.Helpers
         }
 
         /// <summary>
-        ///     Scans for a specific type within the game's vanilla assemblies. Includes internal classes, and nested private classes. It can then be instantiated via Harmony.
+        ///     Scans for a specific type within the game's vanilla assemblies. Includes internal classes, and nested private
+        ///     classes. It can then be instantiated via Harmony.
         /// </summary>
         /// <param name="typeName">The name of the type to scan for.</param>
         /// <returns>The Type definition of the object being scanned for.</returns>

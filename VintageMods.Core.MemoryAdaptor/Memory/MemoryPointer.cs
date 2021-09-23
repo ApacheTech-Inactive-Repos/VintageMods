@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using VintageMods.Core.MemoryAdaptor.Native.Types;
+
 // ReSharper disable NonReadonlyMemberInGetHashCode
 
 namespace VintageMods.Core.MemoryAdaptor.Memory
@@ -34,7 +35,7 @@ namespace VintageMods.Core.MemoryAdaptor.Memory
         {
             if (other is null) return false;
             return ReferenceEquals(this, other) ||
-                   (BaseAddress.Equals(other.BaseAddress) && Process.Equals(other.Process));
+                   BaseAddress.Equals(other.BaseAddress) && Process.Equals(other.Process);
         }
 
         /// <summary>
@@ -139,7 +140,7 @@ namespace VintageMods.Core.MemoryAdaptor.Memory
         public MemoryProtection ChangeProtection(SafeMemoryHandle handle, int size,
             MemoryProtectionFlags protection = MemoryProtectionFlags.ExecuteReadWrite, bool mustBeDisposed = true)
         {
-            return new MemoryProtection(handle, BaseAddress, size, protection, mustBeDisposed);
+            return new(handle, BaseAddress, size, protection, mustBeDisposed);
         }
 
         /// <summary>

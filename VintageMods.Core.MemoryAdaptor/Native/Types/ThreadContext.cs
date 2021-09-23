@@ -171,6 +171,7 @@ namespace VintageMods.Core.MemoryAdaptor.Native.Types
         ///     <see cref="ThreadContextFlags.ExtendedRegisters" />.
         ///     The format and contexts are processor specific.
         /// </summary>
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 512)] public byte[] ExtendedRegisters;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 512)]
+        public byte[] ExtendedRegisters;
     }
 }

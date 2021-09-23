@@ -8,7 +8,7 @@ namespace VintageMods.Core.MemoryAdaptor.Native.Types
     /// <summary>
     ///     The translation types used in the function <see cref="NativeMethods.MapVirtualKey" /> for the keys mapping.
     /// </summary>
-public enum TranslationTypes
+    public enum TranslationTypes
     {
         /// <summary>
         ///     uCode is a virtual-key code and is translated into a scan code.

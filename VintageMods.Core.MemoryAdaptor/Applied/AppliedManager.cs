@@ -7,7 +7,7 @@ namespace VintageMods.Core.MemoryAdaptor.Applied
     [SuppressMessage("ReSharper", "LoopCanBePartlyConvertedToQuery")]
     public class AppliedManager<T> : IAppliedManager<T> where T : IApplied
     {
-        protected readonly Dictionary<string, T> InternalItems = new Dictionary<string, T>();
+        protected readonly Dictionary<string, T> InternalItems = new();
 
         public IReadOnlyDictionary<string, T> Items => InternalItems;
 

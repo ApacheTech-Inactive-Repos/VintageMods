@@ -28,6 +28,7 @@ namespace VintageMods.Core.Threading.Extensions
         {
             return api.World.GetVanillaSystems().Any(clientSystem => clientSystem.GetType() == typeof(T));
         }
+
         public static void EnableAsyncTasks(this ICoreServerAPI api)
         {
             api.Event.SaveGameLoaded += () =>
@@ -37,7 +38,8 @@ namespace VintageMods.Core.Threading.Extensions
             };
         }
 
-        public static bool IsServerSystemLoaded<TServerSystem>(this ICoreServerAPI api) where TServerSystem : ServerSystem
+        public static bool IsServerSystemLoaded<TServerSystem>(this ICoreServerAPI api)
+            where TServerSystem : ServerSystem
         {
             return api.World.GetVanillaSystems().Any(clientSystem => clientSystem.GetType() == typeof(TServerSystem));
         }

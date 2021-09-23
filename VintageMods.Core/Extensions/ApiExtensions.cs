@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VintageMods.Core.Reflection;
 using Vintagestory.API.Client;
@@ -15,8 +16,46 @@ using Vintagestory.Server;
 
 namespace VintageMods.Core.Extensions
 {
-    public static class ClientApiExtensions
+    public static class ApiExtensions
     {
+
+        #region Client
+
+        public static ClientMain AsClientMain(this ICoreClientAPI api)
+        {
+            return (ClientMain)api.World;
+        }
+
+        public static ICoreClientAPI AsApi(this ClientMain game)
+        {
+            return (ICoreClientAPI)game.Api;
+        }
+
+        #endregion
+
+
+        #region Server
+
+        public static ServerMain AsServerMain(this ICoreServerAPI api)
+        {
+            return (ServerMain)api.World;
+        }
+
+        public static ICoreServerAPI AsApi(this ServerMain game)
+        {
+            return (ICoreServerAPI)game.Api;
+        }
+
+        #endregion
+
+
+        #region Universal
+
+        public static bool IsSurvival(this EnumGameMode mode) => mode == EnumGameMode.Survival;
+        public static bool IsCreative(this EnumGameMode mode) => mode == EnumGameMode.Creative;
+        public static bool IsSpectator(this EnumGameMode mode) => mode == EnumGameMode.Spectator;
+        public static bool IsGuest(this EnumGameMode mode) => mode == EnumGameMode.Guest;
+
         /// <summary>
         ///     Gets the world seed.
         /// </summary>
@@ -24,16 +63,6 @@ namespace VintageMods.Core.Extensions
         public static string GetSeed(this ICoreAPI api)
         {
             return api?.World?.Seed.ToString();
-        }
-
-        /// <summary>
-        ///     Converts an agnostic API to a Client-side API.
-        /// </summary>
-        /// <param name="api">The core game API.</param>
-        public static ICoreClientAPI ForClient(this ICoreAPI api)
-        {
-            if (api.Side.IsServer()) return null;
-            return api as ICoreClientAPI;
         }
 
         /// <summary>
@@ -46,20 +75,43 @@ namespace VintageMods.Core.Extensions
             return api as ICoreServerAPI;
         }
 
-        public static ClientMain AsClientMain(this ICoreClientAPI api)
+        /// <summary>
+        ///     Converts an side-agnostic API to a client-side API.
+        /// </summary>
+        /// <param name="api">The core game API.</param>
+        public static ICoreClientAPI ForClient(this ICoreAPI api)
         {
-            return api.World as ClientMain;
+            if (api.Side.IsServer()) return null;
+            return api as ICoreClientAPI;
         }
 
-        public static ServerMain AsServerMain(this ICoreServerAPI api)
+        #endregion
+
+
+        public static void ShowChatMessage(this IPlayer player, string message)
         {
-            return api.World as ServerMain;
+            var api = player.Entity.Api;
+            switch (api.Side)
+            {
+                case EnumAppSide.Server:
+                    ((IServerPlayer)player).SendMessage(message);
+                    break;
+                case EnumAppSide.Client:
+                    ((IClientPlayer)player).ShowChatNotification(message);
+                    break;
+                case EnumAppSide.Universal:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
-        public static ICoreClientAPI AsApi(this ClientMain game)
+        public static Vec2f ClientWindowSize(this ICoreClientAPI capi)
         {
-            return game.Api as ICoreClientAPI;
+            var platform = capi.AsClientMain().GetField<ClientPlatformWindows>("Platform");
+            return new Vec2f(platform.window.Width, platform.window.Height);
         }
+
 
         public static object GetVanillaClientSystem(this ICoreClientAPI api, string name)
         {
@@ -73,6 +125,8 @@ namespace VintageMods.Core.Extensions
             return clientSystems.FirstOrDefault(p => p.GetType() == typeof(T)) as T;
         }
 
+
+
         public static T GetVanillaServerSystem<T>(this ICoreServerAPI sapi) where T : ServerSystem
         {
             var systems = sapi.AsServerMain().GetField<ServerSystem[]>("Systems");
@@ -83,10 +137,7 @@ namespace VintageMods.Core.Extensions
         {
             var eventManager = (capi.World as ClientMain).GetField<ClientEventManager>("eventManager");
             var chatCommands = eventManager.GetField<Dictionary<string, ChatCommand>>("chatCommands");
-            if (chatCommands.ContainsKey(cmd))
-            {
-                chatCommands.Remove(cmd);
-            }
+            if (chatCommands.ContainsKey(cmd)) chatCommands.Remove(cmd);
             eventManager.SetField("chatCommands", chatCommands);
         }
 
@@ -101,6 +152,7 @@ namespace VintageMods.Core.Extensions
                 clientSystems.Remove(clientSystems[i]);
                 break;
             }
+
             clientMain.SetField("clientSystems", clientSystems.ToArray());
         }
 
@@ -115,6 +167,7 @@ namespace VintageMods.Core.Extensions
                 clientSystems.Remove(clientSystems[i]);
                 break;
             }
+
             clientMain.SetField("clientSystems", clientSystems.ToArray());
         }
 
@@ -137,43 +190,33 @@ namespace VintageMods.Core.Extensions
         /// <param name="message">The message to show to the player.</param>
         public static void EnqueueShowChatMessage(this ClientMain game, string message)
         {
-
             game?.EnqueueMainThreadTask(() => game.ShowChatMessage(message), "");
         }
 
-        public static TBlockEntity GetNearestBlockEntity<TBlockEntity>(this IWorldAccessor world, BlockPos pos, 
-            float horRange, float vertRange, Func<TBlockEntity, bool> predicate) where TBlockEntity : BlockEntity
+        public static TBlockEntity GetNearestBlockEntity<TBlockEntity>(this IWorldAccessor world, BlockPos pos,
+            float horRange, float vertRange, Vintagestory.API.Common.Func<TBlockEntity, bool> predicate) where TBlockEntity : BlockEntity
         {
             TBlockEntity blockEntity = null;
             var minPos = pos.AddCopy(-horRange, -vertRange, -horRange);
             var maxPos = pos.AddCopy(horRange, vertRange, horRange);
             world.BlockAccessor.WalkBlocks(minPos, maxPos, (_, blockPos) =>
             {
-                var entity = world.BlockAccessor.GetBlockEntity(blockPos);
+                var entity = world.GetBlockAccessorPrefetch(false, false).GetBlockEntity(blockPos);
                 if (entity == null) return;
                 if (entity.GetType() == typeof(TBlockEntity) && predicate((TBlockEntity)entity))
-                {
                     blockEntity = (TBlockEntity)entity;
-                }
             }, true);
             return blockEntity;
         }
 
-        public static TBlockEntity GetNearestBlockEntity<TBlockEntity>(this IWorldAccessor world, BlockPos pos, 
+        public static TBlockEntity GetNearestBlockEntity<TBlockEntity>(this IWorldAccessor world, BlockPos pos,
             float horRange, float vertRange) where TBlockEntity : BlockEntity
         {
             return world.GetNearestBlockEntity<TBlockEntity>(pos, horRange, vertRange, _ => true);
         }
-        
-        /// <summary>
-        ///     Determines whether any waypoints exist within a given radius of a block position.
-        /// </summary>
-        /// <param name="api">The core game API this method was called from.</param>
-        /// <param name="pos">The position to check for waypoints around.</param>
-        /// <param name="radius">The radius around the origin position.</param>
-        /// <param name="comparer">Optional parameters to narrow down waypoint scanning.</param>
-        /// <returns><c>true</c> if any waypoints are found, <c>false</c> otherwise.</returns>
-        public static bool WaypointExistsWithinRadius(this ICoreClientAPI api, BlockPos pos, int horizontalRadius, int verticalRadius, Func<Waypoint, bool> comparer = null)
+
+        public static bool WaypointExistsWithinRadius(this ICoreClientAPI api, BlockPos pos, int horizontalRadius,
+            int verticalRadius, Vintagestory.API.Common.Func<Waypoint, bool> comparer = null)
         {
             var waypointMapLayer = api.ModLoader.GetModSystem<WorldMapManager>().WaypointMapLayer();
             var waypoints =
@@ -183,20 +226,15 @@ namespace VintageMods.Core.Extensions
             return comparer == null || waypoints.Any(p => comparer(p));
         }
 
-        public static bool InRangeCubic(this BlockPos pos, BlockPos relativeToBlock, int horizontalRadius = 10, int verticalRadius = 10)
+        public static bool InRangeCubic(this BlockPos pos, BlockPos relativeToBlock, int horizontalRadius = 10,
+            int verticalRadius = 10)
         {
             if (!pos.InRangeHorizontally(relativeToBlock.X, relativeToBlock.Z, horizontalRadius)) return false;
             return pos.Y <= relativeToBlock.Y + verticalRadius && pos.Y >= relativeToBlock.Y - verticalRadius;
         }
-        
-        /// <summary>
-        ///     Determines whether any waypoints exist at a specific block position.
-        /// </summary>
-        /// <param name="api">The core game API this method was called from.</param>
-        /// <param name="pos">The position to check for waypoints at.</param>
-        /// <param name="comparer">Optional parameters to narrow down waypoint scanning.</param>
-        /// <returns><c>true</c> if any waypoints are found, <c>false</c> otherwise.</returns>
-        public static bool WaypointExistsAtPos(this ICoreClientAPI api, BlockPos pos, Func<Waypoint, bool> comparer = null)
+
+
+        public static bool WaypointExistsAtPos(this ICoreClientAPI api, BlockPos pos, Vintagestory.API.Common.Func<Waypoint, bool> comparer = null)
         {
             var waypointMapLayer = api.ModLoader.GetModSystem<WorldMapManager>().WaypointMapLayer();
             var waypoints = waypointMapLayer.ownWaypoints.Where(wp => wp.Position.AsBlockPos.Equals(pos)).ToList();
@@ -226,7 +264,8 @@ namespace VintageMods.Core.Extensions
         public static void AddWaypointAtCurrentPos(
             this ICoreClientAPI api, string icon, string colour, string title, bool pinned)
         {
-            api.AddWaypointAtPos(api.World?.Player?.Entity?.Pos.AsBlockPos.RelativeToSpawn(api.World), icon, colour, title, pinned);
+            api.AddWaypointAtPos(api.World?.Player?.Entity?.Pos.AsBlockPos.RelativeToSpawn(api.World), icon, colour,
+                title, pinned);
         }
 
         /// <summary>

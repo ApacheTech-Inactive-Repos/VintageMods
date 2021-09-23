@@ -17,7 +17,7 @@ namespace VintageMods.Core.FluentChat.Extensions
         /// <returns>A reference to the newly created object.</returns>
         public static T CreateInstance<T>(params object[] args) where T : class
         {
-            return (T)Activator.CreateInstance(typeof(T), args);
+            return (T) Activator.CreateInstance(typeof(T), args);
         }
     }
 }

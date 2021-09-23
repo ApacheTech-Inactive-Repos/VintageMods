@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using System.Resources;
 using System.Text;
@@ -46,7 +45,7 @@ namespace VintageMods.Core.IO
             var assembly = typeof(TData).Assembly;
             var stream = GetResourceStream(assembly, fileName);
             using var reader = new BinaryReader(stream);
-            return ProtoEx.Deserialise<TData>(reader.ReadBytes((int) stream.Length));
+            return ProtoEx.Deserialise<TData>(reader.ReadBytes((int)stream.Length));
         }
 
         /// <summary>
@@ -57,37 +56,42 @@ namespace VintageMods.Core.IO
         /// <returns><c>true</c> if the embedded resource is found, <c>false</c> otherwise.</returns>
         public static bool ResourceExists(Assembly assembly, string fileName)
         {
-            //return assembly.GetManifestResourceNames().Any(p => p.EndsWith(fileName));
-
-            foreach (var resource in assembly.GetManifestResourceNames())
-            {
-                if (resource.EndsWith(fileName))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return assembly.GetManifestResourceNames().Any(p => p.EndsWith(fileName));
         }
 
         /// <summary>
-        ///     Reads the resource, and passes back the output as a raw string.
+        ///     Reads the resource, and passes back the output as a raw stream.
         /// </summary>
         /// <param name="assembly">The assembly to load the resource from.</param>
         /// <param name="fileName">Name of the file, embedded within the assembly.</param>
-        /// <returns>The contents of the file, as a raw string.</returns>
+        /// <returns>The contents of the file, as a raw stream.</returns>
         /// <exception cref="FileNotFoundException">Embedded data file not found.</exception>
         public static Stream GetResourceStream(Assembly assembly, string fileName)
         {
             var resource = assembly.GetManifestResourceNames().SingleOrDefault(p => p.EndsWith(fileName));
-            if (string.IsNullOrWhiteSpace(resource)) 
+            if (string.IsNullOrWhiteSpace(resource))
                 throw new MissingManifestResourceException($"Embedded data file not found: {fileName}");
 
             var stream = assembly.GetManifestResourceStream(resource);
-            if (stream == null) 
+            if (stream is null)
                 throw new FileNotFoundException($"Embedded data file not found: {fileName}");
 
             return stream;
+        }
+
+        /// <summary>
+        ///     Reads the resource, and passes back the output as a string
+        /// </summary>
+        /// <param name="assembly">The assembly to load the resource from.</param>
+        /// <param name="fileName">Name of the file, embedded within the assembly.</param>
+        /// <returns>The contents of the file, as a string.</returns>
+        /// <exception cref="FileNotFoundException">Embedded data file not found.</exception>
+        public static string GetResourceContent(Assembly assembly, string fileName)
+        {
+            var stream = GetResourceStream(assembly, fileName);
+            if (stream is null) return string.Empty;
+            using var reader = new StreamReader(stream, Encoding.Default);
+            return reader.ReadToEnd();
         }
 
         /// <summary>

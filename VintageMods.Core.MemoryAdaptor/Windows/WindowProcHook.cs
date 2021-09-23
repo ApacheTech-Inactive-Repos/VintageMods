@@ -18,10 +18,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
 
         protected WindowProcHook(IntPtr handle, string identifier = "")
         {
-            if (string.IsNullOrEmpty(identifier))
-            {
-                identifier = "WindowProcHook - " + handle.ToString("X");
-            }
+            if (string.IsNullOrEmpty(identifier)) identifier = "WindowProcHook - " + handle.ToString("X");
 
             Identifier = identifier;
             Handle = handle;
@@ -32,9 +29,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
             var processesByName = Process.GetProcessesByName(procName).ToList();
 
             if (processesByName == null)
-            {
                 throw new NullReferenceException($"Could not find a process by the name of {procName}");
-            }
 
             var process = index == 0 ? processesByName.First() : processesByName[index];
 
@@ -51,10 +46,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
             _oldCallback = Kernel32.SetWindowLongPtr(Handle, GWL_WNDPROC,
                 Marshal.GetFunctionPointerForDelegate(_newCallback));
 
-            if (_oldCallback == IntPtr.Zero)
-            {
-                throw new Win32Exception(Marshal.GetLastWin32Error());
-            }
+            if (_oldCallback == IntPtr.Zero) throw new Win32Exception(Marshal.GetLastWin32Error());
 
             IsEnabled = true;
         }
@@ -69,10 +61,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
 
         public void Disable()
         {
-            if (_newCallback == null)
-            {
-                return;
-            }
+            if (_newCallback == null) return;
 
             Kernel32.SetWindowLongPtr(Handle, GWL_WNDPROC, _oldCallback);
             _newCallback = null;
@@ -81,17 +70,11 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
 
         public void Dispose()
         {
-            if (IsDisposed)
-            {
-                return;
-            }
+            if (IsDisposed) return;
 
             IsDisposed = true;
 
-            if (IsEnabled)
-            {
-                Disable();
-            }
+            if (IsEnabled) Disable();
 
             GC.SuppressFinalize(this);
         }
@@ -103,10 +86,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
 
         ~WindowProcHook()
         {
-            if (MustBeDisposed)
-            {
-                Dispose();
-            }
+            if (MustBeDisposed) Dispose();
         }
 
         public override string ToString()

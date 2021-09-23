@@ -1,4 +1,4 @@
-﻿using VintageMods.Core.AssetEnum.Primitives;
+﻿using VintageMods.Core.Primitives;
 
 // ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedType.Global

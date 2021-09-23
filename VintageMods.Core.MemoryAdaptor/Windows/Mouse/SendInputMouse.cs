@@ -172,7 +172,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows.Mouse
         /// </summary>
         private static int CalculateAbsoluteCoordinateX(int x)
         {
-            return x*65536/User32.GetSystemMetrics(SystemMetrics.CxScreen);
+            return x * 65536 / User32.GetSystemMetrics(SystemMetrics.CxScreen);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows.Mouse
         /// </summary>
         private static int CalculateAbsoluteCoordinateY(int y)
         {
-            return y*65536/User32.GetSystemMetrics(SystemMetrics.CyScreen);
+            return y * 65536 / User32.GetSystemMetrics(SystemMetrics.CyScreen);
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows.Mouse
         /// </summary>
         private static Input CreateInput()
         {
-            return new Input(InputTypes.Mouse);
+            return new(InputTypes.Mouse);
         }
     }
 }

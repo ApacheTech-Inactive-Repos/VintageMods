@@ -28,7 +28,7 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
         /// <returns>The return value is an new instance of the <see cref="MarshalledValue{T}" /> class.</returns>
         public static MarshalledValue<T> Marshal<T>(IProcess memorySharp, T value)
         {
-            return new MarshalledValue<T>(memorySharp, value);
+            return new(memorySharp, value);
         }
     }
 }

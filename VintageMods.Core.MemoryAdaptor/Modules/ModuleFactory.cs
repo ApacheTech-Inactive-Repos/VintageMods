@@ -71,8 +71,8 @@ namespace VintageMods.Core.MemoryAdaptor.Modules
             // Clean the cached functions related to this process
             foreach (
                 var cachedFunction in
-                    RemoteModule.CachedFunctions.ToArray()
-                        .Where(cachedFunction => cachedFunction.Key.Item2 == ProcessPlus.Handle))
+                RemoteModule.CachedFunctions.ToArray()
+                    .Where(cachedFunction => cachedFunction.Key.Item2 == ProcessPlus.Handle))
                 RemoteModule.CachedFunctions.Remove(cachedFunction);
             // Avoid the finalizer
             GC.SuppressFinalize(this);

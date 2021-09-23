@@ -358,7 +358,8 @@ namespace VintageMods.Core.MemoryAdaptor.Native
         [DllImport("user32.dll")]
         public static extern IntPtr GetForegroundWindow();
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true), SuppressUnmanagedCodeSecurity]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [SuppressUnmanagedCodeSecurity]
         public static extern int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
@@ -404,6 +405,5 @@ namespace VintageMods.Core.MemoryAdaptor.Native
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool UnhookWindowsHookEx(IntPtr hhk);
-
     }
 }

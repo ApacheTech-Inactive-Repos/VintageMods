@@ -27,6 +27,18 @@ namespace VintageMods.Core.IO
         }
 
         /// <summary>
+        ///     Gets a value indicating whether a file exists.
+        /// </summary>
+        /// <returns>true if the file exists; false if the file does not exist or if the file is a directory.</returns>
+        public bool Exists => _fileOnDisk.Exists;
+
+        /// <summary>
+        ///     Gets the full path of the file.
+        /// </summary>
+        /// <returns>A string containing the full path.</returns>
+        public string Path => _fileOnDisk.FullName;
+
+        /// <summary>
         ///     Deserialises the specified file as a strongly-typed object.
         /// </summary>
         /// <typeparam name="TModel">The type of object to deserialise into.</typeparam>
@@ -56,7 +68,7 @@ namespace VintageMods.Core.IO
         /// <typeparam name="TModel">The type of object to deserialise into.</typeparam>
         public TModel ParseAsProtoObject<TModel>() where TModel : class, new()
         {
-            var bytes = (_fileOnDisk.Exists) ? File.ReadAllBytes(_fileOnDisk.FullName) : new byte[]{ };
+            var bytes = _fileOnDisk.Exists ? File.ReadAllBytes(_fileOnDisk.FullName) : new byte[] { };
             return ProtoEx.Deserialise<TModel>(bytes);
         }
 
@@ -69,7 +81,8 @@ namespace VintageMods.Core.IO
             if (ResourceManager.ResourceExists(Assembly.GetCallingAssembly(), _fileOnDisk.Name))
                 DisembedFrom(Assembly.GetCallingAssembly());
             else
-                throw new FileNotFoundException($"Cannot find physical file, or embedded resource for file: { _fileOnDisk.Name }");
+                throw new FileNotFoundException(
+                    $"Cannot find physical file, or embedded resource for file: {_fileOnDisk.Name}");
             return JsonObject.FromJson(_fileOnDisk.OpenText().ReadToEnd());
         }
 
@@ -79,7 +92,7 @@ namespace VintageMods.Core.IO
         /// <typeparam name="TModel">The type of list to deserialise into.</typeparam>
         public List<TModel> ParseAsProtoList<TModel>() where TModel : class, new()
         {
-            var bytes = (_fileOnDisk.Exists) ? File.ReadAllBytes(_fileOnDisk.FullName) : new byte[] { };
+            var bytes = _fileOnDisk.Exists ? File.ReadAllBytes(_fileOnDisk.FullName) : new byte[] { };
             return ProtoEx.Deserialise<List<TModel>>(bytes);
         }
 
@@ -127,18 +140,6 @@ namespace VintageMods.Core.IO
         {
             SaveBinaryToDisk(ProtoEx.Serialise(instance));
         }
-
-        /// <summary>
-        ///     Gets a value indicating whether a file exists.
-        /// </summary>
-        /// <returns>true if the file exists; false if the file does not exist or if the file is a directory.</returns>
-        public bool Exists => _fileOnDisk.Exists;
-
-        /// <summary>
-        ///     Gets the full path of the file.
-        /// </summary>
-        /// <returns>A string containing the full path.</returns>
-        public string Path => _fileOnDisk.FullName;
 
         private void SaveJsonToDisk(string contents)
         {

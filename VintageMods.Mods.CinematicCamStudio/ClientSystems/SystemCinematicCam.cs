@@ -14,38 +14,43 @@ namespace VintageMods.Mods.CinematicCamStudio.ClientSystems
 {
     internal class SystemCamStudio : ClientSystem
     {
-        private readonly ClientMain _game;
         private readonly ICoreClientAPI _capi;
+        private readonly ClientMain _game;
+        private readonly ClientPlatformAbstract _platform;
 
         private MeshData _cameraPathModel;
         private MeshRef _cameraPathModelRef;
-        private readonly ClientPlatformAbstract _platform;
         private BlockPos _origin;
 
         public SystemCamStudio(ClientMain game) : base(game)
         {
             _game = game;
-            _capi = (ICoreClientAPI)game.Api;
+            _capi = (ICoreClientAPI) game.Api;
 
             InitModel();
             _platform = game.GetField<ClientPlatformAbstract>("Platform");
 
             _capi.UnregisterCommand("cam");
             _capi.RegisterCommand("cam", "Cinematic Camera Studio", "", CmdCam);
-            
+
             var eventManager = game.GetField<ClientEventManager>("eventManager");
-            eventManager.CallMethod("RegisterRenderer", new DummyRenderer { action = OnRenderFrame3D }, EnumRenderStage.Opaque, "cinecam", 0.7f);
-            eventManager.CallMethod("RegisterRenderer", new DummyRenderer { action = OnFinalizeFrame }, EnumRenderStage.Done, "cinecam-done", 0.98f);
+            eventManager.CallMethod("RegisterRenderer", new DummyRenderer {action = OnRenderFrame3D},
+                EnumRenderStage.Opaque, "cinecam", 0.7f);
+            eventManager.CallMethod("RegisterRenderer", new DummyRenderer {action = OnFinalizeFrame},
+                EnumRenderStage.Done, "cinecam-done", 0.98f);
         }
+
+        public override string Name => "cica";
 
         private void CmdCam(int groupid, CmdArgs args)
         {
-            if (_game.Player.WorldData.CurrentGameMode != EnumGameMode.Creative && _game.Player.WorldData.CurrentGameMode != EnumGameMode.Spectator)
+            if (_game.Player.WorldData.CurrentGameMode != EnumGameMode.Creative &&
+                _game.Player.WorldData.CurrentGameMode != EnumGameMode.Spectator)
             {
                 _game.ShowChatMessage("Only available in Creative, or Spectator Mode.");
                 return;
             }
-            
+
             var option = args.PopWord("");
 
             switch (option)
@@ -57,7 +62,7 @@ namespace VintageMods.Mods.CinematicCamStudio.ClientSystems
             }
         }
 
-        void InitModel()
+        private void InitModel()
         {
             _cameraPathModel = new MeshData(4, 4, false, false, true, true);
             _cameraPathModel.SetMode(EnumDrawMode.LineStrip);
@@ -80,9 +85,9 @@ namespace VintageMods.Mods.CinematicCamStudio.ClientSystems
 
             var cameraPos = _game.EntityPlayer.CameraPos;
             _game.GlTranslate(
-                (float)(_origin.X - cameraPos.X),
-                (float)(_origin.Y - cameraPos.Y),
-                (float)(_origin.Z - cameraPos.Z)
+                (float) (_origin.X - cameraPos.X),
+                (float) (_origin.Y - cameraPos.Y),
+                (float) (_origin.Z - cameraPos.Z)
             );
 
             prog.ProjectionMatrix = _game.CurrentProjectionMatrix;
@@ -97,15 +102,11 @@ namespace VintageMods.Mods.CinematicCamStudio.ClientSystems
 
         public void OnFinalizeFrame(float dt)
         {
-
         }
 
         public override EnumClientSystemType GetSystemType()
         {
             return EnumClientSystemType.Misc;
         }
-
-        public override string Name => "cica";
-
     }
 }

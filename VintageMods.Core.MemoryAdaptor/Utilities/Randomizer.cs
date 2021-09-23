@@ -48,7 +48,7 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
         /// <summary>
         ///     Provides random engine.
         /// </summary>
-        private static readonly Random Random = new Random();
+        private static readonly Random Random = new();
 
         /// <summary>
         ///     Allowed characters in random strings.

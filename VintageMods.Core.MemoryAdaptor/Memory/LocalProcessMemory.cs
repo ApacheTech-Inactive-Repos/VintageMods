@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using GTAV.Core.MemoryAccess.Memory;
 using VintageMods.Core.MemoryAdaptor.Extensions;
 using VintageMods.Core.MemoryAdaptor.Native.Types;
+
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace VintageMods.Core.MemoryAdaptor.Memory
@@ -39,6 +40,7 @@ namespace VintageMods.Core.MemoryAdaptor.Memory
                     if (bytes != null)
                         readBytes[i] = bytes[i];
             }
+
             return readBytes;
         }
 
@@ -62,6 +64,7 @@ namespace VintageMods.Core.MemoryAdaptor.Memory
         {
             using (
                 new MemoryProtectionOperation(intPtr, bytesToWrite.Length, 0x40))
+            {
                 unsafe
                 {
                     var ptr = (byte*) intPtr;
@@ -69,6 +72,8 @@ namespace VintageMods.Core.MemoryAdaptor.Memory
                         if (ptr != null)
                             ptr[i] = bytesToWrite[i];
                 }
+            }
+
             return bytesToWrite.Length;
         }
 

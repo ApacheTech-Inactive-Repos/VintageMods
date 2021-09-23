@@ -51,7 +51,7 @@ namespace VintageMods.Core.MemoryAdaptor.Assembly
         /// <returns>The return value is a new transaction.</returns>
         public AssemblyTransaction BeginTransaction(IntPtr address, bool autoExecute = true)
         {
-            return new AssemblyTransaction(this, address, autoExecute);
+            return new(this, address, autoExecute);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace VintageMods.Core.MemoryAdaptor.Assembly
         /// <returns>The return value is a new transaction.</returns>
         public AssemblyTransaction BeginTransaction(bool autoExecute = true)
         {
-            return new AssemblyTransaction(this, autoExecute);
+            return new(this, autoExecute);
         }
 
         /// <summary>

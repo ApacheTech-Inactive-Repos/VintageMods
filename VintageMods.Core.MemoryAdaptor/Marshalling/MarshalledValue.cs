@@ -69,7 +69,7 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
         private void Marshal()
         {
             // If the type is string, it's a special case
-            if (typeof (T) == typeof (string))
+            if (typeof(T) == typeof(string))
             {
                 var text = Value.ToString();
                 // Allocate memory in the remote process (string + '\0')
@@ -88,7 +88,9 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
                 // If the value can be stored directly in registers
                 if (MarshalType<T>.CanBeStoredInRegisters)
                     // Convert the byte array into a pointer
+                {
                     Reference = MarshalType<IntPtr>.ByteArrayToObject(byteArray);
+                }
                 else
                 {
                     // It's a bit more complicated, we must allocate some space into

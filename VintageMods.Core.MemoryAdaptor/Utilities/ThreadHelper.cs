@@ -30,7 +30,7 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
             HandleManipulator.ValidateAsArgument(startAddress, "startAddress");
 
             // Create the remote thread
-            var ret = Kernel32.CreateRemoteThread(processHandle, IntPtr.Zero, 0, 
+            var ret = Kernel32.CreateRemoteThread(processHandle, IntPtr.Zero, 0,
                 startAddress, parameter, creationFlags, out _);
 
             // If the thread is created
@@ -142,9 +142,10 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
 
             // Create a structure to store thread info
             var info = new ThreadBasicInformation();
-            
+
             // Get the thread info
-            var ret = Nt.NtQueryInformationThread(threadHandle, 0, ref info, MarshalType<ThreadBasicInformation>.Size, 0);
+            var ret = Nt.NtQueryInformationThread(threadHandle, 0, ref info, MarshalType<ThreadBasicInformation>.Size,
+                0);
 
             // If the function succeeded
             if (ret == 0)

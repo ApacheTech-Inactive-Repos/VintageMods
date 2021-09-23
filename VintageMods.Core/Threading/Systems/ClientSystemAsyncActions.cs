@@ -10,16 +10,22 @@ namespace VintageMods.Core.Threading.Systems
 {
     public class ClientSystemAsyncActions : ClientSystem
     {
+        private readonly ClientMain _game;
+
+        public ClientSystemAsyncActions(ClientMain game) : base(game)
+        {
+            _game = game;
+        }
+
         private ConcurrentQueue<Action> AsyncActions { get; set; } = new();
         private ConcurrentQueue<Action> MainThreadActions { get; set; } = new();
 
-        private readonly ClientMain _game;
-
-        public ClientSystemAsyncActions(ClientMain game) : base(game) { _game = game; }
-
         public override string Name => "AsyncActions";
 
-        public override EnumClientSystemType GetSystemType() => EnumClientSystemType.Misc;
+        public override EnumClientSystemType GetSystemType()
+        {
+            return EnumClientSystemType.Misc;
+        }
 
         public override void OnSeperateThreadGameTick(float dt)
         {
@@ -32,7 +38,7 @@ namespace VintageMods.Core.Threading.Systems
             if (!MainThreadActions.IsEmpty)
                 _game.EnqueueMainThreadTask(() => ProcessActions(MainThreadActions), "");
         }
-        
+
         private static void ProcessActions(ConcurrentQueue<Action> actions)
         {
             for (var i = 0; i < actions.Count; i++)
@@ -42,7 +48,10 @@ namespace VintageMods.Core.Threading.Systems
             }
         }
 
-        public void Dispose(ICoreClientAPI capi) => Dispose(capi.World as ClientMain);
+        public void Dispose(ICoreClientAPI capi)
+        {
+            Dispose(capi.World as ClientMain);
+        }
 
         public override void Dispose(ClientMain game)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using VintageMods.Core.MemoryAdaptor.Utilities;
+
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace VintageMods.Core.MemoryAdaptor.Windows
@@ -48,14 +49,15 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         }
 
         /// <summary>
-        ///     Gets the main window of the application. 
+        ///     Gets the main window of the application.
         /// </summary>
         /// <remarks>
-        /// If your applications main window has child windows as well, this will not always work.In this case, 
-        /// you can set the main window property and it will use that value instead from that point
-        /// on. You can set the value to null if you would like the return return value to go back to default. If your applications main window has child windows as well, this will not
-        /// always work. In this case, you can set the main window property and it will use that value instead from that point
-        ///  on. You can set the value to null if you would like the return return value to go back to default.
+        ///     If your applications main window has child windows as well, this will not always work.In this case,
+        ///     you can set the main window property and it will use that value instead from that point
+        ///     on. You can set the value to null if you would like the return return value to go back to default. If your
+        ///     applications main window has child windows as well, this will not
+        ///     always work. In this case, you can set the main window property and it will use that value instead from that point
+        ///     on. You can set the value to null if you would like the return return value to go back to default.
         /// </remarks>
         public IWindow MainWindow
         {

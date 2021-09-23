@@ -8,9 +8,8 @@ namespace VintageMods.Core.MemoryAdaptor.Extensions
 {
     public static class UnsafeMemoryExtensions
     {
-
         /// <summary>
-        /// Gets an address from a vtable index. Since it uses index * IntPtr, it should work for both x64 and x32. 
+        ///     Gets an address from a vtable index. Since it uses index * IntPtr, it should work for both x64 and x32.
         /// </summary>
         /// <param name="intPtr">The int PTR.</param>
         /// <param name="functionIndex">Index of the function.</param>
@@ -41,10 +40,10 @@ namespace VintageMods.Core.MemoryAdaptor.Extensions
         /// </exception>
         public static T ToDelegate<T>(this IntPtr addr) where T : class
         {
-            if (typeof (T).GetCustomAttributes(typeof (UnmanagedFunctionPointerAttribute), true).Length == 0)
+            if (typeof(T).GetCustomAttributes(typeof(UnmanagedFunctionPointerAttribute), true).Length == 0)
                 throw new InvalidOperationException(
                     "This operation can only convert to delegates adorned with the UnmanagedFunctionPointerAttribute");
-            return Marshal.GetDelegateForFunctionPointer(addr, typeof (T)) as T;
+            return Marshal.GetDelegateForFunctionPointer(addr, typeof(T)) as T;
         }
 
         public static unsafe T Read<T>(this IntPtr address)
@@ -62,7 +61,7 @@ namespace VintageMods.Core.MemoryAdaptor.Extensions
                     case TypeCode.Object:
 
                         if (MarshalCache<T>.RealType == typeof(IntPtr))
-                            return (T)(object)*(IntPtr*)address;
+                            return (T) (object) *(IntPtr*) address;
 
                         // If the type doesn't require an explicit Marshal call, then ignore it and memcpy the thing.
                         if (!MarshalCache<T>.TypeRequiresMarshal)
@@ -70,7 +69,7 @@ namespace VintageMods.Core.MemoryAdaptor.Extensions
                             var o = default(T);
                             var ptr = MarshalCache<T>.GetUnsafePtr(ref o);
 
-                            Kernel32.MoveMemory(ptr, (void*)address, MarshalCache<T>.Size);
+                            Kernel32.MoveMemory(ptr, (void*) address, MarshalCache<T>.Size);
 
                             return o;
                         }
@@ -79,53 +78,55 @@ namespace VintageMods.Core.MemoryAdaptor.Extensions
                         ptrToStructure = Marshal.PtrToStructure(address, typeof(T));
                         break;
                     case TypeCode.Boolean:
-                        ptrToStructure = *(byte*)address != 0;
+                        ptrToStructure = *(byte*) address != 0;
                         break;
                     case TypeCode.Char:
-                        ptrToStructure = *(char*)address;
+                        ptrToStructure = *(char*) address;
                         break;
                     case TypeCode.SByte:
-                        ptrToStructure = *(sbyte*)address;
+                        ptrToStructure = *(sbyte*) address;
                         break;
                     case TypeCode.Byte:
-                        ptrToStructure = *(byte*)address;
+                        ptrToStructure = *(byte*) address;
                         break;
                     case TypeCode.Int16:
-                        ptrToStructure = *(short*)address;
+                        ptrToStructure = *(short*) address;
                         break;
                     case TypeCode.UInt16:
-                        ptrToStructure = *(ushort*)address;
+                        ptrToStructure = *(ushort*) address;
                         break;
                     case TypeCode.Int32:
-                        ptrToStructure = *(int*)address;
+                        ptrToStructure = *(int*) address;
                         break;
                     case TypeCode.UInt32:
-                        ptrToStructure = *(uint*)address;
+                        ptrToStructure = *(uint*) address;
                         break;
                     case TypeCode.Int64:
-                        ptrToStructure = *(long*)address;
+                        ptrToStructure = *(long*) address;
                         break;
                     case TypeCode.UInt64:
-                        ptrToStructure = *(ulong*)address;
+                        ptrToStructure = *(ulong*) address;
                         break;
                     case TypeCode.Single:
-                        ptrToStructure = *(float*)address;
+                        ptrToStructure = *(float*) address;
                         break;
                     case TypeCode.Double:
-                        ptrToStructure = *(double*)address;
+                        ptrToStructure = *(double*) address;
                         break;
                     case TypeCode.Decimal:
                         // Probably safe to remove this. I'm unaware of anything that actually uses "decimal" that would require memory reading...
-                        ptrToStructure = *(decimal*)address;
+                        ptrToStructure = *(decimal*) address;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                return (T)ptrToStructure;
+
+                return (T) ptrToStructure;
             }
             catch (AccessViolationException ex)
             {
-                Trace.WriteLine("Access Violation on " + address + " with type " + typeof(T).Name + Environment.NewLine +
+                Trace.WriteLine("Access Violation on " + address + " with type " + typeof(T).Name +
+                                Environment.NewLine +
                                 ex);
                 return default;
             }

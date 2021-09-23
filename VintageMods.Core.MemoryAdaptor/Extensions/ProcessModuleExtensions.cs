@@ -25,6 +25,5 @@ namespace VintageMods.Core.MemoryAdaptor.Extensions
         {
             ModuleHelper.FreeLibrary(module.ModuleName);
         }
-
     }
 }

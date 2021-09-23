@@ -1,4 +1,4 @@
-﻿using Vec3d = Vintagestory.API.MathTools.Vec3d;
+﻿using Vintagestory.API.MathTools;
 
 namespace VintageMods.Core.Maths.Extensions
 {
@@ -6,7 +6,7 @@ namespace VintageMods.Core.Maths.Extensions
     {
         public static Vec3d Scale(this Vec3d vec, double scaleFactor)
         {
-            return new Vec3d(vec.X * scaleFactor, vec.Y * scaleFactor, vec.Z * scaleFactor);
+            return new(vec.X * scaleFactor, vec.Y * scaleFactor, vec.Z * scaleFactor);
         }
     }
 }

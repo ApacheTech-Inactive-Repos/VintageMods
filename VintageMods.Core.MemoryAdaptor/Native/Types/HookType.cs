@@ -1,5 +1,6 @@
 ﻿// ReSharper disable UnusedMember.Global
 // ReSharper disable InconsistentNaming
+
 namespace VintageMods.Core.MemoryAdaptor.Native.Types
 {
     public enum HookType

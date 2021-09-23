@@ -16,52 +16,52 @@ namespace VintageMods.Core.Maths.Matrix
     public readonly struct Matrix3d
     {
         /// <summary>
-        /// The first element of the first row.
+        ///     The first element of the first row.
         /// </summary>
         public readonly double M00;
 
         /// <summary>
-        /// The second element of the first row.
+        ///     The second element of the first row.
         /// </summary>
         public readonly double M01;
 
         /// <summary>
-        /// The third element of the first row.
+        ///     The third element of the first row.
         /// </summary>
         public readonly double M02;
 
         /// <summary>
-        /// The first element of the second row.
+        ///     The first element of the second row.
         /// </summary>
         public readonly double M10;
 
         /// <summary>
-        /// The second element of the second row.
+        ///     The second element of the second row.
         /// </summary>
         public readonly double M11;
 
         /// <summary>
-        /// The third element of the second row.
+        ///     The third element of the second row.
         /// </summary>
         public readonly double M12;
 
         /// <summary>
-        /// The first element of the third row.
+        ///     The first element of the third row.
         /// </summary>
         public readonly double M20;
 
         /// <summary>
-        /// The second element of the third row.
+        ///     The second element of the third row.
         /// </summary>
         public readonly double M21;
 
         /// <summary>
-        /// The third element of the third row.
+        ///     The third element of the third row.
         /// </summary>
         public readonly double M22;
 
         /// <summary>
-        /// Initialises a new instance of the <see cref="Matrix3d" /> class.
+        ///     Initialises a new instance of the <see cref="Matrix3d" /> class.
         /// </summary>
         /// <param name="m00">Element [0][0]</param>
         /// <param name="m01">Element [0][1]</param>
@@ -76,9 +76,15 @@ namespace VintageMods.Core.Maths.Matrix
             double m10, double m11, double m12,
             double m20, double m21, double m22)
         {
-            M00 = m00; M01 = m01; M02 = m02;
-            M10 = m10; M11 = m11; M12 = m12;
-            M20 = m20; M21 = m21; M22 = m22;
+            M00 = m00;
+            M01 = m01;
+            M02 = m02;
+            M10 = m10;
+            M11 = m11;
+            M12 = m12;
+            M20 = m20;
+            M21 = m21;
+            M22 = m22;
         }
 
         /// <summary>
@@ -88,35 +94,47 @@ namespace VintageMods.Core.Maths.Matrix
         /// <param name="m">The array of length 9 containing in order.</param>
         public Matrix3d(IReadOnlyList<double> m)
         {
-            M00 = m[0]; M01 = m[1]; M02 = m[2];
-            M10 = m[3]; M11 = m[4]; M12 = m[5];
-            M20 = m[6]; M21 = m[7]; M22 = m[8];
+            M00 = m[0];
+            M01 = m[1];
+            M02 = m[2];
+            M10 = m[3];
+            M11 = m[4];
+            M12 = m[5];
+            M20 = m[6];
+            M21 = m[7];
+            M22 = m[8];
         }
 
         /// <summary>
-        /// Constructs a new matrix with the same values as the Matrix3d parameter.
-        /// @param m1 The source matrix.
+        ///     Constructs a new matrix with the same values as the Matrix3d parameter.
+        ///     @param m1 The source matrix.
         /// </summary>
         /// <param name="m1">The m1.</param>
         public Matrix3d(Matrix3d m1)
         {
-            M00 = m1.M00; M01 = m1.M01; M02 = m1.M02;
-            M10 = m1.M10; M11 = m1.M11; M12 = m1.M12;
-            M20 = m1.M20; M21 = m1.M21; M22 = m1.M22;
+            M00 = m1.M00;
+            M01 = m1.M01;
+            M02 = m1.M02;
+            M10 = m1.M10;
+            M11 = m1.M11;
+            M12 = m1.M12;
+            M20 = m1.M20;
+            M21 = m1.M21;
+            M22 = m1.M22;
         }
 
         /// <summary>
         ///     Constructs and initialises a Matrix3d to all zeros.
         /// </summary>
-        public static Matrix3d Zero => 
-            new Matrix3d(
+        public static Matrix3d Zero =>
+            new(
                 0, 0, 0,
                 0, 0, 0,
                 0, 0, 0);
-        
+
 
         /// <summary>
-        /// Returns a string that contains the values of this Matrix3d.
+        ///     Returns a string that contains the values of this Matrix3d.
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString()
@@ -133,9 +151,9 @@ namespace VintageMods.Core.Maths.Matrix
         /// </summary>
         public Matrix3d SetIdentity()
         {
-            return new Matrix3d(
-                1, 0, 0, 
-                0, 1, 0, 
+            return new(
+                1, 0, 0,
+                0, 1, 0,
                 0, 0, 1);
         }
 
@@ -172,16 +190,16 @@ namespace VintageMods.Core.Maths.Matrix
                 case var m10 when m10 == (2, 1): return M21;
                 case var m22 when m22 == (2, 2): return M22;
                 default:
-                    throw new IndexOutOfRangeException($"Index outside the bounds of the matrix. Row: {row}, Column: {column}");
-
+                    throw new IndexOutOfRangeException(
+                        $"Index outside the bounds of the matrix. Row: {row}, Column: {column}");
             }
         }
 
         /// <summary>
-        /// Copies the matrix values in the specified row into the
-        /// array parameter.
-        /// @param row the matrix row
-        /// @param v The array into which the matrix row values will be copied
+        ///     Copies the matrix values in the specified row into the
+        ///     array parameter.
+        ///     @param row the matrix row
+        ///     @param v The array into which the matrix row values will be copied
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="v">The v.</param>
@@ -211,10 +229,10 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Copies the matrix values in the specified row into the
-        /// vector parameter.
-        /// @param row the matrix row
-        /// @param v The vector into which the matrix row values will be copied
+        ///     Copies the matrix values in the specified row into the
+        ///     vector parameter.
+        ///     @param row the matrix row
+        ///     @param v The vector into which the matrix row values will be copied
         /// </summary>
         /// <param name="row">The row.</param>
         /// <param name="v">The v.</param>
@@ -244,10 +262,10 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Copies the matrix values in the specified column into the vector
-        /// parameter.
-        /// @param column the matrix column
-        /// @param v The vector into which the matrix row values will be copied
+        ///     Copies the matrix values in the specified column into the vector
+        ///     parameter.
+        ///     @param column the matrix column
+        ///     @param v The vector into which the matrix row values will be copied
         /// </summary>
         /// <param name="column">The column.</param>
         /// <param name="v">The v.</param>
@@ -277,10 +295,10 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Copies the matrix values in the specified column into the array
-        /// parameter.
-        /// @param column the matrix column
-        /// @param v The array into which the matrix row values will be copied
+        ///     Copies the matrix values in the specified column into the array
+        ///     parameter.
+        ///     @param column the matrix column
+        ///     @param v The array into which the matrix row values will be copied
         /// </summary>
         /// <param name="column">The column.</param>
         /// <param name="v">The v.</param>
@@ -310,9 +328,9 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Performs an SVD normalization of this matrix to calculate and return the
-        /// uniform scale factor. This matrix is not modified.
-        /// @return the scale factor of this matrix
+        ///     Performs an SVD normalization of this matrix to calculate and return the
+        ///     uniform scale factor. This matrix is not modified.
+        ///     @return the scale factor of this matrix
         /// </summary>
         /// <returns>System.Double.</returns>
         public double GetScale()
@@ -323,25 +341,25 @@ namespace VintageMods.Core.Maths.Matrix
 
 
         /// <summary>
-        /// Adds a scalar to each component of this matrix.
-        /// @param scalar The scalar adder.
+        ///     Adds a scalar to each component of this matrix.
+        ///     @param scalar The scalar adder.
         /// </summary>
         /// <param name="scalar">The scalar.</param>
         public Matrix3d Add(double scalar)
         {
-            return new Matrix3d(
+            return new(
                 M00 + scalar, M01 + scalar, M02 + scalar,
                 M10 + scalar, M11 + scalar, M12 + scalar,
                 M20 + scalar, M21 + scalar, M22 + scalar);
         }
 
         /// <summary>
-        /// Sets the value of this matrix to the matrix sum of matrices.
+        ///     Sets the value of this matrix to the matrix sum of matrices.
         /// </summary>
         /// <param name="matrices">The list of matrices to sum together.</param>
         public static Matrix3d Sum(params Matrix3d[] matrices)
         {
-            return new Matrix3d(
+            return new(
                 matrices.Sum(p => p.M00),
                 matrices.Sum(p => p.M01),
                 matrices.Sum(p => p.M02),
@@ -355,25 +373,25 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Sets the value of this matrix to sum of itself and matrix m1.
-        /// @param m1 the other matrix
+        ///     Sets the value of this matrix to sum of itself and matrix m1.
+        ///     @param m1 the other matrix
         /// </summary>
         /// <param name="m1">The m1.</param>
         public Matrix3d Add(Matrix3d m1)
         {
-            return new Matrix3d(
-            M00 + m1.M00, M01 + m1.M01, M02 + m1.M02,
-            M10 + m1.M10, M11 + m1.M11, M12 + m1.M12,
-            M20 + m1.M20, M21 + m1.M21, M22 + m1.M22);
+            return new(
+                M00 + m1.M00, M01 + m1.M01, M02 + m1.M02,
+                M10 + m1.M10, M11 + m1.M11, M12 + m1.M12,
+                M20 + m1.M20, M21 + m1.M21, M22 + m1.M22);
         }
 
 
         /// <summary>
-        /// Sets the value of this matrix to its transpose.
+        ///     Sets the value of this matrix to its transpose.
         /// </summary>
         public Matrix3d Transpose()
         {
-            return new Matrix3d(
+            return new(
                 M00, M10, M20,
                 M01, M11, M21,
                 M02, M12, M22);
@@ -381,7 +399,7 @@ namespace VintageMods.Core.Maths.Matrix
 
 
         /// <summary>
-        /// Sets the value of this matrix to its inverse.
+        ///     Sets the value of this matrix to its inverse.
         /// </summary>
         public Matrix3d Invert()
         {
@@ -399,8 +417,8 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Computes the determinant of this matrix.
-        /// @return the determinant of the matrix
+        ///     Computes the determinant of this matrix.
+        ///     @return the determinant of the matrix
         /// </summary>
         /// <returns>System.Double.</returns>
         public double Determinant()
@@ -411,14 +429,14 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Sets the value of this matrix to a scale matrix with the
-        /// passed scale amount.
-        /// @param scale the scale factor for the matrix
+        ///     Sets the value of this matrix to a scale matrix with the
+        ///     passed scale amount.
+        ///     @param scale the scale factor for the matrix
         /// </summary>
         /// <param name="scale">The scale.</param>
         public Matrix3d Scale(double scale)
         {
-            return new Matrix3d(
+            return new(
                 scale, 0.0, 0.0,
                 0.0, scale, 0.0,
                 0.0, 0.0, scale);
@@ -426,9 +444,9 @@ namespace VintageMods.Core.Maths.Matrix
 
 
         /// <summary>
-        /// Sets the value of this matrix to a rotation matrix about the x axis
-        /// by the passed angle.
-        /// @param angle the angle to rotate about the X axis in radians
+        ///     Sets the value of this matrix to a rotation matrix about the x axis
+        ///     by the passed angle.
+        ///     @param angle the angle to rotate about the X axis in radians
         /// </summary>
         /// <param name="angle">The angle.</param>
         public Matrix3d RotX(double angle)
@@ -443,9 +461,9 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Sets the value of this matrix to a rotation matrix about the y axis
-        /// by the passed angle.
-        /// @param angle the angle to rotate about the Y axis in radians
+        ///     Sets the value of this matrix to a rotation matrix about the y axis
+        ///     by the passed angle.
+        ///     @param angle the angle to rotate about the Y axis in radians
         /// </summary>
         /// <param name="angle">The angle.</param>
         public static Matrix3d RotY(double angle)
@@ -460,9 +478,9 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Sets the value of this matrix to a rotation matrix about the z axis
-        /// by the passed angle.
-        /// @param angle the angle to rotate about the Z axis in radians
+        ///     Sets the value of this matrix to a rotation matrix about the z axis
+        ///     by the passed angle.
+        ///     @param angle the angle to rotate about the Z axis in radians
         /// </summary>
         /// <param name="angle">The angle.</param>
         public Matrix3d RotZ(double angle)
@@ -477,38 +495,36 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Multiplies each element of this matrix by a scalar.
-        /// @param scalar The scalar multiplier.
+        ///     Multiplies each element of this matrix by a scalar.
+        ///     @param scalar The scalar multiplier.
         /// </summary>
         /// <param name="scalar">The scalar.</param>
         public Matrix3d Mul(double scalar)
         {
-            return new Matrix3d(
-            M00 * scalar, M01 * scalar, M02 * scalar,
-            M10 * scalar, M11 * scalar, M12 * scalar,
-            M20 * scalar, M21 * scalar, M22 * scalar);
+            return new(
+                M00 * scalar, M01 * scalar, M02 * scalar,
+                M10 * scalar, M11 * scalar, M12 * scalar,
+                M20 * scalar, M21 * scalar, M22 * scalar);
         }
 
 
         /// <summary>
-        /// Multiplies matrix m1 times the transpose of matrix m2, and places the
-        /// result into this.
-        /// @param m1 The matrix on the left hand side of the multiplication
-        /// @param m2 The matrix on the right hand side of the multiplication
+        ///     Multiplies matrix m1 times the transpose of matrix m2, and places the
+        ///     result into this.
+        ///     @param m1 The matrix on the left hand side of the multiplication
+        ///     @param m2 The matrix on the right hand side of the multiplication
         /// </summary>
         /// <param name="m1">The m1.</param>
         /// <param name="m2">The m2.</param>
         public Matrix3d MulTransposeRight(Matrix3d m1, Matrix3d m2)
         {
-            return new Matrix3d(
+            return new(
                 m1.M00 * m2.M00 + m1.M01 * m2.M01 + m1.M02 * m2.M02,
                 m1.M00 * m2.M10 + m1.M01 * m2.M11 + m1.M02 * m2.M12,
                 m1.M00 * m2.M20 + m1.M01 * m2.M21 + m1.M02 * m2.M22,
-
                 m1.M10 * m2.M00 + m1.M11 * m2.M01 + m1.M12 * m2.M02,
                 m1.M10 * m2.M10 + m1.M11 * m2.M11 + m1.M12 * m2.M12,
                 m1.M10 * m2.M20 + m1.M11 * m2.M21 + m1.M12 * m2.M22,
-
                 m1.M20 * m2.M00 + m1.M21 * m2.M01 + m1.M22 * m2.M02,
                 m1.M20 * m2.M10 + m1.M21 * m2.M11 + m1.M22 * m2.M12,
                 m1.M20 * m2.M20 + m1.M21 * m2.M21 + m1.M22 * m2.M22
@@ -517,24 +533,22 @@ namespace VintageMods.Core.Maths.Matrix
 
 
         /// <summary>
-        /// Multiplies the transpose of matrix m1 times matrix m2, and places the
-        /// result into this.
-        /// @param m1 The matrix on the left hand side of the multiplication
-        /// @param m2 The matrix on the right hand side of the multiplication
+        ///     Multiplies the transpose of matrix m1 times matrix m2, and places the
+        ///     result into this.
+        ///     @param m1 The matrix on the left hand side of the multiplication
+        ///     @param m2 The matrix on the right hand side of the multiplication
         /// </summary>
         /// <param name="m1">The m1.</param>
         /// <param name="m2">The m2.</param>
         public Matrix3d MulTransposeLeft(Matrix3d m1, Matrix3d m2)
         {
-            return new Matrix3d(
+            return new(
                 m1.M00 * m2.M00 + m1.M10 * m2.M10 + m1.M20 * m2.M20,
                 m1.M00 * m2.M01 + m1.M10 * m2.M11 + m1.M20 * m2.M21,
                 m1.M00 * m2.M02 + m1.M10 * m2.M12 + m1.M20 * m2.M22,
-
                 m1.M01 * m2.M00 + m1.M11 * m2.M10 + m1.M21 * m2.M20,
                 m1.M01 * m2.M01 + m1.M11 * m2.M11 + m1.M21 * m2.M21,
                 m1.M01 * m2.M02 + m1.M11 * m2.M12 + m1.M21 * m2.M22,
-
                 m1.M02 * m2.M00 + m1.M12 * m2.M10 + m1.M22 * m2.M20,
                 m1.M02 * m2.M01 + m1.M12 * m2.M11 + m1.M22 * m2.M21,
                 m1.M02 * m2.M02 + m1.M12 * m2.M12 + m1.M22 * m2.M22
@@ -542,7 +556,7 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Performs singular value decomposition normalisation of this matrix.
+        ///     Performs singular value decomposition normalisation of this matrix.
         /// </summary>
         public Matrix3d Normalise()
         {
@@ -550,7 +564,7 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Perform cross product normalisation of this matrix.
+        ///     Perform cross product normalisation of this matrix.
         /// </summary>
         public Matrix3d NormaliseCp()
         {
@@ -559,10 +573,10 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Returns true if all of the data members of Matrix3d m1 are
-        /// equal to the corresponding data members in this Matrix3d.
-        /// @param m1 The matrix with which the comparison is made.
-        /// @return true or false
+        ///     Returns true if all of the data members of Matrix3d m1 are
+        ///     equal to the corresponding data members in this Matrix3d.
+        ///     @param m1 The matrix with which the comparison is made.
+        ///     @return true or false
         /// </summary>
         /// <param name="m1">The m1.</param>
         /// <returns>boolean.</returns>
@@ -581,10 +595,10 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Returns true if the Object o1 is of type Matrix3d and all of the data
-        /// members of t1 are equal to the corresponding data members in this
-        /// Matrix3d.
-        /// @param o1 the object with which the comparison is made.
+        ///     Returns true if the Object o1 is of type Matrix3d and all of the data
+        ///     members of t1 are equal to the corresponding data members in this
+        ///     Matrix3d.
+        ///     @param o1 the object with which the comparison is made.
         /// </summary>
         public override bool Equals(object o1)
         {
@@ -596,63 +610,61 @@ namespace VintageMods.Core.Maths.Matrix
             unchecked
             {
                 var bits = BitConverter.DoubleToInt64Bits(M00);
-                var hash = (int)(bits ^ (bits >> 32));
+                var hash = (int) (bits ^ (bits >> 32));
                 bits = BitConverter.DoubleToInt64Bits(M01);
-                hash ^= (int)(bits ^ (bits >> 32));
+                hash ^= (int) (bits ^ (bits >> 32));
                 bits = BitConverter.DoubleToInt64Bits(M02);
-                hash ^= (int)(bits ^ (bits >> 32));
+                hash ^= (int) (bits ^ (bits >> 32));
                 bits = BitConverter.DoubleToInt64Bits(M10);
-                hash ^= (int)(bits ^ (bits >> 32));
+                hash ^= (int) (bits ^ (bits >> 32));
                 bits = BitConverter.DoubleToInt64Bits(M11);
-                hash ^= (int)(bits ^ (bits >> 32));
+                hash ^= (int) (bits ^ (bits >> 32));
                 bits = BitConverter.DoubleToInt64Bits(M12);
-                hash ^= (int)(bits ^ (bits >> 32));
+                hash ^= (int) (bits ^ (bits >> 32));
                 bits = BitConverter.DoubleToInt64Bits(M20);
-                hash ^= (int)(bits ^ (bits >> 32));
+                hash ^= (int) (bits ^ (bits >> 32));
                 bits = BitConverter.DoubleToInt64Bits(M21);
-                hash ^= (int)(bits ^ (bits >> 32));
+                hash ^= (int) (bits ^ (bits >> 32));
                 bits = BitConverter.DoubleToInt64Bits(M22);
-                hash ^= (int)(bits ^ (bits >> 32));
+                hash ^= (int) (bits ^ (bits >> 32));
                 return hash;
             }
         }
 
         /// <summary>
-        /// Returns true if the L-infinite distance between this matrix and matrix
-        /// m1 is less than or equal to the epsilon parameter, otherwise returns
-        /// false. The L-infinite distance is equal to MAX[i=0,1,2,3 ; j=0,1,2,3 ;
-        /// abs(this.m(i,j) - m1.m(i,j)]
-        /// @param m1 The matrix to be compared to this matrix
-        /// @param epsilon the threshold value
+        ///     Returns true if the L-infinite distance between this matrix and matrix
+        ///     m1 is less than or equal to the epsilon parameter, otherwise returns
+        ///     false. The L-infinite distance is equal to MAX[i=0,1,2,3 ; j=0,1,2,3 ;
+        ///     abs(this.m(i,j) - m1.m(i,j)]
+        ///     @param m1 The matrix to be compared to this matrix
+        ///     @param epsilon the threshold value
         /// </summary>
         public bool EpsilonEquals(Matrix3d m1, double epsilon)
         {
             return Math.Abs(M00 - m1.M00) <= epsilon
                    && Math.Abs(M01 - m1.M01) <= epsilon
                    && Math.Abs(M02 - m1.M02) <= epsilon
-
                    && Math.Abs(M10 - m1.M10) <= epsilon
                    && Math.Abs(M11 - m1.M11) <= epsilon
                    && Math.Abs(M12 - m1.M12) <= epsilon
-
                    && Math.Abs(M20 - m1.M20) <= epsilon
                    && Math.Abs(M21 - m1.M21) <= epsilon
                    && Math.Abs(M22 - m1.M22) <= epsilon;
         }
 
         /// <summary>
-        /// Negates the value of this matrix: this = -this.
+        ///     Negates the value of this matrix: this = -this.
         /// </summary>
         public Matrix3d Negate()
         {
-            return new Matrix3d(
-                -M00, -M01, -M02, 
-                -M10, -M11, -M12, 
+            return new(
+                -M00, -M01, -M02,
+                -M10, -M11, -M12,
                 -M20, -M21, -M22);
         }
 
         /// <summary>
-        /// Transform the vector vec using this Matrix3d and place the result back into vec.
+        ///     Transform the vector vec using this Matrix3d and place the result back into vec.
         /// </summary>
         public void Transform(Vec3d t)
         {
@@ -660,7 +672,7 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Transform the vector vec using this Matrix3d and place the result into vecOut.
+        ///     Transform the vector vec using this Matrix3d and place the result into vecOut.
         /// </summary>
         public void Transform(Vec3d t, Vec3d result)
         {
@@ -672,10 +684,10 @@ namespace VintageMods.Core.Maths.Matrix
         }
 
         /// <summary>
-        /// Performs SVD on this matrix and gets scale and rotation.
-        /// Rotation is placed into rot.
-        /// @param rot the rotation factor.
-        /// @return scale factor
+        ///     Performs SVD on this matrix and gets scale and rotation.
+        ///     Rotation is placed into rot.
+        ///     @param rot the rotation factor.
+        ///     @return scale factor
         /// </summary>
         private Matrix3d NormaliseSvd(Matrix3d? rot, out double scaleFactor)
         {
@@ -715,13 +727,12 @@ namespace VintageMods.Core.Maths.Matrix
                 M00 * n0, M01 * n1, M02 * n2,
                 M10 * n0, M11 * n1, M12 * n2,
                 M20 * n0, M21 * n1, M22 * n2);
-
         }
 
         public static Matrix3d FromQuat(double x, double y, double z, double w)
         {
             var n = x * x + y * y + z * z + w * w;
-            var s = (n > 0.0) ? (2.0 / n) : 0.0;
+            var s = n > 0.0 ? 2.0 / n : 0.0;
 
             double xs = x * s, ys = y * s, zs = z * s;
             double wx = w * xs, wy = w * ys, wz = w * zs;
@@ -761,6 +772,5 @@ namespace VintageMods.Core.Maths.Matrix
                 tmp01 + tmp02, c + y * y * omc, tmp21 - tmp22,
                 tmp11 - tmp12, tmp21 + tmp22, c + z * z * omc);
         }
-
     }
 }

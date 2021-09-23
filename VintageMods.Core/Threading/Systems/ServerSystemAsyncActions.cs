@@ -6,12 +6,15 @@ namespace VintageMods.Core.Threading.Systems
 {
     public class ServerSystemAsyncActions : ServerSystem
     {
-        private ConcurrentQueue<Action> AsyncActions { get; set; } = new();
-        private ConcurrentQueue<Action> MainThreadActions { get; set; } = new();
-
         private readonly ServerMain _game;
 
-        public ServerSystemAsyncActions(ServerMain game) : base(game) { _game = game; }
+        public ServerSystemAsyncActions(ServerMain game) : base(game)
+        {
+            _game = game;
+        }
+
+        private ConcurrentQueue<Action> AsyncActions { get; set; } = new();
+        private ConcurrentQueue<Action> MainThreadActions { get; set; } = new();
 
         public override void OnSeperateThreadTick(float dt)
         {

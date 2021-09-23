@@ -20,8 +20,8 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
         static MarshalType()
         {
             // Gather information related to the provided type
-            IsIntPtr = typeof (T) == typeof (IntPtr);
-            RealType = typeof (T);
+            IsIntPtr = typeof(T) == typeof(IntPtr);
+            RealType = typeof(T);
             Size = TypeCode == TypeCode.Boolean ? 1 : Marshal.SizeOf(RealType);
             TypeCode = Type.GetTypeCode(RealType);
             // Check if the type can be stored in registers
@@ -30,16 +30,16 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
             else
                 CanBeStoredInRegisters =
                     IsIntPtr ||
-                    TypeCode 
-                        is TypeCode.Boolean 
-                        or TypeCode.Byte 
-                        or TypeCode.Char 
-                        or TypeCode.Int16 
-                        or TypeCode.Int32 
-                        or TypeCode.Int64 
-                        or TypeCode.SByte 
-                        or TypeCode.Single 
-                        or TypeCode.UInt16 
+                    TypeCode
+                        is TypeCode.Boolean
+                        or TypeCode.Byte
+                        or TypeCode.Char
+                        or TypeCode.Int16
+                        or TypeCode.Int32
+                        or TypeCode.Int64
+                        or TypeCode.SByte
+                        or TypeCode.Single
+                        or TypeCode.UInt16
                         or TypeCode.UInt32;
         }
 
@@ -71,7 +71,9 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
         private static bool Test()
         {
             return IsIntPtr ||
-                   TypeCode is TypeCode.Int64 or TypeCode.UInt64 or TypeCode.Boolean or TypeCode.Byte or TypeCode.Char or TypeCode.Int16 or TypeCode.Int32 or TypeCode.Int64 or TypeCode.SByte or TypeCode.Single or TypeCode.UInt16 or TypeCode.UInt32;
+                   TypeCode is TypeCode.Int64 or TypeCode.UInt64 or TypeCode.Boolean or TypeCode.Byte or TypeCode.Char
+                       or TypeCode.Int16 or TypeCode.Int32 or TypeCode.Int64 or TypeCode.SByte or TypeCode.Single or
+                       TypeCode.UInt16 or TypeCode.UInt32;
         }
 
         /// <summary>
@@ -94,6 +96,7 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
                             case 8:
                                 return BitConverter.GetBytes(((IntPtr) (object) obj).ToInt64());
                         }
+
                     break;
                 case TypeCode.Boolean:
                     return BitConverter.GetBytes((bool) (object) obj);
@@ -118,13 +121,14 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
                 case TypeCode.UInt64:
                     return BitConverter.GetBytes((ulong) (object) obj);
                 case TypeCode.Byte:
-                    return BitConverter.GetBytes((byte) (object)obj);
+                    return BitConverter.GetBytes((byte) (object) obj);
                 case TypeCode.Decimal:
-                    return BitConverter.GetBytes((double) (object)obj);
+                    return BitConverter.GetBytes((double) (object) obj);
                 case TypeCode.SByte:
-                    return BitConverter.GetBytes((sbyte) (object)obj);
+                    return BitConverter.GetBytes((sbyte) (object) obj);
                 case TypeCode.DateTime:
-                    throw new InvalidCastException("This method doesn't support DateTime conversion. Use .ToBinary() to store as Int64.");
+                    throw new InvalidCastException(
+                        "This method doesn't support DateTime conversion. Use .ToBinary() to store as Int64.");
                 case TypeCode.DBNull:
                     throw new InvalidCastException("This method doesn't support null conversion.");
                 case TypeCode.Empty:
@@ -132,6 +136,7 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
             // Check if it's not a common type
             // Allocate a block of unmanaged memory
             using var unmanaged = new LocalUnmanagedMemory(Size);
@@ -160,20 +165,21 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
                             case 1:
                                 return
                                     (T)
-                                        (object)
-                                            new IntPtr(BitConverter.ToInt32(new byte[] {byteArray[0], 0x0, 0x0, 0x0}, 0));
+                                    (object)
+                                    new IntPtr(BitConverter.ToInt32(new byte[] {byteArray[0], 0x0, 0x0, 0x0}, 0));
                             case 2:
                                 return
                                     (T)
-                                        (object)
-                                            new IntPtr(
-                                                BitConverter.ToInt32(new byte[] {byteArray[0], byteArray[1], 0x0, 0x0},
-                                                    0));
+                                    (object)
+                                    new IntPtr(
+                                        BitConverter.ToInt32(new byte[] {byteArray[0], byteArray[1], 0x0, 0x0},
+                                            0));
                             case 4:
                                 return (T) (object) new IntPtr(BitConverter.ToInt32(byteArray, 0));
                             case 8:
                                 return (T) (object) new IntPtr(BitConverter.ToInt64(byteArray, 0));
                         }
+
                     break;
                 case TypeCode.Boolean:
                     return (T) (object) BitConverter.ToBoolean(byteArray, 0);
@@ -200,11 +206,12 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
                 case TypeCode.UInt64:
                     return (T) (object) BitConverter.ToUInt64(byteArray, 0);
                 case TypeCode.Decimal:
-                    return (T)(object)BitConverter.ToDouble(byteArray, 0);
+                    return (T) (object) BitConverter.ToDouble(byteArray, 0);
                 case TypeCode.SByte:
-                    return (T)(object)BitConverter.ToChar(byteArray, 0);
+                    return (T) (object) BitConverter.ToChar(byteArray, 0);
                 case TypeCode.DateTime:
-                    throw new InvalidCastException("This method doesn't support DateTime conversion. Use .ToBinary() to store as Int64.");
+                    throw new InvalidCastException(
+                        "This method doesn't support DateTime conversion. Use .ToBinary() to store as Int64.");
                 case TypeCode.DBNull:
                     throw new InvalidCastException("This method doesn't support null conversion.");
                 case TypeCode.Empty:
@@ -212,6 +219,7 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
             // Check if it's not a common type
             // Allocate a block of unmanaged memory
             using var unmanaged = new LocalUnmanagedMemory(Size);

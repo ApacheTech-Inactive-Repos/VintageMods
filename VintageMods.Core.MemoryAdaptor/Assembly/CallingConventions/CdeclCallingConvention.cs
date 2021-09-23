@@ -53,7 +53,7 @@ namespace VintageMods.Core.MemoryAdaptor.Assembly.CallingConventions
         /// <returns>The mnemonics to clean a given number of parameters.</returns>
         public string FormatCleaning(int nbParameters)
         {
-            return "add esp, " + nbParameters*4;
+            return "add esp, " + nbParameters * 4;
         }
     }
 }

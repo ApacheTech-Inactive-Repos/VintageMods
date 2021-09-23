@@ -7,10 +7,7 @@ namespace VintageMods.Core.MemoryAdaptor.Patterns
 {
     public class PatternScanner : IPatternScanner
     {
-        private readonly IProcessModule _module;
-        private readonly int _offsetFromBaseAddress;
-
-        private static readonly PatternScanResult EmptyPatternScanResult = new PatternScanResult
+        private static readonly PatternScanResult EmptyPatternScanResult = new()
         {
             BaseAddress = IntPtr.Zero,
             ReadAddress = IntPtr.Zero,
@@ -18,7 +15,13 @@ namespace VintageMods.Core.MemoryAdaptor.Patterns
             Found = false
         };
 
-        public PatternScanner(IProcessModule module) : this(module, 0) { }
+        private readonly IProcessModule _module;
+        private readonly int _offsetFromBaseAddress;
+
+        public PatternScanner(IProcessModule module) : this(module, 0)
+        {
+        }
+
         public PatternScanner(IProcessModule module, int offsetFromBaseAddress)
         {
             _module = module;
@@ -30,35 +33,37 @@ namespace VintageMods.Core.MemoryAdaptor.Patterns
 
         public PatternScanResult Find(IMemoryPattern pattern)
         {
-            switch(pattern.PatternType)
+            switch (pattern.PatternType)
             {
                 case MemoryPatternType.Function:
                     return FindFunctionPattern(pattern);
                 case MemoryPatternType.Data:
                     return FindDataPattern(pattern);
             }
-            throw new NotImplementedException("PatternScanner encountered an unknown MemoryPatternType: " + pattern.PatternType + ".");
+
+            throw new NotImplementedException("PatternScanner encountered an unknown MemoryPatternType: " +
+                                              pattern.PatternType + ".");
         }
 
-        
 
         private int GetOffset(IMemoryPattern pattern)
         {
-            switch(pattern.Algorithm)
+            switch (pattern.Algorithm)
             {
                 case PatternScannerAlgorithm.BoyerMooreHorspool:
                     return BoyerMooreHorspool.IndexOf(Data, pattern.GetBytes().ToArray());
                 case PatternScannerAlgorithm.Naive:
                     return Naive.GetIndexOf(pattern, Data, _module);
             }
-            throw new NotImplementedException("GetOffset encountered an unknown PatternScannerAlgorithm: " + pattern.Algorithm + ".");
+
+            throw new NotImplementedException("GetOffset encountered an unknown PatternScannerAlgorithm: " +
+                                              pattern.Algorithm + ".");
         }
 
         private PatternScanResult FindFunctionPattern(IMemoryPattern pattern)
         {
             var offset = GetOffset(pattern);
             if (offset != -1)
-            {
                 return new PatternScanResult
                 {
                     BaseAddress = _module.BaseAddress + offset + _offsetFromBaseAddress,
@@ -66,7 +71,6 @@ namespace VintageMods.Core.MemoryAdaptor.Patterns
                     Offset = offset + _offsetFromBaseAddress,
                     Found = true
                 };
-            }
             return EmptyPatternScanResult;
         }
 
@@ -75,7 +79,7 @@ namespace VintageMods.Core.MemoryAdaptor.Patterns
             var result = new PatternScanResult();
             var offset = GetOffset(pattern);
 
-            if ( offset != -1)
+            if (offset != -1)
             {
                 // If this area is reached, the pattern has been found.
                 result.Found = true;
@@ -84,6 +88,7 @@ namespace VintageMods.Core.MemoryAdaptor.Patterns
                 result.Offset = offset;
                 return result;
             }
+
             // If this is reached, the pattern was not found.
             return EmptyPatternScanResult;
         }

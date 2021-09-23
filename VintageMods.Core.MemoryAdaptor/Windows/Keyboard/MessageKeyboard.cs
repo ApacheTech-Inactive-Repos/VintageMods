@@ -12,7 +12,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows.Keyboard
     /// </summary>
     public class MessageKeyboard : IKeyboard
     {
-        protected static readonly List<Tuple<IntPtr, Keys>> PressedKeys = new List<Tuple<IntPtr, Keys>>();
+        protected static readonly List<Tuple<IntPtr, Keys>> PressedKeys = new();
 
         public MessageKeyboard(IWindow window)
         {
@@ -147,30 +147,18 @@ namespace VintageMods.Core.MemoryAdaptor.Windows.Keyboard
             bool fExtended)
         {
             // Create the result and assign it with the repeat count
-            var result = (uint)cRepeat;
+            var result = (uint) cRepeat;
             // Add the scan code with a left shift operation
-            result |= (uint)WindowHelper.MapVirtualKey(key, TranslationTypes.VirtualKeyToScanCode) << 16;
+            result |= (uint) WindowHelper.MapVirtualKey(key, TranslationTypes.VirtualKeyToScanCode) << 16;
             // Does we need to set the extended flag ?
-            if (fExtended)
-            {
-                result |= 0x1000000;
-            }
+            if (fExtended) result |= 0x1000000;
             // Does we need to set the alt flag ?
-            if (altDown)
-            {
-                result |= 0x20000000;
-            }
+            if (altDown) result |= 0x20000000;
             // Does we need to set the repeat flag ?
-            if (fRepeat)
-            {
-                result |= 0x40000000;
-            }
+            if (fRepeat) result |= 0x40000000;
 
             // Does we need to set the keyUp flag ?
-            if (keyUp)
-            {
-                result |= 0x80000000;
-            }
+            if (keyUp) result |= 0x80000000;
 
             return new IntPtr(result);
         }

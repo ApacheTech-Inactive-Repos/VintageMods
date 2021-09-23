@@ -10,6 +10,14 @@ namespace VintageMods.Core.ModSystems
     public abstract class ClientSideModSystem : ModSystemBase<ICoreClientAPI>
     {
         /// <summary>
+        ///     Initialises a new instance of the <see cref="ClientSideModSystem" /> class.
+        /// </summary>
+        /// <param name="assembly">The mod assembly used to create this instance.</param>
+        protected ClientSideModSystem(string id) : base(Assembly.GetCallingAssembly(), id)
+        {
+        }
+
+        /// <summary>
         ///     Minor convenience method to save yourself the check for/cast to ICoreClientAPI in Start()
         /// </summary>
         /// <param name="api">The client side app API.</param>
@@ -22,14 +30,6 @@ namespace VintageMods.Core.ModSystems
         public override bool ShouldLoad(EnumAppSide forSide)
         {
             return forSide == EnumAppSide.Client;
-        }
-
-        /// <summary>
-        ///     Initialises a new instance of the <see cref="ClientSideModSystem"/> class.
-        /// </summary>
-        /// <param name="assembly">The mod assembly used to create this instance.</param>
-        protected ClientSideModSystem(string id) : base(Assembly.GetCallingAssembly(), id)
-        {
         }
     }
 }

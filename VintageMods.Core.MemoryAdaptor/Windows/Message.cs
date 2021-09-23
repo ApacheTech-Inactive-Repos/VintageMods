@@ -1,12 +1,13 @@
 ﻿using System;
-#if DEBUG
-using System.Diagnostics;
-#endif
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Permissions;
 using System.Text;
 using VintageMods.Core.MemoryAdaptor.Native.Types;
+#if DEBUG
+using System.Diagnostics;
+
+#endif
 
 // ReSharper disable NonReadonlyMemberInGetHashCode
 // ReSharper disable InconsistentNaming
@@ -20,7 +21,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
     public struct Message
     {
 #if DEBUG
-        private static readonly TraceSwitch AllWinMessages = new TraceSwitch("AllWinMessages", "Output every received message");
+        private static readonly TraceSwitch AllWinMessages = new("AllWinMessages", "Output every received message");
 #endif
 
         public IntPtr HWnd { get; set; }
@@ -42,8 +43,8 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
         {
             return Create(hWnd, (int) msg, wparam, lparam);
         }
-    
-    public static Message Create(IntPtr hWnd, int msg, IntPtr wparam, IntPtr lparam)
+
+        public static Message Create(IntPtr hWnd, int msg, IntPtr wparam, IntPtr lparam)
         {
             var m = new Message
             {
@@ -55,20 +56,14 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
             };
 
 #if DEBUG
-            if (AllWinMessages.TraceVerbose)
-            {
-                Debug.WriteLine(m.ToString());
-            }
+            if (AllWinMessages.TraceVerbose) Debug.WriteLine(m.ToString());
 #endif
             return m;
         }
 
         public override bool Equals(object o)
         {
-            if (!(o is Message))
-            {
-                return false;
-            }
+            if (!(o is Message)) return false;
 
             var m = (Message) o;
             return HWnd == m.HWnd &&
@@ -91,7 +86,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
 
         public override int GetHashCode()
         {
-            return (int) HWnd << 4 | Msg;
+            return ((int) HWnd << 4) | Msg;
         }
 
         private static readonly CodeAccessPermission UnmanagedCode =
@@ -112,11 +107,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
                 // eat the exception.
             }
 
-            if (unrestricted)
-            {
-
-                return GetProperName(((WindowsMessages) Msg).ToString());
-            }
+            if (unrestricted) return GetProperName(((WindowsMessages) Msg).ToString());
             return base.ToString();
         }
 

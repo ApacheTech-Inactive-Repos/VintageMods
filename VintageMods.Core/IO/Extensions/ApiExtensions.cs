@@ -37,7 +37,7 @@ namespace VintageMods.Core.IO.Extensions
             }
             catch (Exception e)
             {
-                api.Logger.Audit($"[VintageMods] Error occurred locating file. Check Error Log.");
+                api.Logger.Audit("[VintageMods] Error occurred locating file. Check Error Log.");
                 api.Logger.Error($"[VintageMods] {e.Message}");
                 throw;
             }

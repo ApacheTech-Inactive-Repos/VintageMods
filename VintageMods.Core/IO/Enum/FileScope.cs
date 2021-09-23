@@ -10,13 +10,11 @@ namespace VintageMods.Core.IO.Enum
         /// <summary>
         ///     Denotes that a file is held in global scope, for all multi-player and single-player worlds.
         /// </summary>
-        [Description("Global File")]
-        Global,
+        [Description("Global File")] Global,
 
         /// <summary>
         ///     Denotes that a file is created for each world a player enters.
         /// </summary>
-        [Description("Per World File")]
-        World
+        [Description("Per World File")] World
     }
 }

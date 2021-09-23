@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
+using VintageMods.Core.Helpers;
 using VintageMods.Core.Network.Messages;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -91,16 +92,19 @@ namespace VintageMods.Core.ModSystems
             switch (api.Side)
             {
                 case EnumAppSide.Server:
-                    ServerChannel = (Sapi ??= api as ICoreServerAPI)?.Network.RegisterChannel(Id)
+                    NetworkEx.Server = ServerChannel = (ApiEx.Server = Sapi = (ICoreServerAPI) api).Network
+                        .RegisterChannel(Id)
                         .RegisterMessageType<CompositionDataPacket>()
                         .SetMessageHandler<CompositionDataPacket>(OnIncomingServerDataPacket);
                     break;
                 case EnumAppSide.Client:
-                    ClientChannel = (Capi ??= api as ICoreClientAPI)?.Network.RegisterChannel(Id)
+                    NetworkEx.Client = ClientChannel = (ApiEx.Client = Capi = (ICoreClientAPI) api).Network
+                        .RegisterChannel(Id)
                         .RegisterMessageType<CompositionDataPacket>()
                         .SetMessageHandler<CompositionDataPacket>(OnIncomingClientDataPacket);
                     break;
                 case EnumAppSide.Universal:
+                    ApiEx.Universal = api;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

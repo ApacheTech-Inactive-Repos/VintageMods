@@ -30,25 +30,25 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
 
         static MarshalCache()
         {
-            TypeCode = Type.GetTypeCode(typeof (T));
+            TypeCode = Type.GetTypeCode(typeof(T));
 
             // Bools = 1 char.
-            if (typeof (T) == typeof (bool))
+            if (typeof(T) == typeof(bool))
             {
                 Size = 1;
-                RealType = typeof (T);
+                RealType = typeof(T);
             }
-            else if (typeof (T).IsEnum)
+            else if (typeof(T).IsEnum)
             {
-                var underlying = typeof (T).GetEnumUnderlyingType();
+                var underlying = typeof(T).GetEnumUnderlyingType();
                 Size = GetSizeOf(underlying);
                 RealType = underlying;
                 TypeCode = Type.GetTypeCode(underlying);
             }
             else
             {
-                Size = GetSizeOf(typeof (T));
-                RealType = typeof (T);
+                Size = GetSizeOf(typeof(T));
+                RealType = typeof(T);
             }
 
             // Basically, if any members of the type have a MarshalAs attrib, then we can't just pointer deref. :(
@@ -59,15 +59,15 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
             //Debug.WriteLine("Type " + typeof(T).Name + " requires marshaling: " + TypeRequiresMarshal);
 
             // Generate a method to get the address of a generic type. We'll be using this for RtlMoveMemory later for much faster structure reads.
-            var method = new DynamicMethod($"GetPinnedPtr<{typeof (T).FullName?.Replace(".", "<>")}>",
-                typeof (void*),
-                new[] {typeof (T).MakeByRefType()},
-                typeof (MarshalCache<>).Module);
+            var method = new DynamicMethod($"GetPinnedPtr<{typeof(T).FullName?.Replace(".", "<>")}>",
+                typeof(void*),
+                new[] {typeof(T).MakeByRefType()},
+                typeof(MarshalCache<>).Module);
             var generator = method.GetILGenerator();
             generator.Emit(OpCodes.Ldarg_0);
             generator.Emit(OpCodes.Conv_U);
             generator.Emit(OpCodes.Ret);
-            GetUnsafePtr = (GetUnsafePtrDelegate) method.CreateDelegate(typeof (GetUnsafePtrDelegate));
+            GetUnsafePtr = (GetUnsafePtrDelegate) method.CreateDelegate(typeof(GetUnsafePtrDelegate));
         }
 
         private static int GetSizeOf(Type t)
@@ -93,16 +93,17 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
                 foreach (var field in t.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
                 {
                     // Check if its a fixed-size-buffer. Eg; fixed byte Pad[50];
-                    var attr = field.GetCustomAttributes(typeof (FixedBufferAttribute), false);
+                    var attr = field.GetCustomAttributes(typeof(FixedBufferAttribute), false);
                     if (attr.Length > 0)
                     {
                         var fba = attr[0] as FixedBufferAttribute;
-                        totalSize += GetSizeOf(fba?.ElementType)*fba?.Length ?? 0;
+                        totalSize += GetSizeOf(fba?.ElementType) * fba?.Length ?? 0;
                     }
 
                     // Recursive. We want to allow ourselves to dive back into this function if we need to!
                     totalSize += GetSizeOf(field.FieldType);
                 }
+
                 return totalSize;
             }
         }
@@ -111,7 +112,7 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
         {
             foreach (var fieldInfo in t.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
             {
-                var requires = fieldInfo.GetCustomAttributes(typeof (MarshalAsAttribute), true).Any();
+                var requires = fieldInfo.GetCustomAttributes(typeof(MarshalAsAttribute), true).Any();
 
                 if (requires)
                 {
@@ -120,7 +121,7 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
                 }
 
                 // Nope
-                if (t == typeof (IntPtr) || t == typeof (string))
+                if (t == typeof(IntPtr) || t == typeof(string))
                     continue;
 
                 // If it's a custom object, then check it separately for marshaling requirements.
@@ -135,6 +136,7 @@ namespace VintageMods.Core.MemoryAdaptor.Marshalling
                     return true;
                 }
             }
+
             return false;
         }
     }

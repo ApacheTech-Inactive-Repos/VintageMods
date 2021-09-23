@@ -12,12 +12,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Legacy\**" />
-	  <EmbeddedResource Remove="Legacy\**" />
-	  <None Remove="Legacy\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<EditorConfigFiles Remove="C:\Users\Apache\source\repos\VintageMods\.editorconfig" />
 	</ItemGroup>
 
@@ -36,12 +30,16 @@
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="Microsoft.CSharp">
-		  <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Microsoft.CSharp.dll</HintPath>
-		  <Private>true</Private>
+			<HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\Microsoft.CSharp.dll</HintPath>
+			<Private>true</Private>
 		</Reference>
 		<Reference Include="Newtonsoft.Json">
 			<HintPath>D:\Games\Vintage Story\Lib\Newtonsoft.Json.dll</HintPath>
 			<Private>false</Private>
+		</Reference>
+		<Reference Include="OpenTK">
+		  <HintPath>D:\Games\Vintage Story\Lib\OpenTK.dll</HintPath>
+		  <Private>false</Private>
 		</Reference>
 		<Reference Include="protobuf-net">
 			<HintPath>D:\Games\Vintage Story\Lib\protobuf-net.dll</HintPath>

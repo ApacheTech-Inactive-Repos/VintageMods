@@ -30,12 +30,8 @@ namespace VintageMods.Core.IO.Extensions
         public static FileInfo RecursiveSearch(this DirectoryInfo dir, string fileName)
         {
             foreach (var fi in dir.GetFiles())
-            {
                 if (fi.Name.Equals(fileName))
-                {
                     return fi;
-                }
-            }
             foreach (var di in dir.GetDirectories()) RecursiveSearch(di, fileName);
             return null;
         }
@@ -59,10 +55,7 @@ namespace VintageMods.Core.IO.Extensions
         public static void WithFiles(this DirectoryInfo di, string filter, Action<FileInfo> action)
         {
             var files = di.GetFiles(filter);
-            foreach (var file in files)
-            {
-                action(file);
-            }
+            foreach (var file in files) action(file);
         }
 
         /// <summary>
@@ -81,8 +74,9 @@ namespace VintageMods.Core.IO.Extensions
         ///     using a value to determine whether to search subdirectories.
         /// </summary>
         /// <param name="di">The director to search.</param>
-        /// <returns>An array of type <see cref="FileInfo"/>.</returns>
-        public static IEnumerable<FileInfo> GetFiles(this DirectoryInfo di, SearchOption searchOption, params string[] extensions)
+        /// <returns>An array of type <see cref="FileInfo" />.</returns>
+        public static IEnumerable<FileInfo> GetFiles(this DirectoryInfo di, SearchOption searchOption,
+            params string[] extensions)
         {
             if (extensions == null) throw new ArgumentNullException(nameof(extensions));
             return extensions.SelectMany(p => di.GetFiles(p, searchOption));

@@ -10,12 +10,12 @@ namespace VintageMods.Core.MemoryAdaptor.Extensions
         {
             return
                 (T)
-                    type.GetCustomAttributes(typeof (T), false).FirstOrDefault();
+                type.GetCustomAttributes(typeof(T), false).FirstOrDefault();
         }
 
         public static bool HasAttribute<T>(this Type item)
         {
-            return item.GetCustomAttributes(typeof (T), true).Length != 0;
+            return item.GetCustomAttributes(typeof(T), true).Length != 0;
         }
 
         public static T GetAttributes<T>(this Type type)
@@ -23,7 +23,7 @@ namespace VintageMods.Core.MemoryAdaptor.Extensions
             if (HasAttribute<T>(type))
                 return
                     (T)
-                        type.GetCustomAttributes(typeof (T), false).FirstOrDefault();
+                    type.GetCustomAttributes(typeof(T), false).FirstOrDefault();
             throw new Exception($"No attirubute found for {type}.");
         }
 

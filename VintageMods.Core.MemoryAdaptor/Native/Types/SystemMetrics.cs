@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InvalidXmlDocComment
+
 namespace VintageMods.Core.MemoryAdaptor.Native.Types
 {
     /// <summary>

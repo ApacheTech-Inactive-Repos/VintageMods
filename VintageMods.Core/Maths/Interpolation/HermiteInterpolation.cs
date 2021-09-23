@@ -7,7 +7,8 @@ namespace VintageMods.Core.Maths.Interpolation
         private readonly double _bias;
         private readonly HermiteTension _tension;
 
-        public HermiteInterpolation(double[] times, double[] points, double bias, HermiteTension tension) : base(times, points)
+        public HermiteInterpolation(double[] times, double[] points, double bias, HermiteTension tension) : base(times,
+            points)
         {
             _bias = bias;
             _tension = tension;

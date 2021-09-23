@@ -286,7 +286,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows
             unchecked
             {
                 var hashCode = _processPlus?.GetHashCode() ?? 0;
-                hashCode = (hashCode*397) ^ Handle.GetHashCode();
+                hashCode = (hashCode * 397) ^ Handle.GetHashCode();
                 return hashCode;
             }
         }

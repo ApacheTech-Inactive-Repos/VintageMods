@@ -93,8 +93,8 @@ namespace VintageMods.Core.MemoryAdaptor.Threads
                     ThreadCreationFlags.Suspended));
 
             // Find the managed object corresponding to this thread
-            var result = new RemoteThread(Process, Process.ThreadFactory.NativeThreads.First(t 
-                    => new IntPtr(t.Id) == ret.ClientId.UniqueThread), marshalledParameter);
+            var result = new RemoteThread(Process, Process.ThreadFactory.NativeThreads.First(t
+                => new IntPtr(t.Id) == ret.ClientId.UniqueThread), marshalledParameter);
 
             if (isStarted)
                 result.Resume();
@@ -117,7 +117,7 @@ namespace VintageMods.Core.MemoryAdaptor.Threads
                 ThreadHelper.CreateRemoteThread(Process.Handle, address, IntPtr.Zero, ThreadCreationFlags.Suspended));
 
             // Find the managed object corresponding to this thread
-            var result = new RemoteThread(Process, Process.ThreadFactory.NativeThreads.First(t => 
+            var result = new RemoteThread(Process, Process.ThreadFactory.NativeThreads.First(t =>
                 new IntPtr(t.Id) == ret.ClientId.UniqueThread));
 
             // If the thread must be started

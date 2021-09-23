@@ -62,7 +62,7 @@ namespace VintageMods.Core.MemoryAdaptor.Threads
         public bool Equals(RemoteThread other)
         {
             if (other is null) return false;
-            return ReferenceEquals(this, other) || (Id == other.Id && _processPlus.Equals(other._processPlus));
+            return ReferenceEquals(this, other) || Id == other.Id && _processPlus.Equals(other._processPlus);
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace VintageMods.Core.MemoryAdaptor.Threads
             // Get the exit code of the thread (can be nullable)
             var ret = ThreadHelper.GetExitCodeThread(Handle);
             // Return the exit code or the default value of T if there's no exit code
-            return ret.HasValue ? MarshalType<T>.PtrToObject(_processPlus, (IntPtr)ret.Value) : default;
+            return ret.HasValue ? MarshalType<T>.PtrToObject(_processPlus, (IntPtr) ret.Value) : default;
         }
 
         /// <summary>

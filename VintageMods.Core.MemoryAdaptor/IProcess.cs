@@ -48,7 +48,7 @@ namespace VintageMods.Core.MemoryAdaptor
         ///     Factory for manipulating windows.
         /// </summary>
         IWindowFactory WindowFactory { get; set; }
-    
+
         /// <summary>
         ///     Gets the specified module in the process.
         /// </summary>

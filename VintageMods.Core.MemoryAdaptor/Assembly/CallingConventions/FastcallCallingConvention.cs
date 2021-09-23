@@ -36,12 +36,14 @@ namespace VintageMods.Core.MemoryAdaptor.Assembly.CallingConventions
                 ret.AppendLine("mov ecx, " + paramList[0]);
                 paramList.RemoveAt(0);
             }
+
             // Store the second parameter in the EDX register
             if (paramList.Count > 0)
             {
                 ret.AppendLine("mov edx, " + paramList[0]);
                 paramList.RemoveAt(0);
             }
+
             // For each parameters (in reverse order)
             paramList.Reverse();
             foreach (var parameter in paramList)

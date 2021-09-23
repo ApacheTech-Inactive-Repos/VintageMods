@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using System.Reflection;
 using JetBrains.Annotations;
-using Vintagestory.API.Common;
-using Vintagestory.Client.NoObf;
 using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.Reflection;
+using Vintagestory.API.Common;
+using Vintagestory.Client.NoObf;
 
 namespace VintageMods.Core.FluentChat.Primitives
 {
     [UsedImplicitly(ImplicitUseTargetFlags.WithInheritors)]
     public abstract class FluentChatCommandBase<TApi> : IDisposable where TApi : ICoreAPI
     {
-        protected TApi Api { get; }
-
         /// <summary>
-        ///     Initialises a new instance of the <see cref="FluentChatCommandBase{TApi}"/> class.
+        ///     Initialises a new instance of the <see cref="FluentChatCommandBase{TApi}" /> class.
         /// </summary>
         /// <param name="api">The sided core app api, used to call game mechanics.</param>
         protected FluentChatCommandBase(TApi api)
@@ -24,7 +22,15 @@ namespace VintageMods.Core.FluentChat.Primitives
             Options = new Dictionary<string, MethodInfo>();
         }
 
+        protected TApi Api { get; }
+
         internal Dictionary<string, MethodInfo> Options { get; }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         internal void CallHandler(int groupId, CmdArgs cmdArgs)
         {
@@ -61,8 +67,7 @@ namespace VintageMods.Core.FluentChat.Primitives
         /// <param name="args">The remaining arguments.</param>
         public virtual void OnCustomOption(string option, CmdArgs args)
         {
-            ((ClientMain)Api.World).ShowChatMessage(HelpText());
-
+            ((ClientMain) Api.World).ShowChatMessage(HelpText());
         }
 
         /// <summary>
@@ -73,7 +78,7 @@ namespace VintageMods.Core.FluentChat.Primitives
         /// <param name="args">The arguments. This should be an empty list.</param>
         public virtual void OnNoOption(string option, CmdArgs args)
         {
-            ((ClientMain)Api.World).ShowChatMessage(HelpText());
+            ((ClientMain) Api.World).ShowChatMessage(HelpText());
         }
 
         /// <summary>
@@ -101,12 +106,6 @@ namespace VintageMods.Core.FluentChat.Primitives
             if (disposing)
             {
             }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

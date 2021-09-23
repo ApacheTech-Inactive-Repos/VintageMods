@@ -27,7 +27,7 @@ namespace VintageMods.Core.MemoryAdaptor.Native
 
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
         public static extern int GetPrivateProfileString(string section, string key, string defaultValue,
-            [In, Out] char[] value, int size, string filePath);
+            [In] [Out] char[] value, int size, string filePath);
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public static extern int GetPrivateProfileSection(string section, IntPtr keyValue,
@@ -767,13 +767,15 @@ namespace VintageMods.Core.MemoryAdaptor.Native
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FreeLibrary(IntPtr hModule);
 
-        [SecurityCritical, SecuritySafeCritical]
+        [SecurityCritical]
+        [SecuritySafeCritical]
         internal static IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex)
         {
             return IntPtr.Size == 4 ? GetWindowLong32(hWnd, nIndex) : GetWindowLongPtr64(hWnd, nIndex);
         }
 
-        [SecurityCritical, SecuritySafeCritical]
+        [SecurityCritical]
+        [SecuritySafeCritical]
         public static IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr newValue)
         {
             return IntPtr.Size == 4
@@ -781,7 +783,8 @@ namespace VintageMods.Core.MemoryAdaptor.Native
                 : SetWindowLongPtr64(hWnd, nIndex, newValue);
         }
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true), SuppressUnmanagedCodeSecurity]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [SuppressUnmanagedCodeSecurity]
         public static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll", EntryPoint = "GetWindowLong")]

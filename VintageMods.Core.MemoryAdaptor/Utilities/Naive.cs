@@ -21,6 +21,7 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
 
                 return offset;
             }
+
             return -1;
         }
     }

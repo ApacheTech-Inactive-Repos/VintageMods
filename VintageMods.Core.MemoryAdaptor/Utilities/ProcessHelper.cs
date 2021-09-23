@@ -5,6 +5,7 @@ using VintageMods.Core.MemoryAdaptor.Extensions;
 using VintageMods.Core.MemoryAdaptor.Native;
 using VintageMods.Core.MemoryAdaptor.Native.Types;
 using SystemProcess = System.Diagnostics.Process;
+
 // ReSharper disable UnusedMember.Global
 
 namespace VintageMods.Core.MemoryAdaptor.Utilities
@@ -36,10 +37,7 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
 
             var process = firstOrDefault.FirstOrDefault();
 
-            if (process == null)
-            {
-                throw new ArgumentNullException(nameof(process));
-            }
+            if (process == null) throw new ArgumentNullException(nameof(process));
 
             return process.MainWindowHandle;
         }
@@ -58,7 +56,8 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
         }
 
         /// <summary>
-        ///     Creates a collection of new <see cref="SystemProcess" /> components and associates them with all the process resources
+        ///     Creates a collection of new <see cref="SystemProcess" /> components and associates them with all the process
+        ///     resources
         ///     that share the specified class name.
         /// </summary>
         /// <param name="className">The class name string.</param>
@@ -85,7 +84,8 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
         }
 
         /// <summary>
-        ///     Creates a collection of new <see cref="SystemProcess" /> components and associates them with all the process resources
+        ///     Creates a collection of new <see cref="SystemProcess" /> components and associates them with all the process
+        ///     resources
         ///     that share the specified window title.
         /// </summary>
         /// <param name="windowTitle">The window title string.</param>
@@ -99,7 +99,8 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
         }
 
         /// <summary>
-        ///     Creates a collection of new <see cref="SystemProcess" /> components and associates them with all the process resources
+        ///     Creates a collection of new <see cref="SystemProcess" /> components and associates them with all the process
+        ///     resources
         ///     that contain the specified window title.
         /// </summary>
         /// <param name="windowTitle">A part a window title string.</param>
@@ -142,10 +143,7 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
 
             var process = firstOrDefault.FirstOrDefault();
 
-            if (process == null)
-            {
-                throw new ArgumentNullException(nameof(process));
-            }
+            if (process == null) throw new ArgumentNullException(nameof(process));
 
             return process;
         }
@@ -158,10 +156,7 @@ namespace VintageMods.Core.MemoryAdaptor.Utilities
         public static SystemProcess GetByProductName(string name)
         {
             using var firstOrDefault = FindProcessesByProductName(name).FirstOrDefault();
-            if (firstOrDefault == null)
-            {
-                throw new NullReferenceException($"Process {name} not found.");
-            }
+            if (firstOrDefault == null) throw new NullReferenceException($"Process {name} not found.");
             return firstOrDefault;
         }
 

@@ -8,21 +8,18 @@
         public CubicCatmullInterpolation(double[] times, double[] points) : base(times, points)
         {
             _beginVec = points[0] + (points[0] - points[1]);
-            _endVec = points[points.Length - 1] + (points[points.Length - 1] - (points[points.Length - 2]));
+            _endVec = points[points.Length - 1] + (points[points.Length - 1] - points[points.Length - 2]);
         }
 
         public CubicCatmullInterpolation(params double[] points) : base(points)
         {
             _beginVec = points[0] + (points[0] - points[1]);
-            _endVec = points[points.Length - 1] + (points[points.Length - 1] - (points[points.Length - 2]));
+            _endVec = points[points.Length - 1] + (points[points.Length - 1] - points[points.Length - 2]);
         }
 
         protected override double GetValue(int index)
         {
-            if (index < 0)
-            {
-                return _beginVec;
-            }
+            if (index < 0) return _beginVec;
             return index >= Points.Count
                 ? _endVec
                 : PointVectors[index];

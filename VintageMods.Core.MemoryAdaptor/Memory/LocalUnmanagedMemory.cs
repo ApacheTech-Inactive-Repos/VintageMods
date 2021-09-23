@@ -59,7 +59,7 @@ namespace VintageMods.Core.MemoryAdaptor.Memory
         public T Read<T>()
         {
             // Marshal data from the block of memory to a new allocated managed object
-            return (T) Marshal.PtrToStructure(Address, typeof (T));
+            return (T) Marshal.PtrToStructure(Address, typeof(T));
         }
 
         /// <summary>

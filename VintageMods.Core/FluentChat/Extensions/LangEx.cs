@@ -28,7 +28,7 @@ namespace VintageMods.Core.FluentChat.Extensions
         {
             return Get(code, "Errors", args);
         }
-        
+
         /// <summary>
         ///     Get the the lang entry for given key, returns the key itself it the entry does not exist.
         /// </summary>
@@ -39,7 +39,7 @@ namespace VintageMods.Core.FluentChat.Extensions
         {
             return Get(code, "UI", args);
         }
-        
+
         /// <summary>
         ///     Get the the lang entry for given key, returns the key itself it the entry does not exist.
         /// </summary>
@@ -50,7 +50,7 @@ namespace VintageMods.Core.FluentChat.Extensions
         {
             return Get(code, "Messages", args);
         }
-        
+
         /// <summary>
         ///     Get the the lang entry for given key, returns the key itself it the entry does not exist.
         /// </summary>
@@ -82,7 +82,8 @@ namespace VintageMods.Core.FluentChat.Extensions
         /// <returns>A localised string, based on the user's language settings within the game.</returns>
         public static string FluentChat(object command, string code, params object[] args)
         {
-            var cmdAttribute = command.GetType().GetCustomAttributes().OfType<FluentChatCommandAttribute>().FirstOrDefault();
+            var cmdAttribute = command.GetType().GetCustomAttributes().OfType<FluentChatCommandAttribute>()
+                .FirstOrDefault();
             return Get(code, $"ChatCommands.{cmdAttribute?.Name ?? "NULL"}", args);
         }
     }

@@ -9,6 +9,6 @@
         /// <summary>
         ///     Gets the singleton of the given type.
         /// </summary>
-        public static readonly T Instance = new T();
+        public static readonly T Instance = new();
     }
 }

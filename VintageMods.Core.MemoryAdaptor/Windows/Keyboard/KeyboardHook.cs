@@ -20,12 +20,13 @@ namespace VintageMods.Core.MemoryAdaptor.Windows.Keyboard
 
         public delegate void KeyUpEventDelegate(KeyboardHookEventArgs e);
 
+        public readonly KeyDownEventDelegate KeyDownEvent = delegate { };
+        public readonly KeyUpEventDelegate KeyUpEvent = delegate { };
+
         private IntPtr _hhook;
 
         private HookProc _hookproc;
         private bool _ispaused;
-        public readonly KeyDownEventDelegate KeyDownEvent = delegate { };
-        public readonly KeyUpEventDelegate KeyUpEvent = delegate { };
 
         public KeyboardHook(string name)
         {

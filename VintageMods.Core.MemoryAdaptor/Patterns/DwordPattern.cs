@@ -11,7 +11,10 @@ namespace VintageMods.Core.MemoryAdaptor.Patterns
 
         public readonly string PatternText;
 
-        public DwordPattern(string dwordPattern) : this(dwordPattern, PatternScannerAlgorithm.Naive) { }
+        public DwordPattern(string dwordPattern) : this(dwordPattern, PatternScannerAlgorithm.Naive)
+        {
+        }
+
         public DwordPattern(string dwordPattern, PatternScannerAlgorithm algorithm)
         {
             PatternText = dwordPattern;

@@ -12,19 +12,7 @@ namespace VintageMods.Core.Attributes
     public class ModDomainAttribute : Attribute
     {
         /// <summary>
-        ///     Gets the domain name for this mod. Used for localisation.
-        /// </summary>
-        /// <value>The localisation domain for this mod.</value>
-        public string Domain { get; }
-
-        /// <summary>
-        ///     Gets the name of the folder used to store mod information.
-        /// </summary>
-        /// <value>The folder, within %AppData%\VintagestoryData\ModData\VintageMods, used to store files for this mod.</value>
-        public string RootFolder { get; }
-        
-        /// <summary>
-        ///     Initialises a new instance of the <see cref="ModDomainAttribute"/> class.
+        ///     Initialises a new instance of the <see cref="ModDomainAttribute" /> class.
         /// </summary>
         /// <param name="domain">The domain.</param>
         /// <param name="rootFolder">The root folder.</param>
@@ -35,7 +23,7 @@ namespace VintageMods.Core.Attributes
         }
 
         /// <summary>
-        ///     Initialises a new instance of the <see cref="ModDomainAttribute"/> class.
+        ///     Initialises a new instance of the <see cref="ModDomainAttribute" /> class.
         /// </summary>
         /// <param name="domain">The domain.</param>
         public ModDomainAttribute(string domain)
@@ -43,5 +31,17 @@ namespace VintageMods.Core.Attributes
             Domain = domain;
             RootFolder = domain;
         }
+
+        /// <summary>
+        ///     Gets the domain name for this mod. Used for localisation.
+        /// </summary>
+        /// <value>The localisation domain for this mod.</value>
+        public string Domain { get; }
+
+        /// <summary>
+        ///     Gets the name of the folder used to store mod information.
+        /// </summary>
+        /// <value>The folder, within %AppData%\VintagestoryData\ModData\VintageMods, used to store files for this mod.</value>
+        public string RootFolder { get; }
     }
 }

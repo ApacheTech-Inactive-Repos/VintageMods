@@ -1,6 +1,4 @@
-﻿
-
-// ReSharper disable UnusedType.Global
+﻿// ReSharper disable UnusedType.Global
 // ReSharper disable CommentTypo
 // ReSharper disable UnusedMember.Global
 // ReSharper disable InconsistentNaming

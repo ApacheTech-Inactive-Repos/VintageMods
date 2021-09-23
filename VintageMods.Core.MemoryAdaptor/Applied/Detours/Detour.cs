@@ -51,9 +51,11 @@ namespace VintageMods.Core.MemoryAdaptor.Applied.Detours
             //Setup the detour bytes
             New = new List<byte> {0x68};
 
-            var bytes = IntPtr.Size == 4 ? BitConverter.GetBytes(HookPointer.ToInt32()) : BitConverter.GetBytes(HookPointer.ToInt64());
+            var bytes = IntPtr.Size == 4
+                ? BitConverter.GetBytes(HookPointer.ToInt32())
+                : BitConverter.GetBytes(HookPointer.ToInt64());
 
-     
+
             New.AddRange(bytes);
             New.Add(0xC3);
         }
@@ -131,16 +133,10 @@ namespace VintageMods.Core.MemoryAdaptor.Applied.Detours
         /// </summary>
         public void Dispose()
         {
-            if (IsDisposed)
-            {
-                return;
-            }
+            if (IsDisposed) return;
 
             IsDisposed = true;
-            if (IsEnabled)
-            {
-                Disable();
-            }
+            if (IsEnabled) Disable();
             GC.SuppressFinalize(this);
         }
 
@@ -160,10 +156,7 @@ namespace VintageMods.Core.MemoryAdaptor.Applied.Detours
         /// <returns></returns>
         public void Disable(bool disableDueToRules)
         {
-            if (IgnoreRules && disableDueToRules)
-            {
-                return;
-            }
+            if (IgnoreRules && disableDueToRules) return;
 
             DisabledDueToRules = disableDueToRules;
 
@@ -185,15 +178,9 @@ namespace VintageMods.Core.MemoryAdaptor.Applied.Detours
             }
             else
             {
-                if (DisabledDueToRules)
-                {
-                    return;
-                }
+                if (DisabledDueToRules) return;
 
-                if (IsEnabled)
-                {
-                    return;
-                }
+                if (IsEnabled) return;
 
                 ProcessMemory.Write(Target, New.ToArray());
                 IsEnabled = true;
@@ -202,10 +189,7 @@ namespace VintageMods.Core.MemoryAdaptor.Applied.Detours
 
         ~Detour()
         {
-            if (MustBeDisposed)
-            {
-                Dispose();
-            }
+            if (MustBeDisposed) Dispose();
         }
 
         /// <summary>

@@ -15,7 +15,10 @@ namespace VintageMods.Core.MemoryAdaptor.Native.Types
         public int ErrorSelector;
         public int DataOffset;
         public int DataSelector;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 80)] public byte[] RegisterArea;
+
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 80)]
+        public byte[] RegisterArea;
+
         public int Cr0NpxState;
     }
 }

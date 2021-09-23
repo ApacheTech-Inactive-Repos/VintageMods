@@ -79,6 +79,7 @@ namespace VintageMods.Core.MemoryAdaptor.Windows.Mouse
                         break;
                 }
             }
+
             return (IntPtr) User32.CallNextHookEx(_hookId, nCode, wParam, lParam);
         }
 

@@ -28,7 +28,7 @@ namespace VintageMods.Core.FluentChat.Extensions
         public static void RegisterClientChatCommand<TChatCommand>(this ClientMain game)
             where TChatCommand : FluentChatCommandBase<ICoreClientAPI>
         {
-            ((ICoreClientAPI)game.Api).RegisterClientChatCommand<TChatCommand>();
+            ((ICoreClientAPI) game.Api).RegisterClientChatCommand<TChatCommand>();
         }
 
         /// <summary>
@@ -37,7 +37,8 @@ namespace VintageMods.Core.FluentChat.Extensions
         /// <typeparam name="TChatCommand">The <see cref="T:System.Type"></see> of chat command to retrieve.</typeparam>
         /// <param name="api">The client app API to register the command to.</param>
         /// <param name="command">The name of the command to retrieve.</param>
-        public static TChatCommand GetFluentChatCommand<TChatCommand>(this ICoreClientAPI api, string command) where TChatCommand : FluentChatCommandBase<ICoreClientAPI>
+        public static TChatCommand GetFluentChatCommand<TChatCommand>(this ICoreClientAPI api, string command)
+            where TChatCommand : FluentChatCommandBase<ICoreClientAPI>
         {
             ClientCommands.TryGetValue(command, out var cmd);
             return cmd as TChatCommand;
@@ -66,14 +67,12 @@ namespace VintageMods.Core.FluentChat.Extensions
             {
                 var optAttributes = methodInfo.GetCustomAttributes().OfType<FluentChatOptionAttribute>().ToList();
                 if (!optAttributes.Any()) continue;
-                foreach (var option in optAttributes)
-                {
-                    cmd.Options.Add(option.Name, methodInfo);
-                }
+                foreach (var option in optAttributes) cmd.Options.Add(option.Name, methodInfo);
             }
 
             var description = cmdAttribute.Description ??= $"{modDomain}:ChatCommands.{cmdAttribute.Name}.Description";
-            var syntaxMessage = cmdAttribute.SyntaxMessage ??= $"{modDomain}:ChatCommands.{cmdAttribute.Name}.SyntaxMessage";
+            var syntaxMessage = cmdAttribute.SyntaxMessage ??=
+                $"{modDomain}:ChatCommands.{cmdAttribute.Name}.SyntaxMessage";
 
             api.RegisterCommand(cmdAttribute.Name,
                 Lang.Get(description),

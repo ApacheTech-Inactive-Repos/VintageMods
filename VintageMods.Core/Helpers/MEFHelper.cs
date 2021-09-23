@@ -11,15 +11,11 @@ namespace VintageMods.Core.Helpers
             try
             {
                 var batch = new CompositionBatch();
-                foreach (var o in parts)
-                {
-                    batch.AddPart(o);
-                }
+                foreach (var o in parts) batch.AddPart(o);
                 container.Compose(batch);
             }
             catch (ArgumentNullException)
             {
-                
             }
         }
     }

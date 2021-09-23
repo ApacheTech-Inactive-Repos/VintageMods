@@ -20,7 +20,7 @@ namespace VintageMods.Core.MemoryAdaptor
         /// </summary>
         /// <param name="native">The native process.</param>
         /// <param name="type">The type of memory being manipulated.</param>
-        public ProcessSharp(Process native,MemoryType type)
+        public ProcessSharp(Process native, MemoryType type)
         {
             native.EnableRaisingEvents = true;
 
@@ -72,10 +72,8 @@ namespace VintageMods.Core.MemoryAdaptor
         {
         }
 
-        /// <summary>
-        /// Raises when the <see cref="ProcessSharp"/> object is disposed.
-        /// </summary>
-        public event EventHandler OnDispose;
+        protected bool IsDisposed { get; set; }
+        protected bool MustBeDisposed { get; set; } = true;
 
         /// <summary>
         ///     Class for reading and writing memory.
@@ -126,9 +124,6 @@ namespace VintageMods.Core.MemoryAdaptor
         /// <returns>IPointer.</returns>
         public IPointer this[IntPtr intPtr] => new MemoryPointer(this, intPtr);
 
-        protected bool IsDisposed { get; set; }
-        protected bool MustBeDisposed { get; set; } = true;
-
         /// <summary>
         ///     Releases unmanaged and - optionally - managed resources.
         /// </summary>
@@ -147,6 +142,11 @@ namespace VintageMods.Core.MemoryAdaptor
                 GC.SuppressFinalize(this);
             }
         }
+
+        /// <summary>
+        ///     Raises when the <see cref="ProcessSharp" /> object is disposed.
+        /// </summary>
+        public event EventHandler OnDispose;
 
         /// <summary>
         ///     Handles the process exiting.
@@ -168,10 +168,7 @@ namespace VintageMods.Core.MemoryAdaptor
 
         ~ProcessSharp()
         {
-            if (MustBeDisposed)
-            {
-                Dispose();
-            }
+            if (MustBeDisposed) Dispose();
         }
     }
 }

@@ -6,6 +6,7 @@ using VintageMods.Core.MemoryAdaptor.Extensions;
 using VintageMods.Core.MemoryAdaptor.Memory;
 using VintageMods.Core.MemoryAdaptor.Native.Types;
 using VintageMods.Core.MemoryAdaptor.Utilities;
+
 // ReSharper disable UnusedMember.Global
 
 namespace VintageMods.Core.MemoryAdaptor.Modules

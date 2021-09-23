@@ -20,7 +20,8 @@ namespace VintageMods.Core.MemoryAdaptor.Extensions
             return process.Modules.Cast<ProcessModule>().ToList();
         }
 
-        public static SafeMemoryHandle Open(this Process process, ProcessAccessFlags processAccessFlags = ProcessAccessFlags.AllAccess)
+        public static SafeMemoryHandle Open(this Process process,
+            ProcessAccessFlags processAccessFlags = ProcessAccessFlags.AllAccess)
         {
             return MemoryHelper.OpenProcess(processAccessFlags, process.Id);
         }
@@ -30,6 +31,5 @@ namespace VintageMods.Core.MemoryAdaptor.Extensions
             return
                 $"{process.MainModule?.FileVersionInfo.FileDescription} {process.MainModule?.FileVersionInfo.FileMajorPart}.{process.MainModule?.FileVersionInfo.FileMinorPart}.{process.MainModule?.FileVersionInfo.FileBuildPart} {process.MainModule?.FileVersionInfo.FilePrivatePart}";
         }
-
     }
 }

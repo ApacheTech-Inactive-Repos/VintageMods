@@ -4,7 +4,7 @@
     public class BoyerMooreHorspool
     {
         private const byte WildCard = 0x00;
-        
+
         private static int[] BuildBadCharTable(byte[] pPattern)
         {
             int idx;
@@ -30,10 +30,7 @@
 
         public static int IndexOf(byte[] buffer, byte[] pattern)
         {
-            if (pattern.Length > buffer.Length)
-            {
-                return -1;
-            }
+            if (pattern.Length > buffer.Length) return -1;
             var badShift = BuildBadCharTable(pattern);
             var offset = 0;
             var last = pattern.Length - 1;
@@ -41,15 +38,14 @@
             while (offset <= maxoffset)
             {
                 int position;
-                for (position = last; (pattern[position] == buffer[position + offset] || pattern[position] == WildCard); position--)
-                {
+                for (position = last;
+                    pattern[position] == buffer[position + offset] || pattern[position] == WildCard;
+                    position--)
                     if (position == 0)
-                    {
                         return offset;
-                    }
-                }
                 offset += badShift[buffer[offset + last]];
             }
+
             return -1;
         }
     }

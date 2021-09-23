@@ -49,7 +49,8 @@ namespace VintageMods.Core.Threading
             return instance;
         }
 
-        public static void InjectServerThread(this IServerWorldAccessor world, string name, params ServerSystem[] systems)
+        public static void InjectServerThread(this IServerWorldAccessor world, string name,
+            params ServerSystem[] systems)
         {
             var instance = CreateServerThread(world, name, systems);
             var serverThreads = world.GetServerThreads();
@@ -59,7 +60,7 @@ namespace VintageMods.Core.Threading
 
             (world as ServerMain).SetField("Systems", vanillaSystems.ToArray());
 
-            var thread = new Thread(() => instance.CallMethod("Process")) { IsBackground = true, Name = name};
+            var thread = new Thread(() => instance.CallMethod("Process")) {IsBackground = true, Name = name};
             serverThreads.Add(thread);
         }
     }

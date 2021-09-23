@@ -6,8 +6,8 @@ namespace VintageMods.Core.MemoryAdaptor.Patterns
     {
         int Offset { get; }
         MemoryPatternType PatternType { get; }
+        PatternScannerAlgorithm Algorithm { get; }
         IList<byte> GetBytes();
         string GetMask();
-        PatternScannerAlgorithm Algorithm { get; }
     }
 }

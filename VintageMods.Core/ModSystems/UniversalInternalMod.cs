@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using VintageMods.Core.Extensions;
 using VintageMods.Core.FluentChat.Extensions;
+using VintageMods.Core.Helpers;
 using VintageMods.Core.Threading;
 using VintageMods.Core.Threading.Extensions;
 using VintageMods.Core.Threading.Systems;
@@ -25,10 +26,26 @@ namespace VintageMods.Core.ModSystems
         where TClientSystem : ClientSystemAsyncActions
     {
         /// <summary>
-        ///     Initialises a new instance of the <see cref="UniversalInternalMod{TServerSystem, TClientSystem}"/> class.
+        ///     Initialises a new instance of the <see cref="UniversalInternalMod{TServerSystem, TClientSystem}" /> class.
         /// </summary>
         /// <param name="id">The mod-id.</param>
-        protected UniversalInternalMod(string id) : base(id, Assembly.GetCallingAssembly()) { }
+        protected UniversalInternalMod(string id) : base(id, Assembly.GetCallingAssembly())
+        {
+        }
+
+        /// <summary>
+        ///     Gets the injected server system, capable of running asynchronous actions.
+        /// </summary>
+        /// <value>An instance of the <see cref="TServerSystem" /> class.</value>
+        [CanBeNull]
+        public TServerSystem ServerInternal { get; private set; }
+
+        /// <summary>
+        ///     Gets the injected client system, capable of running asynchronous actions.
+        /// </summary>
+        /// <value>An instance of the <see cref="TClientSystem" /> class.</value>
+        [CanBeNull]
+        public TClientSystem ClientInternal { get; private set; }
 
         /// <summary>
         ///     Called during initial mod loading, called before any mod receives the call to Start()
@@ -40,39 +57,34 @@ namespace VintageMods.Core.ModSystems
 
             if (api.Side.IsClient())
             {
-                var capi = (ICoreClientAPI)api;
+                var capi = (ICoreClientAPI) api;
                 capi.Event.LevelFinalize += () =>
                 {
                     var system = ActivatorEx.CreateInstance<TClientSystem>(capi.AsClientMain());
                     if (!capi.IsClientSystemLoaded<TClientSystem>())
                         capi.InjectClientThread($"{Id}-client", system);
-                    ClientInternal = capi.GetVanillaClientSystem<TClientSystem>();
+                    AsyncEx.Client = ClientInternal = capi.GetVanillaClientSystem<TClientSystem>();
                 };
             }
 
             if (api.Side.IsServer())
             {
-                var sapi = (ICoreServerAPI)api;
+                var sapi = (ICoreServerAPI) api;
                 sapi.Event.ServerRunPhase(EnumServerRunPhase.ModsAndConfigReady, () =>
                 {
                     var system = ActivatorEx.CreateInstance<TServerSystem>(sapi.AsServerMain());
                     if (!sapi.IsServerSystemLoaded<TServerSystem>())
                         sapi.InjectServerThread($"{Id}-server", system);
-                    ServerInternal = sapi.GetVanillaServerSystem<TServerSystem>();
+                    AsyncEx.Server = ServerInternal = sapi.GetVanillaServerSystem<TServerSystem>();
                 });
             }
         }
 
-        /// <summary>
-        ///     Gets the injected server system, capable of running asynchronous actions.
-        /// </summary>
-        /// <value>An instance of the <see cref="TServerSystem"/> class.</value>
-        [CanBeNull] public TServerSystem ServerInternal { get; private set; }
-
-        /// <summary>
-        ///     Gets the injected client system, capable of running asynchronous actions.
-        /// </summary>
-        /// <value>An instance of the <see cref="TClientSystem"/> class.</value>
-        [CanBeNull] public TClientSystem ClientInternal{ get; private set; }
+        public override void Dispose()
+        {
+            ClientInternal?.Dispose(ApiEx.Client);
+            ServerInternal?.Dispose();
+            base.Dispose();
+        }
     }
 }
