@@ -10,6 +10,12 @@
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU' AND $(MSBuildProjectName.IndexOf('ApacheTech.')) == 0">
+	  <OutputPath>$(SolutionDir).mods\$(MSBuildProjectName)</OutputPath>
+	  <OutDir>$(OutputPath)</OutDir>
+	  <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+
   <!--============================================================================-->
   <!-- Pre Build Tasks -->
   <!--============================================================================-->
@@ -32,6 +38,10 @@
     <Exec Command="&quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; $(ProjectDir)SA_$(ConfigurationName).saproj" />
   </Target>
 
+  <Target Name="PostBuild_SmartAssembly" AfterTargets="PostBuildEvent" Condition="$(MSBuildProjectName.IndexOf('ApacheTech.')) == 0 AND $(ConfigurationName) == Release">
+	  <Exec Command="&quot;C:\Program Files\Red Gate\SmartAssembly 8\SmartAssembly.com&quot; $(ProjectDir)SA_$(ConfigurationName).saproj" />
+  </Target>
+
   <!-- Delete zip files from output and .releases folders. -->
 
   <Target Name="PostBuild_DeleteZipFiles" AfterTargets="PostBuild_SmartAssembly" Condition="$(MSBuildProjectName.IndexOf('VintageMods.Mods')) == 0 AND $(ConfigurationName) == Release">
@@ -39,10 +49,20 @@
                    del &quot;$(SolutionDir).releases\$(ProjectName)*.zip&quot;&gt;nul 2&gt;&amp;1" />
   </Target>
 
+  <Target Name="PostBuild_DeleteZipFiles" AfterTargets="PostBuild_SmartAssembly" Condition="$(MSBuildProjectName.IndexOf('ApacheTech.')) == 0 AND $(ConfigurationName) == Release">
+	  <Exec Command="del &quot;$(TargetDir)*.zip&quot;&gt;nul 2&gt;&amp;1&#xD;&#xA;
+                   del &quot;$(SolutionDir).releases\$(ProjectName)*.zip&quot;&gt;nul 2&gt;&amp;1" />
+  </Target>
+
   <!-- Clean up Target Directory -->
 
-  <Target Name="PostBuild_CleanTargetDirectory" AfterTargets="PostBuild_DeleteZipFiles" Condition="$(MSBuildProjectName.IndexOf('VintageMods.Mods')) == 0 AND $(ConfigurationName) == Release">
-    <Exec Command="del &quot;$(TargetDir)src\*.json&quot; &gt;nul 2&gt;&amp;1&#xD;&#xA;
+	<Target Name="PostBuild_CleanTargetDirectory" AfterTargets="PostBuild_DeleteZipFiles" Condition="$(MSBuildProjectName.IndexOf('VintageMods.Mods')) == 0 AND $(ConfigurationName) == Release">
+		<Exec Command="del &quot;$(TargetDir)src\*.json&quot; &gt;nul 2&gt;&amp;1&#xD;&#xA;
+                   del &quot;$(TargetDir)src\*.pdb&quot; &gt;nul 2&gt;&amp;1" />
+	</Target>
+
+  <Target Name="PostBuild_CleanTargetDirectory" AfterTargets="PostBuild_DeleteZipFiles" Condition="$(MSBuildProjectName.IndexOf('ApacheTech.')) == 0 AND $(ConfigurationName) == Release">
+	  <Exec Command="del &quot;$(TargetDir)src\*.json&quot; &gt;nul 2&gt;&amp;1&#xD;&#xA;
                    del &quot;$(TargetDir)src\*.pdb&quot; &gt;nul 2&gt;&amp;1" />
   </Target>
 
@@ -54,16 +74,31 @@
                    copy /y &quot;$(SolutionDir)LICENCE.md&quot; &quot;$(TargetDir)src&quot; &gt;nul 2&gt;&amp;1" />
   </Target>
 
+  <Target Name="PostBuild_CopyToSrc" AfterTargets="PostBuild_CleanTargetDirectory" Condition="$(MSBuildProjectName.IndexOf('ApacheTech.')) == 0 AND $(ConfigurationName) == Release">
+	  <Exec Command="xcopy &quot;$(TargetDir)assets\&quot; &quot;$(TargetDir)src\assets\&quot; /y /e /s &gt;nul 2&gt;&amp;1&#xD;&#xA;
+                   copy /y &quot;$(TargetDir)modinfo.json&quot; &quot;$(TargetDir)src&quot; &gt;nul 2&gt;&amp;1&#xD;&#xA;
+                   copy /y &quot;$(SolutionDir)LICENCE.md&quot; &quot;$(TargetDir)src&quot; &gt;nul 2&gt;&amp;1" />
+  </Target>
+
   <!-- Package Mod -->
 
   <Target Name="PostBuild_PackageMod" AfterTargets="PostBuild_CopyToSrc" Condition="$(MSBuildProjectName.IndexOf('VintageMods.Mods')) == 0 AND $(ConfigurationName) == Release">
     <Exec Command="&quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) src" />
   </Target>
 
-  <!-- Copy Packaged Mod to releases folder. -->
+  <Target Name="PostBuild_PackageMod" AfterTargets="PostBuild_CopyToSrc" Condition="$(MSBuildProjectName.IndexOf('ApacheTech.')) == 0 AND $(ConfigurationName) == Release">
+	  <Exec Command="&quot;$(SolutionDir)packager.exe&quot; $(ProjectName) $(TargetDir) src" />
+  </Target>
+
+
+	<!-- Copy Packaged Mod to releases folder. -->
 
   <Target Name="PostBuild_CopyToReleases" AfterTargets="PostBuild_PackageMod" Condition="$(MSBuildProjectName.IndexOf('VintageMods.Mods')) == 0 AND $(ConfigurationName) == Release">
     <Exec Command="copy /y &quot;$(TargetDir)*.zip&quot; &quot;$(SolutionDir).releases&quot; &gt;nul 2&gt;&amp;1" />
+  </Target>
+
+  <Target Name="PostBuild_CopyToReleases" AfterTargets="PostBuild_PackageMod" Condition="$(MSBuildProjectName.IndexOf('ApacheTech.')) == 0 AND $(ConfigurationName) == Release">
+	  <Exec Command="copy /y &quot;$(TargetDir)*.zip&quot; &quot;$(SolutionDir).releases&quot; &gt;nul 2&gt;&amp;1" />
   </Target>
 
   <!--============================================================================-->

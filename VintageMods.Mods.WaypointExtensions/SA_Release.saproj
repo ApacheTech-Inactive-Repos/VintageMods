@@ -1,5 +1,5 @@
 <SmartAssemblyProject ProjectId="{34c000fa-43a3-4bd4-bc28-8df7b01c801b}" Version="2.0">
-    <MainAssemblyFileName>C:\Users\Apache\source\repos\VintageMods\VintageMods.Mods.WaypointExtensions\bin\Release\netstandard2.0\VintageMods.Mods.WaypointExtensions.dll</MainAssemblyFileName>
+    <MainAssemblyFileName>C:\Users\Apache\source\repos\VintageMods\VintageMods.Mods.WaypointExtensions\bin\Release\netstandard2.0\ApacheTech.WaypointExtensions.dll</MainAssemblyFileName>
     <FriendlyName>VintageMods.Mods.WaypointExtensions</FriendlyName>
     <CompanyName>ApacheTech Solutions</CompanyName>
     <Configuration Name="Release">
@@ -884,7 +884,27 @@
                 </Merging>
                 <Embedding Compress="1" Encrypt="1" />
             </Assembly>
+            <Assembly AssemblyName="System.ComponentModel.Composition, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+                <Merging />
+                <Embedding Compress="1" Encrypt="1" />
+            </Assembly>
+            <Assembly AssemblyName="DnsClient, Culture=neutral, PublicKeyToken=4574bb5573c51424">
+                <Merging />
+                <Embedding Compress="1" Encrypt="1" />
+            </Assembly>
+            <Assembly AssemblyName="ApacheTech.WaypointExtensions, Culture=neutral, PublicKeyToken=null">
+                <Merging>
+                    <ResourcesCompression />
+                    <MemberRefsProxy />
+                    <Pruning>
+                        <Exclusion />
+                    </Pruning>
+                    <Obfuscation />
+                    <ControlFlow />
+                </Merging>
+                <Embedding />
+            </Assembly>
         </Assemblies>
-        <Destination DestinationFileName="C:\Users\Apache\source\repos\VintageMods\VintageMods.Mods.WaypointExtensions\bin\Release\netstandard2.0\src\VintageMods.Mods.WaypointExtensions.dll" />
+        <Destination DestinationFileName="C:\Users\Apache\source\repos\VintageMods\VintageMods.Mods.WaypointExtensions\bin\Release\netstandard2.0\src\ApacheTech.WaypointExtensions.dll" />
     </Configuration>
 </SmartAssemblyProject>

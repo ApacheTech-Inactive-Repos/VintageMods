@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VintageMods.Mods.WaypointExtensions.Extensions
+namespace ApacheTech.WaypointExtensions.Mod.Extensions
 {
     public static class SortedDictionaryEx
     {

@@ -3,7 +3,7 @@
 // ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable UnusedMember.Global
 
-namespace VintageMods.Mods.WaypointExtensions.Model
+namespace ApacheTech.WaypointExtensions.Mod.Model
 {
     /// <summary>
     ///     Global configuration settings. Mainly used for version control.

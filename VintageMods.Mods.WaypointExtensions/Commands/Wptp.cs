@@ -11,7 +11,7 @@ using Vintagestory.GameContent;
 // ReSharper disable IdentifierTypo
 // ReSharper disable StringLiteralTypo
 
-namespace VintageMods.Mods.WaypointExtensions.Commands
+namespace ApacheTech.WaypointExtensions.Mod.Commands
 {
     [FluentChatCommand("wptp")]
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]

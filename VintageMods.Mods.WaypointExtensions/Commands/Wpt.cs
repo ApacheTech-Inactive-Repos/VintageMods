@@ -14,7 +14,7 @@ using Vintagestory.API.Config;
 // ReSharper disable UnusedMember.Local
 // ReSharper disable ClassNeverInstantiated.Global
 
-namespace VintageMods.Mods.WaypointExtensions.Commands
+namespace ApacheTech.WaypointExtensions.Mod.Commands
 {
     [FluentChatCommand("wpt")]
     internal class Wpt : FluentChatCommandBase<ICoreClientAPI>

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Vintagestory.API.Common;
-using Vintagestory.API.Datastructures;
+﻿using Vintagestory.API.Common;
 
-namespace VintageMods.Mods.WaypointExtensions.Behaviours.Blocks
+namespace ApacheTech.WaypointExtensions.Mod.Behaviours.Blocks
 {
     public class TeleporterInteractBehaviour : BlockBehavior
     {

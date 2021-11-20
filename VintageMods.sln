@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Mods.Sandbox", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Mods.EnvironmentalTweaks", "VintageMods.Mods.EnvironmentalTweaks\VintageMods.Mods.EnvironmentalTweaks.csproj", "{37D8D74B-5B8C-4745-96F1-9B64F633ED9E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Mods.WaypointExtensions", "VintageMods.Mods.WaypointExtensions\VintageMods.Mods.WaypointExtensions.csproj", "{431650E1-78BD-4FE9-A0A8-2668023DA374}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApacheTech.WaypointExtensions", "VintageMods.Mods.WaypointExtensions\ApacheTech.WaypointExtensions.csproj", "{431650E1-78BD-4FE9-A0A8-2668023DA374}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VintageMods.Mods.CinematicCamStudio", "VintageMods.Mods.CinematicCamStudio\VintageMods.Mods.CinematicCamStudio.csproj", "{DDA4C852-DAE1-40FA-A2BF-A3458F1B8894}"
 EndProject

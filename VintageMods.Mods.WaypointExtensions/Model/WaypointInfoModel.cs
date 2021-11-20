@@ -6,7 +6,7 @@ using ProtoBuf;
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
-namespace VintageMods.Mods.WaypointExtensions.Model
+namespace ApacheTech.WaypointExtensions.Mod.Model
 {
     /// <summary>
     ///     A model of all information required to set a Waypoint.

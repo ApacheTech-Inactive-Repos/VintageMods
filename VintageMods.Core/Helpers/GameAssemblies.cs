@@ -19,16 +19,49 @@ namespace VintageMods.Core.Helpers
     [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
     public static class GameAssemblies
     {
+        /// <summary>
+        ///     VSEssentials.dll. 
+        /// </summary>
         public static Assembly VSEssentials => typeof(BlockEntityGeneric).Assembly;
+
+        /// <summary>
+        ///     VSSurvivalMod.dll.
+        /// </summary>
         public static Assembly VSSurvivalMod => typeof(BlockAnvil).Assembly;
+
+        /// <summary>
+        ///     VSCreativeMod.dll.
+        /// </summary>
         public static Assembly VSCreativeMod => typeof(BlockCommand).Assembly;
+
+        /// <summary>
+        ///     Vintagestory.dll.
+        /// </summary>
         public static Assembly VintagestoryAPI => typeof(ICoreClientAPI).Assembly;
+
+        /// <summary>
+        ///     VintagestoryLib.dll.
+        /// </summary>
         public static Assembly VintagestoryLib => typeof(ClientMain).Assembly;
 
-        public static IReadOnlyList<Assembly> All { get; } = new List<Assembly>
+        /// <summary>
+        ///     Vintagestory.exe.
+        /// </summary>
+        public static Assembly VintagestoryExe => Assembly.GetEntryAssembly();
+
+        /// <summary>
+        ///     Retrieves a list of all the assemblies collated within the <see cref="GameAssemblies"/> class. 
+        /// </summary>
+        public static IReadOnlyList<Assembly> All
         {
-            VSEssentials, VSSurvivalMod, VSCreativeMod, VintagestoryAPI, VintagestoryLib
-        };
+            get
+            {
+                return typeof(GameAssemblies).GetProperties(BindingFlags.Public | BindingFlags.Static)
+                    .Where(p => p.PropertyType == typeof(Assembly))
+                    .Select(prop => (Assembly)prop.GetValue(null))
+                    .ToList();
+            }
+        }
 
         /// <summary>
         ///     Scans for a specific type within one of the game's vanilla assemblies. Includes internal classes, and nested

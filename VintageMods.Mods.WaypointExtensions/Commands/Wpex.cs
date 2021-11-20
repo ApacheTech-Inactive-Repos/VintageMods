@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using ApacheTech.WaypointExtensions.Mod.ModSystems;
+using ApacheTech.WaypointExtensions.Mod.Patches;
 using VintageMods.Core.Extensions;
 using VintageMods.Core.FluentChat.Attributes;
 using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.FluentChat.Primitives;
 using VintageMods.Core.IO.Extensions;
 using VintageMods.Core.Reflection;
-using VintageMods.Mods.WaypointExtensions.ModSystems;
-using VintageMods.Mods.WaypointExtensions.Patches;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.GameContent;
@@ -16,7 +16,7 @@ using Vintagestory.GameContent;
 // ReSharper disable UnusedMember.Local
 // ReSharper disable UnusedParameter.Local
 
-namespace VintageMods.Mods.WaypointExtensions.Commands
+namespace ApacheTech.WaypointExtensions.Mod.Commands
 {
     [FluentChatCommand("wpex")]
     public class Wpex : FluentChatCommandBase<ICoreClientAPI>

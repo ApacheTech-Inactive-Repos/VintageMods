@@ -1,6 +1,6 @@
 ﻿using ProtoBuf;
 
-namespace VintageMods.Mods.WaypointExtensions.Model
+namespace ApacheTech.WaypointExtensions.Mod.Model
 {
     [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
     public sealed class WorldSettings

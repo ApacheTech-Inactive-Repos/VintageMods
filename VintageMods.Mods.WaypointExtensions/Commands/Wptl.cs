@@ -12,7 +12,7 @@ using Vintagestory.GameContent;
 // ReSharper disable UnusedParameter.Local
 // ReSharper disable UnusedMember.Local
 
-namespace VintageMods.Mods.WaypointExtensions.Commands
+namespace ApacheTech.WaypointExtensions.Mod.Commands
 {
     [FluentChatCommand("wptl")]
     internal class Wptl : FluentChatCommandBase<ICoreClientAPI>

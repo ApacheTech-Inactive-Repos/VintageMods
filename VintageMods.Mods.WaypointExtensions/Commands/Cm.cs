@@ -16,7 +16,7 @@ using Vintagestory.GameContent;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable ClassNeverInstantiated.Global
 
-namespace VintageMods.Mods.WaypointExtensions.Commands
+namespace ApacheTech.WaypointExtensions.Mod.Commands
 {
     [FluentChatCommand("cm")]
     internal class Cm : FluentChatCommandBase<ICoreClientAPI>

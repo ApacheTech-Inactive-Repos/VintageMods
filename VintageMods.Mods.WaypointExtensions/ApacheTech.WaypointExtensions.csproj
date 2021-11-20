@@ -14,6 +14,8 @@
     <PackageLicenseExpression></PackageLicenseExpression>
     <PackageLicenseFile>LICENCE.md</PackageLicenseFile>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <AssemblyName>ApacheTech.WaypointExtensions</AssemblyName>
+    <RootNamespace>ApacheTech.WaypointExtensions.Mod</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

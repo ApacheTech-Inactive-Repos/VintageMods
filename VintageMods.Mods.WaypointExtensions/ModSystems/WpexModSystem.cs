@@ -1,18 +1,18 @@
-﻿using VintageMods.Core.Attributes;
+﻿using ApacheTech.WaypointExtensions.Mod.Commands;
+using ApacheTech.WaypointExtensions.Mod.Model;
+using ApacheTech.WaypointExtensions.Mod.UI;
+using VintageMods.Core.Attributes;
 using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.IO.Enum;
 using VintageMods.Core.IO.Extensions;
 using VintageMods.Core.ModSystems;
-using VintageMods.Mods.WaypointExtensions.Commands;
-using VintageMods.Mods.WaypointExtensions.Model;
-using VintageMods.Mods.WaypointExtensions.UI;
 using Vintagestory.API.Client;
 
 // ReSharper disable UnusedType.Global
 
 [assembly: ModDomain("wpex", "Waypoint Extensions")]
 
-namespace VintageMods.Mods.WaypointExtensions.ModSystems
+namespace ApacheTech.WaypointExtensions.Mod.ModSystems
 {
     internal class WpexModSystem : ClientSideModSystem
     {

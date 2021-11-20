@@ -1,16 +1,17 @@
-﻿using VintageMods.Core.Extensions;
+﻿using ApacheTech.WaypointExtensions.Mod.ModSystems;
+using VintageMods.Core.Extensions;
 using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.Helpers;
 using VintageMods.Core.IO.Extensions;
 using VintageMods.Core.Reflection;
-using VintageMods.Mods.WaypointExtensions.ModSystems;
 using Vintagestory.API.Client;
 using Vintagestory.API.Config;
+using Vintagestory.Client.NoObf;
 
 // ReSharper disable UnusedType.Global
 // ReSharper disable UnusedAutoPropertyAccessor.Local
 
-namespace VintageMods.Mods.WaypointExtensions.UI
+namespace ApacheTech.WaypointExtensions.Mod.UI
 {
     internal class SettingsWindow : GuiDialog
     {
@@ -34,8 +35,8 @@ namespace VintageMods.Mods.WaypointExtensions.UI
             var rows = new[]{ 0f, 1f, 1.5f, 2.5f, 3.0f };
             const float width = 500f;
 
-            var guiComposer = Api.AsClientMain().GetField<_StXBMM8Q2xaQSKhBHeEmltxFTQbA>("GuiComposers")
-                ._97FCHLWkmmjhCMaeKs7QSKwP1NU("wpex-settings", ElementStdBounds.AutosizedMainDialog)
+            var guiComposer = Api.AsClientMain().GetField<GuiComposerManager>("GuiComposers")
+                .Create("wpex-settings", ElementStdBounds.AutosizedMainDialog)
                 .AddShadedDialogBG(ElementStdBounds.DialogBackground()
                     .WithFixedPadding(GuiStyle.ElementToDialogPadding, GuiStyle.ElementToDialogPadding), false)
                 .BeginChildElements();

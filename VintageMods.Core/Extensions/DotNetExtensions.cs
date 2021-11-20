@@ -250,7 +250,7 @@ namespace VintageMods.Core.Extensions
         /// <returns>An instance of Type <typeparamref name="T" />.</returns>
         public static T As<T>(this object obj)
         {
-            return Type.GetTypeCode(typeof(T)) is TypeCode.DateTime or TypeCode.DBNull or TypeCode.Empty
+            return (Type.GetTypeCode(typeof(T)) is TypeCode.DateTime or TypeCode.DBNull or TypeCode.Empty)
                 ? throw new ArgumentOutOfRangeException(nameof(T),
                     "Objects of this TypeCode cannot be cast to, dynamically.")
                 : (T)obj;

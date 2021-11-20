@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ApacheTech.WaypointExtensions.Mod.Extensions;
+using ApacheTech.WaypointExtensions.Mod.Model;
 using VintageMods.Core.Extensions;
 using VintageMods.Core.FluentChat.Attributes;
 using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.FluentChat.Primitives;
 using VintageMods.Core.IO;
 using VintageMods.Core.IO.Extensions;
-using VintageMods.Mods.WaypointExtensions.Extensions;
-using VintageMods.Mods.WaypointExtensions.Model;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 
@@ -16,7 +16,7 @@ using Vintagestory.API.Common;
 // ReSharper disable UnusedMember.Local
 // ReSharper disable ClassNeverInstantiated.Global
 
-namespace VintageMods.Mods.WaypointExtensions.Commands
+namespace ApacheTech.WaypointExtensions.Mod.Commands
 {
     [FluentChatCommand("wp")]
     internal class Wp : FluentChatCommandBase<ICoreClientAPI>

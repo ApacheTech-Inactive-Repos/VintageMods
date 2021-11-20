@@ -7,7 +7,7 @@ using Vintagestory.API.Common;
 
 // ReSharper disable ClassNeverInstantiated.Global
 
-namespace VintageMods.Mods.WaypointExtensions.Commands
+namespace ApacheTech.WaypointExtensions.Mod.Commands
 {
     [FluentChatCommand("gps")]
     public class Gps : FluentChatCommandBase<ICoreClientAPI>

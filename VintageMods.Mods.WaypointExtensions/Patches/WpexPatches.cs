@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using ApacheTech.WaypointExtensions.Mod.Model;
 using HarmonyLib;
 using VintageMods.Core.Extensions;
 using VintageMods.Core.FluentChat.Extensions;
 using VintageMods.Core.IO.Extensions;
 using VintageMods.Core.Reflection;
-using VintageMods.Mods.WaypointExtensions.Model;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.GameContent;
@@ -16,7 +16,7 @@ using Vintagestory.GameContent;
 // ReSharper disable StringLiteralTypo
 // ReSharper disable InconsistentNaming
 
-namespace VintageMods.Mods.WaypointExtensions.Patches
+namespace ApacheTech.WaypointExtensions.Mod.Patches
 {
     public abstract class HarmonyPatchCollection<TSettings>
     {
